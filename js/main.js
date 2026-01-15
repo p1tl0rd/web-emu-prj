@@ -219,7 +219,7 @@ function renderGroupedGames(games) {
 
         section.innerHTML = `
             <h5 class="text-white-50 mb-3 border-bottom border-secondary pb-2">
-                ${sysDisplayName} <span class="badge bg-secondary rounded-pill ms-2 text-dark bg-opacity-25">${gamesInSys.length}</span>
+                ${sysDisplayName} <span class="badge bg-secondary text-white rounded-pill ms-2">${gamesInSys.length}</span>
             </h5>
             <div class="row row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6 g-4">
                 <!-- Games injected here -->
