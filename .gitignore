@@ -9,7 +9,17 @@ Desktop.ini
 # Temp
 temp_cleanup/
 test/
+__pycache__/
 
 # IDE
 .vscode/
 .idea/
+
+# Large Files (GitHub limit 100MB)
+# Prevent pushing heavy ISOs by accident
+*.iso
+*.img
+*.bin
+*.chd
+# Note: .cue files are small, so they are fine.
+# If you REALLY want to push small .bin files, force add them with 'git add -f'

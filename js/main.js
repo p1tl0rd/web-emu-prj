@@ -1,5 +1,6 @@
 import { db, ref, set, get, child, push, onValue } from './firebase-config.js';
 
+
 // DOM Elements
 const profileSelect = document.getElementById('profile-select');
 const createProfileBtn = document.getElementById('create-profile-btn');
