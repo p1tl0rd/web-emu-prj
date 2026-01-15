@@ -25,8 +25,10 @@ let currentGameConfig = null;
 
 // Load Profiles on Start
 function loadProfiles() {
+    console.log("Loading profiles...");
     const profilesRef = ref(db, 'profiles');
     onValue(profilesRef, (snapshot) => {
+        console.log("Profiles data received:", snapshot.val());
         profileSelect.innerHTML = '<option value="">-- Select Profile --</option>';
         if (snapshot.exists()) {
             const data = snapshot.val();
@@ -39,6 +41,9 @@ function loadProfiles() {
             });
         }
         // If there was a previously selected profile (stored in localStorage?), we could restore it here
+    }, (error) => {
+        console.error("Firebase Read Error:", error);
+        alert("Lỗi đọc dữ liệu từ Firebase! \nKiểm tra lại 'Rules' trên Firebase Console.\nChi tiết: " + error.message);
     });
 }
 
@@ -68,6 +73,9 @@ confirmCreateProfileBtn.addEventListener('click', () => {
             createProfileView.style.display = 'none';
             profileSelectorView.style.display = 'none'; // Will show active view
             newProfileNameInput.value = '';
+        }).catch((error) => {
+            console.error("Firebase Write Error:", error);
+            alert("Lỗi ghi dữ liệu vào Firebase! \nBạn đã chuyển Rules sang 'true' chưa?\nChi tiết: " + error.message);
         });
     }
 });

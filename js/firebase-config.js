@@ -6,7 +6,7 @@ import { getDatabase, ref, set, get, child, push, onValue } from "https://www.gs
 const firebaseConfig = {
     apiKey: "AIzaSyA2NxsUMKr6-A5Ql9_6GlXryoRZQlsgaE8",
     authDomain: "emujs-e36cc.firebaseapp.com",
-    databaseURL: "https://emujs-e36cc-default-rtdb.firebaseio.com",
+    databaseURL: "https://emujs-e36cc-default-rtdb.asia-southeast1.firebasedatabase.app/",
     projectId: "emujs-e36cc",
     storageBucket: "emujs-e36cc.firebasestorage.app",
     messagingSenderId: "237136618563",
