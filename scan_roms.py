@@ -108,11 +108,23 @@ def scan_roms():
                 clean_name = re.sub(r'\s*\[.*?\]', '', clean_name)
                 clean_name = clean_name.strip()
                 
+                # Fix "Name, The" -> "The Name" for Display Name
+                if ", The" in clean_name:
+                     clean_name = "The " + clean_name.replace(", The", "")
+                if ", the" in clean_name:
+                     clean_name = "The " + clean_name.replace(", the", "")
+                                
                 # Image Detection -> Remote URL
                 # Logic: Construct direct GitHub URL to Libretro Thumbnails
-                # Pros: No local storage needed, consistent quality
-                # Cons: Requires internet, requires correct naming (No-Intro usually)
                 
+                # Image Detection -> Remote URL
+                # Logic: Construct direct GitHub URL to Libretro Thumbnails
+                
+                # Revert to Raw Name for URL because Libretro uses No-Intro naming (with tags)
+                # Example: "Legend of Zelda, The - Majora's Mask (USA).png"
+                # So we must use raw_game_name (which is just filename without extension)
+                url_name = raw_game_name
+
                 # Mapping local folder names to Libretro Repository Names
                 SYSTEM_MAP_LIBRETRO = {
                     'nes': 'Nintendo_-_Nintendo_Entertainment_System',
@@ -155,7 +167,8 @@ def scan_roms():
                 # If no local asset, use Remote URL
                 if not local_asset_found and config['system'] in SYSTEM_MAP_LIBRETRO:
                     libretro_system = SYSTEM_MAP_LIBRETRO[config['system']]
-                    safe_name = urllib.parse.quote(raw_game_name)
+                    # Use the raw url_name for the link to match Libretro
+                    safe_name = urllib.parse.quote(url_name)
                     image_path = f"https://raw.githubusercontent.com/libretro-thumbnails/{libretro_system}/master/Named_Boxarts/{safe_name}.png"
                 
                 entry = {

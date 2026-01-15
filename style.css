@@ -80,6 +80,15 @@ button.accent-btn:hover {
     background-color: #f44336;
 }
 
+button.secondary-btn {
+    background-color: #9e9e9e;
+    /* Grey color for Guest */
+}
+
+button.secondary-btn:hover {
+    background-color: #757575;
+}
+
 main {
     padding: 2rem;
 }

@@ -17,7 +17,7 @@
     },
     {
         "id": "legend_of_zelda,_the_-_link's_awakening_dx_(usa,_europe)_(rev_2)_(sgb_enhanced)_(gb_compatible)_gbc",
-        "name": "Legend of Zelda, The - Link's Awakening DX",
+        "name": "The Legend of Zelda - Link's Awakening DX",
         "system": "gbc",
         "rom_path": "roms/gbc/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible).gbc",
         "core": "gambatte",
@@ -25,7 +25,7 @@
     },
     {
         "id": "legend_of_zelda,_the_-_majora's_mask_(usa)_z64",
-        "name": "Legend of Zelda, The - Majora's Mask",
+        "name": "The Legend of Zelda - Majora's Mask",
         "system": "n64",
         "rom_path": "roms/n64/Legend of Zelda, The - Majora's Mask (USA).z64",
         "core": "mupen64plus_next",
