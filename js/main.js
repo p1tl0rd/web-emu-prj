@@ -277,6 +277,7 @@ async function startGame(game) {
     window.EJS_gameUrl = game.rom_path;
     window.EJS_pathtodata = "data/";
     window.EJS_startOnLoaded = true;
+    window.EJS_language = "en-US"; // Force English US to prevent 404s on other locales
 
     // --- Save Injection Hook ---
     window.EJS_onGameStart = async function () {
@@ -342,11 +343,34 @@ async function startGame(game) {
         }
     };
 
-    // Load loader
-    const script = document.createElement('script');
-    script.src = "data/loader.js";
-    script.async = true;
-    document.body.appendChild(script);
+    // Load loader only if not already loaded
+    if (!document.getElementById('emulator-loader')) {
+        const script = document.createElement('script');
+        script.id = 'emulator-loader';
+        script.src = "data/loader.js";
+        script.async = true;
+        document.body.appendChild(script);
+    } else {
+        // If already loaded, trigger emulator reload if function exists
+        // @ts-ignore
+        if (window.EJS_emulator) {
+            // @ts-ignore
+            // window.EJS_emulator.destroy(); // Optional: destroy old instance if needed
+            // But usually just resetting the vars and rehashing is enough logic for loader.js to pick up? 
+            // Actually, loader.js usually auto-runs on load. If it's already loaded, we might need to manually trigger.
+            // Documentation for EmulatorJS says just setting window.EJS_* and loading script works. 
+            // If script is there, we might need to remove and re-add.
+
+            const oldScript = document.getElementById('emulator-loader');
+            oldScript.remove();
+
+            const script = document.createElement('script');
+            script.id = 'emulator-loader';
+            script.src = "data/loader.js";
+            script.async = true;
+            document.body.appendChild(script);
+        }
+    }
 }
 
 // --- Helpers ---
