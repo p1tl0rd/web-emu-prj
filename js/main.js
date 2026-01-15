@@ -283,6 +283,10 @@ function startGame(game) {
 }
 
 // --- Helpers ---
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 function base64ToUint8Array(base64) {
     const binaryString = window.atob(base64);
     const len = binaryString.length;
