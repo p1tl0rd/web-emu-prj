@@ -119,7 +119,8 @@ function selectProfile(id, name) {
 
 async function loadGameList() {
     try {
-        const response = await fetch('gamelist.json');
+        // Cache Busting: Add timestamp to force browser to fetch new list
+        const response = await fetch(`gamelist.json?v=${new Date().getTime()}`);
         const games = await response.json();
 
         gameListDiv.innerHTML = '';
