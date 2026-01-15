@@ -1,0 +1,10 @@
+[
+    {
+        "id": "mario_world_gba",
+        "name": "Super Mario Advance 2",
+        "system": "gba",
+        "rom_path": "roms/mario.gba",
+        "core": "gba",
+        "image": "assets/default.png"
+    }
+]

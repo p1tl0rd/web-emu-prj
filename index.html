@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroCloud Emulator</title>
+    <!-- COI - Must be loaded first -->
+    <script src="coi-serviceworker.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>RetroCloud</h1>
+
+            <!-- Profile System UI -->
+            <div id="profile-container">
+                <div id="profile-selector-view">
+                    <select id="profile-select">
+                        <option value="">-- Select Profile --</option>
+                    </select>
+                    <button id="create-profile-btn" class="accent-btn">+</button>
+                </div>
+
+                <div id="create-profile-view" style="display:none;">
+                    <input type="text" id="new-profile-name" placeholder="Enter Name">
+                    <button id="confirm-create-profile">Create</button>
+                    <button id="cancel-create-profile">Cancel</button>
+                </div>
+
+                <div id="active-profile-view" style="display:none;">
+                    <span id="profile-name-display"></span>
+                    <button id="switch-profile-btn">Switch</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Game Selection Screen -->
+            <div id="game-selection" style="display:none;"> <!-- Hidden by default until profile selected -->
+                <h2>Select a Game</h2>
+                <div id="game-list" class="game-grid">
+                    <!-- Games will be injected here -->
+                    <p>Loading games list...</p>
+                </div>
+            </div>
+
+            <!-- Welcome/Login Prompt -->
+            <div id="welcome-message">
+                <h2>Welcome!</h2>
+                <p>Please select or create a profile to start playing.</p>
+            </div>
+
+            <!-- Emulator Screen -->
+            <div id="emulator-container" style="display:none;">
+                <button id="back-btn">← Back to Menu</button>
+                <div id="emulator"></div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
