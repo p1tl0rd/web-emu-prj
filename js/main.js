@@ -242,6 +242,7 @@ function renderGroupedGames(games) {
             col.querySelector('button').onclick = () => startGame(game);
             row.appendChild(col);
         });
+
         gameListContainer.appendChild(section);
     });
 }
@@ -249,28 +250,22 @@ function renderGroupedGames(games) {
 function startGame(game) {
     currentGameConfig = game;
 
-    // 1. Switch UI immediately
+    // UI Switch
     gameSelection.style.display = 'none';
     emulatorContainer.style.display = 'block';
 
-    // 2. Prepare Emulator Container
+    // Configure EmulatorJS
     const gameWrapper = document.getElementById('emulator');
-    gameWrapper.innerHTML = ''; // Clear previous instance
+    gameWrapper.innerHTML = '<div id="game"></div>'; // Reset container
 
-    // Create new div for EJS
-    const gameDiv = document.createElement('div');
-    gameDiv.id = 'game';
-    gameWrapper.appendChild(gameDiv);
-
-    // 3. Configure EmulatorJS
     window.EJS_player = "#game";
     window.EJS_core = game.core;
     window.EJS_gameUrl = game.rom_path;
     window.EJS_pathtodata = "data/";
     window.EJS_startOnLoaded = true;
-    window.EJS_language = "en-US";
+    window.EJS_language = "en-US"; // Keep this fix to avoid 404
 
-    // 4. Save Hooks
+    // --- Save Injection Hook ---
     window.EJS_onGameStart = async function () {
         console.log("Emulator Started. Checking cloud saves for:", currentProfile.name);
         if (!currentProfile) return;
@@ -300,6 +295,7 @@ function startGame(game) {
         }
     };
 
+    // --- Save Extraction Hook ---
     window.EJS_onSaveUpdate = function () {
         if (!currentProfile || currentProfile.id === 'guest') return;
 
@@ -322,26 +318,8 @@ function startGame(game) {
         }
     };
 
-    // 5. Force Reload Loader Script
-    // Cleanup previous instance if exists
-    // @ts-ignore
-    if (window.EJS_emulator) {
-        console.log("Destroying previous emulator instance...");
-        try {
-            // @ts-ignore
-            window.EJS_emulator.destroy();
-        } catch (e) {
-            console.warn("Error destroying emulator:", e);
-        }
-        // @ts-ignore
-        window.EJS_emulator = null;
-    }
-
-    const oldScript = document.getElementById('emulator-loader');
-    if (oldScript) oldScript.remove();
-
+    // Load loader - EXACT LEGACY WAY -> Just append, do not check/remove
     const script = document.createElement('script');
-    script.id = 'emulator-loader';
     script.src = "data/loader.js";
     script.async = true;
     document.body.appendChild(script);
