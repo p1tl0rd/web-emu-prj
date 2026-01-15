@@ -15,7 +15,7 @@ const profileNameDisplay = document.getElementById('profile-name-display');
 const switchProfileBtn = document.getElementById('switch-profile-btn');
 
 const welcomeMessage = document.getElementById('welcome-message');
-const gameListDiv = document.getElementById('game-list');
+// const gameListDiv = document.getElementById('game-list'); // Removed
 const gameSelection = document.getElementById('game-selection');
 const emulatorContainer = document.getElementById('emulator-container');
 const backBtn = document.getElementById('back-btn');
@@ -162,18 +162,75 @@ function updateUIForActiveProfile() {
 
 // --- Game Logic ---
 
+const gameListContainer = document.getElementById('game-list-container');
+let allGames = [];
+
+// Friendly System Names
+const SYSTEM_NAMES = {
+    'gba': 'Game Boy Advance',
+    'gbc': 'Game Boy Color',
+    'gb': 'Game Boy',
+    'nes': 'Nintendo Entertainment System',
+    'snes': 'Super Nintendo',
+    'n64': 'Nintendo 64',
+    'segaMD': 'Sega Genesis / Mega Drive',
+    'psx': 'PlayStation',
+    'nds': 'Nintendo DS'
+};
+
 async function loadGameList() {
     try {
         // Cache Busting
         const response = await fetch(`gamelist.json?v=${new Date().getTime()}`);
-        const games = await response.json();
+        allGames = await response.json();
 
-        gameListDiv.innerHTML = '';
-        games.forEach(game => {
-            // Eclipse-style Grid Item
+        renderGroupedGames(allGames);
+
+    } catch (error) {
+        console.error("Failed to load game list:", error);
+        gameListContainer.innerHTML = '<p class="text-white">Error loading game list.</p>';
+    }
+}
+
+function renderGroupedGames(games) {
+    gameListContainer.innerHTML = '';
+
+    if (games.length === 0) {
+        gameListContainer.innerHTML = '<p class="text-secondary text-center">No games found.</p>';
+        return;
+    }
+
+    // 1. Group games by system
+    const grouped = games.reduce((acc, game) => {
+        const sys = game.system || 'other';
+        if (!acc[sys]) acc[sys] = [];
+        acc[sys].push(game);
+        return acc;
+    }, {});
+
+    // 2. Render each group
+    Object.keys(grouped).sort().forEach(sysKey => {
+        const gamesInSys = grouped[sysKey];
+        const sysDisplayName = SYSTEM_NAMES[sysKey] || sysKey.toUpperCase();
+
+        // Create Section Container
+        const section = document.createElement('div');
+        section.className = 'mb-5 animate-fade-in';
+
+        section.innerHTML = `
+            <h5 class="text-white-50 mb-3 border-bottom border-secondary pb-2">
+                ${sysDisplayName} <span class="badge bg-secondary rounded-pill ms-2 text-dark bg-opacity-25">${gamesInSys.length}</span>
+            </h5>
+            <div class="row row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6 g-4">
+                <!-- Games injected here -->
+            </div>
+        `;
+
+        // Inject games into the row
+        const row = section.querySelector('.row');
+        gamesInSys.forEach(game => {
             const col = document.createElement('div');
             col.className = 'col';
-
             col.innerHTML = `
                 <button class="game-icon-card w-100 p-0 text-center" title="${game.name}">
                     <div class="game-icon-wrapper">
@@ -182,16 +239,12 @@ async function loadGameList() {
                     <div class="game-title mt-2 text-white">${game.name}</div>
                 </button>
             `;
-
-            const btn = col.querySelector('button');
-            btn.onclick = () => startGame(game);
-
-            gameListDiv.appendChild(col);
+            col.querySelector('button').onclick = () => startGame(game);
+            row.appendChild(col);
         });
-    } catch (error) {
-        console.error("Failed to load game list:", error);
-        gameListDiv.innerHTML = '<p class="text-white">Error loading game list.</p>';
-    }
+
+        gameListContainer.appendChild(section);
+    });
 }
 
 function startGame(game) {

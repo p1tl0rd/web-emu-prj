@@ -60,24 +60,24 @@
 
             <!-- Game Selection Screen -->
             <div id="game-selection" style="display:none;">
-                <h4 class="mb-4 text-white border-start border-4 border-success ps-3">Available Games</h4>
-                <div id="game-list" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-                    <!-- Games will be injected here -->
-                    <div class="col">
-                        <p class="text-white">Loading games...</p>
+                <h4 class="mb-3 text-white border-start border-4 border-success ps-3">Available Games</h4>
+
+                <!-- Dynamic Game Sections -->
+                <div id="game-list-container">
+                    <p class="text-white">Loading games...</p>
+                </div>
+
+
+
+                <!-- Emulator Screen -->
+                <div id="emulator-container" style="display:none;">
+                    <button id="back-btn" class="btn btn-outline-secondary mb-3">
+                        <i class="bi bi-arrow-left"></i> Back to Menu
+                    </button>
+                    <div class="ratio ratio-16x9 border border-secondary rounded overflow-hidden bg-black">
+                        <div id="emulator"></div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Emulator Screen -->
-            <div id="emulator-container" style="display:none;">
-                <button id="back-btn" class="btn btn-outline-secondary mb-3">
-                    <i class="bi bi-arrow-left"></i> Back to Menu
-                </button>
-                <div class="ratio ratio-16x9 border border-secondary rounded overflow-hidden bg-black">
-                    <div id="emulator"></div>
-                </div>
-            </div>
         </main>
     </div>
 
