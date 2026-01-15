@@ -4,8 +4,8 @@ import { db, ref, set, get, child, push, onValue } from './firebase-config.js';
 // DOM Elements
 const profileSelect = document.getElementById('profile-select');
 const createProfileBtn = document.getElementById('create-profile-btn');
-const guestBtn = document.getElementById('guest-btn'); // Added Guest Button
-const createProfileView = document.getElementById('create-profile-view');
+const guestBtn = document.getElementById('guest-btn');
+const createProfileView = document.getElementById('create-profile-view'); // Kept for legacy ref if needed, but mostly unused now
 const activeProfileView = document.getElementById('active-profile-view');
 const profileSelectorView = document.getElementById('profile-selector-view');
 const newProfileNameInput = document.getElementById('new-profile-name');
@@ -34,7 +34,6 @@ function loadProfiles() {
         profileSelect.innerHTML = '<option value="">-- Select Profile --</option>';
         if (snapshot.exists()) {
             const data = snapshot.val();
-            // Data format: { "randomId1": { name: "Tung" }, "randomId2": { name: "Nam" } }
             Object.entries(data).forEach(([id, profile]) => {
                 const option = document.createElement('option');
                 option.value = id;
@@ -59,19 +58,9 @@ function loadProfiles() {
     });
 }
 
-// Event Listeners for UI switching
-createProfileBtn.addEventListener('click', () => {
-    profileSelectorView.style.display = 'none';
-    createProfileView.style.display = 'flex';
-    newProfileNameInput.focus();
-});
+// Event Listeners
 
-cancelCreateProfileBtn.addEventListener('click', () => {
-    createProfileView.style.display = 'none';
-    profileSelectorView.style.display = 'flex';
-    newProfileNameInput.value = '';
-});
-
+// Create Profile (Modal Confirm)
 confirmCreateProfileBtn.addEventListener('click', () => {
     const name = newProfileNameInput.value.trim();
     if (name) {
@@ -81,9 +70,15 @@ confirmCreateProfileBtn.addEventListener('click', () => {
             // Select the newly created user
             selectProfile(newRef.key, name);
 
-            // Reset UI
-            createProfileView.style.display = 'none';
-            profileSelectorView.style.display = 'none'; // Will show active view
+            // Hide Bootstrap Modal
+            // We assume bootstrap is available globally from the CDN
+            const modalElement = document.getElementById('createProfileModal');
+            // @ts-ignore
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            if (modal) {
+                modal.hide();
+            }
+
             newProfileNameInput.value = '';
         }).catch((error) => {
             console.error("Firebase Write Error:", error);
@@ -92,6 +87,7 @@ confirmCreateProfileBtn.addEventListener('click', () => {
     }
 });
 
+// Profile Dropdown Change
 profileSelect.addEventListener('change', (e) => {
     const id = e.target.value;
     if (id) {
@@ -100,6 +96,7 @@ profileSelect.addEventListener('change', (e) => {
     }
 });
 
+// Guest Button
 guestBtn.addEventListener('click', () => {
     playAsGuest();
 });
@@ -116,6 +113,7 @@ function playAsGuest() {
     loadGameList();
 }
 
+// Switch Button
 switchProfileBtn.addEventListener('click', () => {
     currentProfile = null;
 
@@ -124,11 +122,14 @@ switchProfileBtn.addEventListener('click', () => {
     localStorage.removeItem('lastProfileName');
     localStorage.removeItem('isGuest');
 
-    activeProfileView.style.display = 'none';
-    profileSelectorView.style.display = 'flex';
+    // UI Toggle
+    activeProfileView.classList.replace('d-flex', 'd-none');
+    activeProfileView.classList.add('d-none'); // ensure hidden
+    profileSelectorView.classList.remove('d-none');
+
     profileSelect.value = "";
 
-    // Hide game elements
+    // Reset Screens
     welcomeMessage.style.display = 'block';
     gameSelection.style.display = 'none';
     emulatorContainer.style.display = 'none';
@@ -142,39 +143,54 @@ function selectProfile(id, name) {
     localStorage.setItem('lastProfileName', name);
     localStorage.removeItem('isGuest');
 
-    // Update UI
-    profileNameDisplay.textContent = `Player: ${name}`;
-    activeProfileView.style.display = 'flex';
-    profileSelectorView.style.display = 'none';
+    updateUIForActiveProfile();
+    loadGameList();
+}
+
+function updateUIForActiveProfile() {
+    profileNameDisplay.textContent = currentProfile.name;
+
+    activeProfileView.classList.remove('d-none');
+    activeProfileView.classList.add('d-flex');
+    profileSelectorView.classList.add('d-none');
+
     welcomeMessage.style.display = 'none';
     gameSelection.style.display = 'block';
 
     console.log("Selected Profile:", currentProfile);
-    loadGameList();
 }
 
 // --- Game Logic ---
 
 async function loadGameList() {
     try {
-        // Cache Busting: Add timestamp to force browser to fetch new list
+        // Cache Busting
         const response = await fetch(`gamelist.json?v=${new Date().getTime()}`);
         const games = await response.json();
 
         gameListDiv.innerHTML = '';
         games.forEach(game => {
-            const card = document.createElement('div');
-            card.className = 'game-card';
-            card.innerHTML = `
-                <img src="${game.image || 'assets/default.png'}" alt="${game.name}">
-                <h3>${game.name}</h3>
+            // Eclipse-style Grid Item
+            const col = document.createElement('div');
+            col.className = 'col';
+
+            col.innerHTML = `
+                <button class="game-icon-card w-100 p-0 text-center" title="${game.name}">
+                    <div class="game-icon-wrapper">
+                        <img src="${game.image || 'assets/default.png'}" alt="${game.name}" loading="lazy">
+                    </div>
+                    <div class="game-title mt-2 text-white">${game.name}</div>
+                </button>
             `;
-            card.onclick = () => startGame(game);
-            gameListDiv.appendChild(card);
+
+            const btn = col.querySelector('button');
+            btn.onclick = () => startGame(game);
+
+            gameListDiv.appendChild(col);
         });
     } catch (error) {
         console.error("Failed to load game list:", error);
-        gameListDiv.innerHTML = '<p>Error loading game list.</p>';
+        gameListDiv.innerHTML = '<p class="text-white">Error loading game list.</p>';
     }
 }
 
@@ -187,12 +203,12 @@ function startGame(game) {
 
     // Configure EmulatorJS
     const gameWrapper = document.getElementById('emulator');
-    gameWrapper.innerHTML = '<div id="game"></div>'; // Reset container
+    gameWrapper.innerHTML = '<div id="game"></div>';
 
     window.EJS_player = "#game";
     window.EJS_core = game.core;
     window.EJS_gameUrl = game.rom_path;
-    window.EJS_pathtodata = "data/"; // Local data
+    window.EJS_pathtodata = "data/";
     window.EJS_startOnLoaded = true;
 
     // --- Save Injection Hook ---
@@ -204,7 +220,6 @@ function startGame(game) {
         const romName = currentGameConfig.rom_path.split('/').pop();
         const saveFileName = romName.replace(/\.\w+$/, '.srm');
 
-        // Fetch from Firebase using Profile ID instead of Auth UID
         const snapshot = await get(child(ref(db), `users/${currentProfile.id}/saves/${gameId}`));
 
         if (snapshot.exists()) {
@@ -231,6 +246,12 @@ function startGame(game) {
         console.log("Save update detected!");
         if (!currentProfile) return;
 
+        // Guest Mode = No Cloud Sync
+        if (currentProfile.id === 'guest') {
+            console.log("Guest mode - skipping cloud sync.");
+            return;
+        }
+
         const romName = currentGameConfig.rom_path.split('/').pop();
         const saveFileName = romName.replace(/\.\w+$/, '.srm');
         const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
@@ -245,7 +266,6 @@ function startGame(game) {
                     timestamp: Date.now()
                 };
 
-                // Save to Profile ID path
                 set(ref(db, `users/${currentProfile.id}/saves/${currentGameConfig.id}`), updatePayload)
                     .then(() => console.log("Synced to Cloud successfully"))
                     .catch((err) => console.error("Sync failed", err));
