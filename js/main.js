@@ -247,12 +247,26 @@ function renderGroupedGames(games) {
     });
 }
 
-function startGame(game) {
+async function startGame(game) {
     currentGameConfig = game;
 
-    // UI Switch
+    // UI Switch FIRST (So user sees something happens)
     gameSelection.style.display = 'none';
     emulatorContainer.style.display = 'block';
+
+    // Mobile Fullscreen (Attempt)
+    if (isMobileDevice()) {
+        try {
+            if (document.documentElement.requestFullscreen) {
+                await document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
+                // @ts-ignore
+                await document.documentElement.webkitRequestFullscreen();
+            }
+        } catch (err) {
+            console.warn("Fullscreen request failed (likely permission issue), continuing anyway:", err);
+        }
+    }
 
     // Configure EmulatorJS
     const gameWrapper = document.getElementById('emulator');
