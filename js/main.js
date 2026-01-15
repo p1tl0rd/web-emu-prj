@@ -4,6 +4,7 @@ import { db, ref, set, get, child, push, onValue } from './firebase-config.js';
 // DOM Elements
 const profileSelect = document.getElementById('profile-select');
 const createProfileBtn = document.getElementById('create-profile-btn');
+const guestBtn = document.getElementById('guest-btn'); // Added Guest Button
 const createProfileView = document.getElementById('create-profile-view');
 const activeProfileView = document.getElementById('active-profile-view');
 const profileSelectorView = document.getElementById('profile-selector-view');
@@ -41,7 +42,17 @@ function loadProfiles() {
                 profileSelect.appendChild(option);
             });
         }
-        // If there was a previously selected profile (stored in localStorage?), we could restore it here
+
+        // Auto-Login Check
+        const savedProfileId = localStorage.getItem('lastProfileId');
+        const savedProfileName = localStorage.getItem('lastProfileName');
+        const isGuest = localStorage.getItem('isGuest');
+
+        if (isGuest === 'true') {
+            playAsGuest();
+        } else if (savedProfileId && savedProfileName) {
+            selectProfile(savedProfileId, savedProfileName);
+        }
     }, (error) => {
         console.error("Firebase Read Error:", error);
         alert("Lỗi đọc dữ liệu từ Firebase! \nKiểm tra lại 'Rules' trên Firebase Console.\nChi tiết: " + error.message);
@@ -89,8 +100,30 @@ profileSelect.addEventListener('change', (e) => {
     }
 });
 
+guestBtn.addEventListener('click', () => {
+    playAsGuest();
+});
+
+function playAsGuest() {
+    currentProfile = { id: 'guest', name: 'Guest (No Save Sync)' };
+
+    // Update Logic Storage
+    localStorage.setItem('isGuest', 'true');
+    localStorage.removeItem('lastProfileId');
+    localStorage.removeItem('lastProfileName');
+
+    updateUIForActiveProfile();
+    loadGameList();
+}
+
 switchProfileBtn.addEventListener('click', () => {
     currentProfile = null;
+
+    // Clear Auto-Login
+    localStorage.removeItem('lastProfileId');
+    localStorage.removeItem('lastProfileName');
+    localStorage.removeItem('isGuest');
+
     activeProfileView.style.display = 'none';
     profileSelectorView.style.display = 'flex';
     profileSelect.value = "";
@@ -103,6 +136,11 @@ switchProfileBtn.addEventListener('click', () => {
 
 function selectProfile(id, name) {
     currentProfile = { id, name };
+
+    // Save for Auto-Login
+    localStorage.setItem('lastProfileId', id);
+    localStorage.setItem('lastProfileName', name);
+    localStorage.removeItem('isGuest');
 
     // Update UI
     profileNameDisplay.textContent = `Player: ${name}`;
