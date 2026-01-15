@@ -13,7 +13,7 @@
         "system": "gba",
         "rom_path": "roms/gba/The Legend of Zelda - The Minish Cap (USA).gba",
         "core": "mgba",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/The%20Legend%20of%20Zelda%20-%20The%20Minish%20Cap%20%28USA%29.png"
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The%20-%20The%20Minish%20Cap%20%28USA%29.png"
     },
     {
         "id": "legend_of_zelda,_the_-_link's_awakening_dx_(usa,_europe)_(rev_2)_(sgb_enhanced)_(gb_compatible)_gbc",
@@ -53,7 +53,7 @@
         "system": "segaMD",
         "rom_path": "roms/sega_md/Sonic & Knuckles + Sonic The Hedgehog 3 (USA).md",
         "core": "genesis_plus_gx",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Sonic%20%26%20Knuckles%20%2B%20Sonic%20The%20Hedgehog%203%20%28USA%29.png"
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Sonic%20_%20Knuckles%20%2B%20Sonic%20The%20Hedgehog%203%20%28USA%29%20%28Lock-on%20Combination%29.png"
     },
     {
         "id": "contra_iii_-_the_alien_wars_(usa)_sfc",

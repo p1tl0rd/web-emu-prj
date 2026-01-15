@@ -120,10 +120,17 @@ def scan_roms():
                 # Image Detection -> Remote URL
                 # Logic: Construct direct GitHub URL to Libretro Thumbnails
                 
+                # Load Cover Map if exists
+                cover_map = {}
+                if os.path.exists('cover_map.json'):
+                    with open('cover_map.json', 'r', encoding='utf-8') as f:
+                        cover_map = json.load(f)
+
                 # Revert to Raw Name for URL because Libretro uses No-Intro naming (with tags)
                 # Example: "Legend of Zelda, The - Majora's Mask (USA).png"
                 # So we must use raw_game_name (which is just filename without extension)
                 url_name = raw_game_name
+
 
                 # Mapping local folder names to Libretro Repository Names
                 SYSTEM_MAP_LIBRETRO = {
@@ -165,11 +172,16 @@ def scan_roms():
                         break
                 
                 # If no local asset, use Remote URL
-                if not local_asset_found and config['system'] in SYSTEM_MAP_LIBRETRO:
-                    libretro_system = SYSTEM_MAP_LIBRETRO[config['system']]
-                    # Use the raw url_name for the link to match Libretro
-                    safe_name = urllib.parse.quote(url_name)
-                    image_path = f"https://raw.githubusercontent.com/libretro-thumbnails/{libretro_system}/master/Named_Boxarts/{safe_name}.png"
+                # If no local asset, check Cover Map or use Remote URL
+                if not local_asset_found:
+                    if raw_game_name in cover_map:
+                         image_path = cover_map[raw_game_name]
+                         print(f"  -> Using mapped cover for: {raw_game_name}")
+                    elif config['system'] in SYSTEM_MAP_LIBRETRO:
+                        libretro_system = SYSTEM_MAP_LIBRETRO[config['system']]
+                        # Use the raw url_name for the link to match Libretro
+                        safe_name = urllib.parse.quote(url_name)
+                        image_path = f"https://raw.githubusercontent.com/libretro-thumbnails/{libretro_system}/master/Named_Boxarts/{safe_name}.png"
                 
                 entry = {
                     "id": game_id,
