@@ -8,11 +8,59 @@
         "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Super%20Mario%20Advance%202%20-%20Super%20Mario%20World%20%28USA%2C%20Australia%29.png"
     },
     {
+        "id": "the_legend_of_zelda_-_the_minish_cap_(usa)_gba",
+        "name": "The Legend of Zelda - The Minish Cap",
+        "system": "gba",
+        "rom_path": "roms/gba/The Legend of Zelda - The Minish Cap (USA).gba",
+        "core": "mgba",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/The%20Legend%20of%20Zelda%20-%20The%20Minish%20Cap%20%28USA%29.png"
+    },
+    {
+        "id": "legend_of_zelda,_the_-_link's_awakening_dx_(usa,_europe)_(rev_2)_(sgb_enhanced)_(gb_compatible)_gbc",
+        "name": "Legend of Zelda, The - Link's Awakening DX",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible).gbc",
+        "core": "gambatte",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The%20-%20Link%27s%20Awakening%20DX%20%28USA%2C%20Europe%29%20%28Rev%202%29%20%28SGB%20Enhanced%29%20%28GB%20Compatible%29.png"
+    },
+    {
+        "id": "legend_of_zelda,_the_-_majora's_mask_(usa)_z64",
+        "name": "Legend of Zelda, The - Majora's Mask",
+        "system": "n64",
+        "rom_path": "roms/n64/Legend of Zelda, The - Majora's Mask (USA).z64",
+        "core": "mupen64plus_next",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_64/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The%20-%20Majora%27s%20Mask%20%28USA%29.png"
+    },
+    {
         "id": "super_mario_bros__3_(usa)_(rev_1)_nes",
         "name": "Super Mario Bros. 3",
         "system": "nes",
         "rom_path": "roms/nes/Super Mario Bros. 3 (USA) (Rev 1).nes",
         "core": "fceumm",
         "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/master/Named_Boxarts/Super%20Mario%20Bros.%203%20%28USA%29%20%28Rev%201%29.png"
+    },
+    {
+        "id": "road_rash_(usa,_europe)_md",
+        "name": "Road Rash",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Road Rash (USA, Europe).md",
+        "core": "genesis_plus_gx",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Road%20Rash%20%28USA%2C%20Europe%29.png"
+    },
+    {
+        "id": "sonic_&_knuckles_+_sonic_the_hedgehog_3_(usa)_md",
+        "name": "Sonic & Knuckles + Sonic The Hedgehog 3",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Sonic & Knuckles + Sonic The Hedgehog 3 (USA).md",
+        "core": "genesis_plus_gx",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Sonic%20%26%20Knuckles%20%2B%20Sonic%20The%20Hedgehog%203%20%28USA%29.png"
+    },
+    {
+        "id": "contra_iii_-_the_alien_wars_(usa)_sfc",
+        "name": "Contra III - The Alien Wars",
+        "system": "snes",
+        "rom_path": "roms/snes/Contra III - The Alien Wars (USA).sfc",
+        "core": "snes9x",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Super_Nintendo_Entertainment_System/master/Named_Boxarts/Contra%20III%20-%20The%20Alien%20Wars%20%28USA%29.png"
     }
 ]
