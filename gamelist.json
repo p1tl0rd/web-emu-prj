@@ -1,10 +1,18 @@
 [
     {
-        "id": "mario_world_gba",
-        "name": "Super Mario Advance 2",
+        "id": "super_mario_advance_2_-_super_mario_world_(usa,_australia)_gba",
+        "name": "Super Mario Advance 2 - Super Mario World",
         "system": "gba",
-        "rom_path": "roms/mario.gba",
-        "core": "gba",
+        "rom_path": "roms/gba/Super Mario Advance 2 - Super Mario World (USA, Australia).gba",
+        "core": "mgba",
+        "image": "assets/default.png"
+    },
+    {
+        "id": "super_mario_bros__3_(usa)_(rev_1)_nes",
+        "name": "Super Mario Bros. 3",
+        "system": "nes",
+        "rom_path": "roms/nes/Super Mario Bros. 3 (USA) (Rev 1).nes",
+        "core": "fceumm",
         "image": "assets/default.png"
     }
 ]
