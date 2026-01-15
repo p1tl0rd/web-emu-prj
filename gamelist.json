@@ -5,7 +5,7 @@
         "system": "gba",
         "rom_path": "roms/gba/Super Mario Advance 2 - Super Mario World (USA, Australia).gba",
         "core": "mgba",
-        "image": "assets/default.png"
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Super%20Mario%20Advance%202%20-%20Super%20Mario%20World%20%28USA%2C%20Australia%29.png"
     },
     {
         "id": "super_mario_bros__3_(usa)_(rev_1)_nes",
@@ -13,6 +13,6 @@
         "system": "nes",
         "rom_path": "roms/nes/Super Mario Bros. 3 (USA) (Rev 1).nes",
         "core": "fceumm",
-        "image": "assets/default.png"
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/master/Named_Boxarts/Super%20Mario%20Bros.%203%20%28USA%29%20%28Rev%201%29.png"
     }
 ]

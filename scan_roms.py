@@ -102,29 +102,61 @@ def scan_roms():
                 
                 # Raw Game Name (Filename without extension) - Used for Image Matching
                 raw_game_name = os.path.splitext(file)[0]
-                
+
                 # Clean Game Name (For Display) - Remove (...) and [...]
                 clean_name = re.sub(r'\s*\(.*?\)', '', raw_game_name)
                 clean_name = re.sub(r'\s*\[.*?\]', '', clean_name)
                 clean_name = clean_name.strip()
                 
-                # Image Detection
-                # Logic: Look for image in assets/ with same relative path structure
-                # e.g. roms/gba/mario.gba -> assets/gba/mario.png or .jpg
+                # Image Detection -> Remote URL
+                # Logic: Construct direct GitHub URL to Libretro Thumbnails
+                # Pros: No local storage needed, consistent quality
+                # Cons: Requires internet, requires correct naming (No-Intro usually)
                 
-                # Get subfolder path relative to ROM_DIR
+                # Mapping local folder names to Libretro Repository Names
+                SYSTEM_MAP_LIBRETRO = {
+                    'nes': 'Nintendo_-_Nintendo_Entertainment_System',
+                    'snes': 'Nintendo_-_Super_Nintendo_Entertainment_System',
+                    'n64': 'Nintendo_-_Nintendo_64',
+                    'gb': 'Nintendo_-_Game_Boy',
+                    'gbc': 'Nintendo_-_Game_Boy_Color',
+                    'gba': 'Nintendo_-_Game_Boy_Advance',
+                    'nds': 'Nintendo_-_Nintendo_DS',
+                    'vb': 'Nintendo_-_Virtual_Boy',
+                    'segaMD': 'Sega_-_Mega_Drive_-_Genesis',
+                    'segaMS': 'Sega_-_Master_System_-_Mark_III',
+                    'segaGG': 'Sega_-_Game_Gear',
+                    'segaCD': 'Sega_-_Mega-CD_-_Sega_CD',
+                    'sega32x': 'Sega_-_32X',
+                    'psx': 'Sony_-_PlayStation',
+                    'psp': 'Sony_-_PlayStation_Portable',
+                    'neogeo': 'SNK_-_Neo_Geo',
+                    'ngp': 'SNK_-_Neo_Geo_Pocket',
+                    'atari2600': 'Atari_-_2600',
+                    'arcade': 'FBNeo_-_Arcade_Games' 
+                }
+                
+                # Get subfolder path relative to ROM_DIR (Needed for Local Asset check)
                 subfolder = os.path.relpath(root, ROM_DIR)
                 if subfolder == '.': subfolder = ''
                 
+                # Check for local override first
                 image_path = "assets/default.png"
+                local_asset_found = False
                 
-                # Check for common image extensions
+                # Check Local Assets first (in case user wants custom cover)
                 for img_ext in ['.png', '.jpg', '.jpeg', '.webp']:
-                    # Use raw_game_name to match the actual file on disk
                     potential_img_rel = os.path.join('assets', subfolder, raw_game_name + img_ext)
                     if os.path.exists(potential_img_rel):
                         image_path = potential_img_rel.replace('\\', '/')
+                        local_asset_found = True
                         break
+                
+                # If no local asset, use Remote URL
+                if not local_asset_found and config['system'] in SYSTEM_MAP_LIBRETRO:
+                    libretro_system = SYSTEM_MAP_LIBRETRO[config['system']]
+                    safe_name = urllib.parse.quote(raw_game_name)
+                    image_path = f"https://raw.githubusercontent.com/libretro-thumbnails/{libretro_system}/master/Named_Boxarts/{safe_name}.png"
                 
                 entry = {
                     "id": game_id,
