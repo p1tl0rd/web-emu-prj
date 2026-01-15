@@ -242,44 +242,35 @@ function renderGroupedGames(games) {
             col.querySelector('button').onclick = () => startGame(game);
             row.appendChild(col);
         });
-
         gameListContainer.appendChild(section);
     });
 }
 
-async function startGame(game) {
+function startGame(game) {
     currentGameConfig = game;
 
-    // UI Switch FIRST (So user sees something happens)
+    // 1. Switch UI immediately
     gameSelection.style.display = 'none';
     emulatorContainer.style.display = 'block';
 
-    // Mobile Fullscreen (Attempt)
-    if (isMobileDevice()) {
-        try {
-            if (document.documentElement.requestFullscreen) {
-                await document.documentElement.requestFullscreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
-                // @ts-ignore
-                await document.documentElement.webkitRequestFullscreen();
-            }
-        } catch (err) {
-            console.warn("Fullscreen request failed (likely permission issue), continuing anyway:", err);
-        }
-    }
-
-    // Configure EmulatorJS
+    // 2. Prepare Emulator Container
     const gameWrapper = document.getElementById('emulator');
-    gameWrapper.innerHTML = '<div id="game"></div>';
+    gameWrapper.innerHTML = ''; // Clear previous instance
 
+    // Create new div for EJS
+    const gameDiv = document.createElement('div');
+    gameDiv.id = 'game';
+    gameWrapper.appendChild(gameDiv);
+
+    // 3. Configure EmulatorJS
     window.EJS_player = "#game";
     window.EJS_core = game.core;
     window.EJS_gameUrl = game.rom_path;
     window.EJS_pathtodata = "data/";
     window.EJS_startOnLoaded = true;
-    window.EJS_language = "en-US"; // Force English US to prevent 404s on other locales
+    window.EJS_language = "en-US";
 
-    // --- Save Injection Hook ---
+    // 4. Save Hooks
     window.EJS_onGameStart = async function () {
         console.log("Emulator Started. Checking cloud saves for:", currentProfile.name);
         if (!currentProfile) return;
@@ -292,7 +283,7 @@ async function startGame(game) {
 
         if (snapshot.exists()) {
             const cloudData = snapshot.val();
-            console.log("Found save!", new Date(cloudData.timestamp).toLocaleString());
+            // console.log("Found save!", new Date(cloudData.timestamp).toLocaleString());
 
             const saveBytes = base64ToUint8Array(cloudData.srm_data);
             const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
@@ -309,16 +300,8 @@ async function startGame(game) {
         }
     };
 
-    // --- Save Extraction Hook ---
     window.EJS_onSaveUpdate = function () {
-        console.log("Save update detected!");
-        if (!currentProfile) return;
-
-        // Guest Mode = No Cloud Sync
-        if (currentProfile.id === 'guest') {
-            console.log("Guest mode - skipping cloud sync.");
-            return;
-        }
+        if (!currentProfile || currentProfile.id === 'guest') return;
 
         const romName = currentGameConfig.rom_path.split('/').pop();
         const saveFileName = romName.replace(/\.\w+$/, '.srm');
@@ -329,48 +312,26 @@ async function startGame(game) {
                 const fileData = window.Module.FS.readFile(virtualPath);
                 const base64String = uint8ArrayToBase64(fileData);
 
-                const updatePayload = {
+                set(ref(db, `users/${currentProfile.id}/saves/${currentGameConfig.id}`), {
                     srm_data: base64String,
                     timestamp: Date.now()
-                };
-
-                set(ref(db, `users/${currentProfile.id}/saves/${currentGameConfig.id}`), updatePayload)
-                    .then(() => console.log("Synced to Cloud successfully"))
-                    .catch((err) => console.error("Sync failed", err));
+                });
             }
         } catch (e) {
-            console.error("Error extracting save:", e);
+            // silent fail
         }
     };
 
-    // Load loader only if not already loaded
-    if (!document.getElementById('emulator-loader')) {
-        const script = document.createElement('script');
-        script.id = 'emulator-loader';
-        script.src = "data/loader.js";
-        script.async = true;
-        document.body.appendChild(script);
-    } else {
-        // If already loaded, trigger emulator reload if function exists
-        // @ts-ignore
-        if (window.EJS_emulator) {
-            // @ts-ignore
-            // window.EJS_emulator.destroy(); // Optional: destroy old instance if needed
-            // But usually just resetting the vars and rehashing is enough logic for loader.js to pick up? 
-            // Actually, loader.js usually auto-runs on load. If it's already loaded, we might need to manually trigger.
-            // Documentation for EmulatorJS says just setting window.EJS_* and loading script works. 
-            // If script is there, we might need to remove and re-add.
+    // 5. Force Reload Loader Script
+    // Removing old script tag ensures loader.js runs from scratch
+    const oldScript = document.getElementById('emulator-loader');
+    if (oldScript) oldScript.remove();
 
-            const oldScript = document.getElementById('emulator-loader');
-            oldScript.remove();
-
-            const script = document.createElement('script');
-            script.id = 'emulator-loader';
-            script.src = "data/loader.js";
-            script.async = true;
-            document.body.appendChild(script);
-        }
-    }
+    const script = document.createElement('script');
+    script.id = 'emulator-loader';
+    script.src = "data/loader.js";
+    script.async = true;
+    document.body.appendChild(script);
 }
 
 // --- Helpers ---
