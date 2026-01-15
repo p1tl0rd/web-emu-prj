@@ -1,70 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RetroCloud Emulator</title>
-    <!-- COI - Must be loaded first 
-    <script src="coi-serviceworker.js"></script>
-    -->
 
-    <!-- Styles -->
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div id="app">
-        <header>
-            <h1>RetroCloud</h1>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary mb-4">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-success" href="#">
+                    <i class="bi bi-controller"></i> RetroCloud
+                </a>
 
-            <!-- Profile System UI -->
-            <div id="profile-container">
-                <div id="profile-selector-view">
-                    <select id="profile-select">
-                        <option value="">-- Select Profile --</option>
-                    </select>
-                    <button id="create-profile-btn" class="accent-btn">+</button>
-                    <button id="guest-btn" class="secondary-btn" style="margin-left: 10px;">Play as Guest</button>
-                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Profile Selector Group -->
+                    <div id="profile-selector-view" class="d-flex gap-2">
+                        <select id="profile-select" class="form-select form-select-sm" style="max-width: 200px;">
+                            <option value="">-- Select Profile --</option>
+                        </select>
+                        <button id="create-profile-btn" class="btn btn-sm btn-success" data-bs-toggle="modal"
+                            data-bs-target="#createProfileModal">
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
+                        <button id="guest-btn" class="btn btn-sm btn-secondary">
+                            <i class="bi bi-person-fill-slash"></i> Guest
+                        </button>
+                    </div>
 
-                <div id="create-profile-view" style="display:none;">
-                    <input type="text" id="new-profile-name" placeholder="Enter Name">
-                    <button id="confirm-create-profile">Create</button>
-                    <button id="cancel-create-profile">Cancel</button>
-                </div>
-
-                <div id="active-profile-view" style="display:none;">
-                    <span id="profile-name-display"></span>
-                    <button id="switch-profile-btn">Switch</button>
+                    <!-- Active Profile Group -->
+                    <div id="active-profile-view" class="d-none align-items-center gap-2">
+                        <span class="text-light fw-bold">
+                            <i class="bi bi-person-circle"></i> <span id="profile-name-display">Player</span>
+                        </span>
+                        <button id="switch-profile-btn" class="btn btn-sm btn-outline-light">Switch</button>
+                    </div>
                 </div>
             </div>
-        </header>
+        </nav>
 
-        <main>
+        <main class="container">
+            <!-- Welcome Screen -->
+            <div id="welcome-message" class="text-center py-5">
+                <h2 class="display-5 fw-bold text-white mb-3">Welcome to RetroCloud</h2>
+                <p class="lead text-secondary">Select a profile or play as guest to start your adventure.</p>
+                <i class="bi bi-joystick text-secondary" style="font-size: 5rem;"></i>
+            </div>
+
             <!-- Game Selection Screen -->
-            <div id="game-selection" style="display:none;"> <!-- Hidden by default until profile selected -->
-                <h2>Select a Game</h2>
-                <div id="game-list" class="game-grid">
+            <div id="game-selection" style="display:none;">
+                <h4 class="mb-4 text-white border-start border-4 border-success ps-3">Available Games</h4>
+                <div id="game-list" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
                     <!-- Games will be injected here -->
-                    <p>Loading games list...</p>
+                    <div class="col">
+                        <p class="text-white">Loading games...</p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Welcome/Login Prompt -->
-            <div id="welcome-message">
-                <h2>Welcome!</h2>
-                <p>Please select or create a profile to start playing.</p>
             </div>
 
             <!-- Emulator Screen -->
             <div id="emulator-container" style="display:none;">
-                <button id="back-btn">← Back to Menu</button>
-                <div id="emulator"></div>
+                <button id="back-btn" class="btn btn-outline-secondary mb-3">
+                    <i class="bi bi-arrow-left"></i> Back to Menu
+                </button>
+                <div class="ratio ratio-16x9 border border-secondary rounded overflow-hidden bg-black">
+                    <div id="emulator"></div>
+                </div>
             </div>
         </main>
     </div>
 
+    <!-- Create Profile Modal -->
+    <div class="modal fade" id="createProfileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Create New Profile</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="new-profile-name" class="form-label">Profile Name</label>
+                        <input type="text" class="form-control bg-secondary text-white border-0" id="new-profile-name"
+                            placeholder="Enter your name">
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        id="cancel-create-profile">Cancel</button>
+                    <button type="button" class="btn btn-success" id="confirm-create-profile">Create Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Main App Logic -->
     <script type="module" src="js/main.js"></script>
 </body>
 
