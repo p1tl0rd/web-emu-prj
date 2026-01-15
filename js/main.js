@@ -323,7 +323,20 @@ function startGame(game) {
     };
 
     // 5. Force Reload Loader Script
-    // Removing old script tag ensures loader.js runs from scratch
+    // Cleanup previous instance if exists
+    // @ts-ignore
+    if (window.EJS_emulator) {
+        console.log("Destroying previous emulator instance...");
+        try {
+            // @ts-ignore
+            window.EJS_emulator.destroy();
+        } catch (e) {
+            console.warn("Error destroying emulator:", e);
+        }
+        // @ts-ignore
+        window.EJS_emulator = null;
+    }
+
     const oldScript = document.getElementById('emulator-loader');
     if (oldScript) oldScript.remove();
 
