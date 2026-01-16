@@ -23,6 +23,14 @@ const backBtn = document.getElementById('back-btn');
 let currentProfile = null; // { id: "string", name: "string" }
 let currentGameConfig = null;
 
+// Debug Error Handler for Mobile
+window.onerror = function (msg, url, line, col, error) {
+    if (isMobileDevice()) {
+        alert("Error: " + msg + "\nLine: " + line + "\nCol: " + col);
+    }
+    return false; // Let default handler run too
+};
+
 // --- Profile System Logic ---
 
 // Load Profiles on Start
@@ -248,146 +256,150 @@ function renderGroupedGames(games) {
 }
 
 function startGame(game) {
-    currentGameConfig = game;
+    try {
+        if (!game) throw new Error("Game object is undefined");
+        currentGameConfig = game;
 
-    // UI Switch
-    gameSelection.style.display = 'none';
-    emulatorContainer.style.display = 'block';
+        // UI Switch
+        gameSelection.style.display = 'none';
+        emulatorContainer.style.display = 'block';
 
-    // Mobile Fullscreen Auto-Trigger
-    if (isMobileDevice()) {
-        document.body.classList.add('game-active'); // Trigger CSS Fullscreen
+        // Mobile Fullscreen Auto-Trigger
+        if (isMobileDevice()) {
+            document.body.classList.add('game-active'); // Trigger CSS Fullscreen
 
-        const docEl = document.documentElement;
-        const requestFull = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
-        if (requestFull) {
-            try {
-                requestFull.call(docEl).catch(err => console.warn("Fullscreen blocked:", err));
-            } catch (e) {
-                // Ignore errors
+            const docEl = document.documentElement;
+            const requestFull = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
+            if (requestFull) {
+                try {
+                    requestFull.call(docEl).catch(err => console.warn("Fullscreen blocked:", err));
+                } catch (e) {
+                    // Ignore errors
+                }
             }
         }
-    }
 
-    // Configure EmulatorJS
-    const gameWrapper = document.getElementById('emulator');
-    gameWrapper.innerHTML = '<div id="game"></div>'; // Reset container
+        // Configure EmulatorJS
+        const gameWrapper = document.getElementById('emulator');
+        gameWrapper.innerHTML = '<div id="game"></div>'; // Reset container
 
-    window.EJS_player = "#game";
-    window.EJS_core = game.core;
-    window.EJS_gameUrl = game.rom_path;
-    window.EJS_pathtodata = "data/";
-    window.EJS_startOnLoaded = true;
-    window.EJS_language = "en-US"; // Keep this fix to avoid 404
+        window.EJS_player = "#game";
+        window.EJS_core = game.core;
+        window.EJS_gameUrl = game.rom_path;
+        window.EJS_pathtodata = "data/";
+        window.EJS_startOnLoaded = true;
+        window.EJS_language = "en-US"; // Keep this fix to avoid 404
 
-    // --- Save Injection Hook ---
-    window.EJS_onGameStart = async function () {
-        console.log("Emulator Started. Checking cloud saves for:", currentProfile.name);
-        if (!currentProfile) return;
+        // --- Save Injection Hook ---
+        window.EJS_onGameStart = async function () {
+            console.log("Emulator Started. Checking cloud saves for:", currentProfile.name);
+            if (!currentProfile) return;
 
-        const gameId = currentGameConfig.id;
-        const romName = currentGameConfig.rom_path.split('/').pop();
-        const saveFileName = romName.replace(/\.\w+$/, '.srm');
+            const gameId = currentGameConfig.id;
+            const romName = currentGameConfig.rom_path.split('/').pop();
+            const saveFileName = romName.replace(/\.\w+$/, '.srm');
 
-        const snapshot = await get(child(ref(db), `users/${currentProfile.id}/saves/${gameId}`));
+            const snapshot = await get(child(ref(db), `users/${currentProfile.id}/saves/${gameId}`));
 
-        if (snapshot.exists()) {
-            const cloudData = snapshot.val();
-            // console.log("Found save!", new Date(cloudData.timestamp).toLocaleString());
+            if (snapshot.exists()) {
+                const cloudData = snapshot.val();
+                // console.log("Found save!", new Date(cloudData.timestamp).toLocaleString());
 
-            const saveBytes = base64ToUint8Array(cloudData.srm_data);
+                const saveBytes = base64ToUint8Array(cloudData.srm_data);
+                const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
+
+                try {
+                    if (window.Module && window.Module.FS) {
+                        window.Module.FS.createPath('/home/web_user/retroarch/userdata', 'saves', true, true);
+                        window.Module.FS.writeFile(virtualPath, saveBytes);
+                        console.log(`Restored save to ${virtualPath}`);
+                    }
+                } catch (e) {
+                    console.error("Failed to inject save:", e);
+                }
+            }
+        };
+
+        // --- Save Extraction Hook ---
+        window.EJS_onSaveUpdate = function () {
+            if (!currentProfile || currentProfile.id === 'guest') return;
+
+            const romName = currentGameConfig.rom_path.split('/').pop();
+            const saveFileName = romName.replace(/\.\w+$/, '.srm');
             const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
 
             try {
                 if (window.Module && window.Module.FS) {
-                    window.Module.FS.createPath('/home/web_user/retroarch/userdata', 'saves', true, true);
-                    window.Module.FS.writeFile(virtualPath, saveBytes);
-                    console.log(`Restored save to ${virtualPath}`);
+                    const fileData = window.Module.FS.readFile(virtualPath);
+                    const base64String = uint8ArrayToBase64(fileData);
+
+                    set(ref(db, `users/${currentProfile.id}/saves/${currentGameConfig.id}`), {
+                        srm_data: base64String,
+                        timestamp: Date.now()
+                    });
                 }
             } catch (e) {
-                console.error("Failed to inject save:", e);
+                // silent fail
             }
-        }
-    };
+        };
 
-    // --- Save Extraction Hook ---
-    window.EJS_onSaveUpdate = function () {
-        if (!currentProfile || currentProfile.id === 'guest') return;
+        // Load loader - EXACT LEGACY WAY -> Just append, do not check/remove
+        const script = document.createElement('script');
+        script.src = "data/loader.js";
+        script.async = true;
+        document.body.appendChild(script);
 
-        const romName = currentGameConfig.rom_path.split('/').pop();
-        const saveFileName = romName.replace(/\.\w+$/, '.srm');
-        const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
-
-        try {
-            if (window.Module && window.Module.FS) {
-                const fileData = window.Module.FS.readFile(virtualPath);
-                const base64String = uint8ArrayToBase64(fileData);
-
-                set(ref(db, `users/${currentProfile.id}/saves/${currentGameConfig.id}`), {
-                    srm_data: base64String,
-                    timestamp: Date.now()
-                });
-            }
-        } catch (e) {
-            // silent fail
-        }
-    };
-
-    // Load loader - EXACT LEGACY WAY -> Just append, do not check/remove
-    const script = document.createElement('script');
-    script.src = "data/loader.js";
-    script.async = true;
-    document.body.appendChild(script);
+    } catch (e) {
+        alert("StartGame Error: " + e.message);
+        console.error(e);
+    }
 }
 
 // --- Helpers ---
 function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-function base64ToUint8Array(base64) {
-    const binaryString = window.atob(base64);
-    const len = binaryString.length;
-    const bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
+    function base64ToUint8Array(base64) {
+        const binaryString = window.atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes;
     }
-    return bytes;
-}
 
-function uint8ArrayToBase64(bytes) {
-    let binary = '';
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-        binary += String.fromCharCode(bytes[i]);
+    function uint8ArrayToBase64(bytes) {
+        let binary = '';
+        const len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
     }
-    return window.btoa(binary);
-}
 
-backBtn.addEventListener('click', () => {
-    document.body.classList.remove('game-active'); // Cleanup
-    location.reload();
-});
+    backBtn.addEventListener('click', () => {
+        document.body.classList.remove('game-active'); // Cleanup
+        location.reload();
+    });
 
-// Initialize
-detectPWAEnvironment();
-loadProfiles();
+    // Initialize
+    detectPWAEnvironment();
+    loadProfiles();
 
-function detectPWAEnvironment() {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    // @ts-ignore
-    const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+    function detectPWAEnvironment() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        // @ts-ignore
+        const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
 
-    if (isIOS && !isStandalone) {
-        const prompt = document.getElementById('ios-install-prompt');
-        if (prompt) {
-            prompt.classList.remove('d-none');
-            prompt.classList.add('d-flex');
+        if (isIOS && !isStandalone) {
+            const prompt = document.getElementById('ios-install-prompt');
+            if (prompt) {
+                prompt.classList.remove('d-none');
+                prompt.classList.add('d-flex');
 
-            document.getElementById('close-install-prompt')?.addEventListener('click', () => {
-                prompt.classList.remove('d-flex');
-                prompt.classList.add('d-none');
-            });
+                document.getElementById('close-install-prompt')?.addEventListener('click', () => {
+                    prompt.classList.remove('d-flex');
+                    prompt.classList.add('d-none');
+                });
+            }
         }
     }
-}
