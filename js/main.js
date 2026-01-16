@@ -254,6 +254,19 @@ function startGame(game) {
     gameSelection.style.display = 'none';
     emulatorContainer.style.display = 'block';
 
+    // Mobile Fullscreen Auto-Trigger
+    if (isMobileDevice()) {
+        const docEl = document.documentElement;
+        const requestFull = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
+        if (requestFull) {
+            try {
+                requestFull.call(docEl).catch(err => console.warn("Fullscreen blocked:", err));
+            } catch (e) {
+                // Ignore errors
+            }
+        }
+    }
+
     // Configure EmulatorJS
     const gameWrapper = document.getElementById('emulator');
     gameWrapper.innerHTML = '<div id="game"></div>'; // Reset container
