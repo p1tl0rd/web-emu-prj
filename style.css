@@ -154,12 +154,12 @@ body {
 
 /* --- Mobile Fullscreen Mode (CSS Override) --- */
 @media (max-width: 768px) {
-    body.mobile-playing {
+    body.game-active {
         overflow: hidden;
         /* Lock scroll */
     }
 
-    body.mobile-playing #emulator-container {
+    body.game-active #emulator-container {
         position: fixed;
         top: 0;
         left: 0;
@@ -174,7 +174,7 @@ body {
     }
 
     /* Convert Ratio box to flexible flex-grow container */
-    body.mobile-playing .ratio {
+    body.game-active .ratio {
         flex-grow: 1;
         width: 100%;
         height: auto;
@@ -183,12 +183,12 @@ body {
     }
 
     /* Kill Bootstrap Aspect Ratio Hack */
-    body.mobile-playing .ratio::before {
+    body.game-active .ratio::before {
         display: none !important;
     }
 
     /* Floating Back Button */
-    body.mobile-playing #back-btn {
+    body.game-active #back-btn {
         position: absolute;
         top: 10px;
         left: 10px;

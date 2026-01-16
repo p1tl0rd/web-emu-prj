@@ -256,7 +256,7 @@ function startGame(game) {
 
     // Mobile Fullscreen Auto-Trigger
     if (isMobileDevice()) {
-        document.body.classList.add('mobile-playing'); // Trigger CSS Fullscreen
+        document.body.classList.add('game-active'); // Trigger CSS Fullscreen
 
         const docEl = document.documentElement;
         const requestFull = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
@@ -365,7 +365,7 @@ function uint8ArrayToBase64(bytes) {
 }
 
 backBtn.addEventListener('click', () => {
-    document.body.classList.remove('mobile-playing'); // Cleanup
+    document.body.classList.remove('game-active'); // Cleanup
     location.reload();
 });
 
