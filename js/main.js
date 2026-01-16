@@ -370,4 +370,24 @@ backBtn.addEventListener('click', () => {
 });
 
 // Initialize
+detectPWAEnvironment();
 loadProfiles();
+
+function detectPWAEnvironment() {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    // @ts-ignore
+    const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+
+    if (isIOS && !isStandalone) {
+        const prompt = document.getElementById('ios-install-prompt');
+        if (prompt) {
+            prompt.classList.remove('d-none');
+            prompt.classList.add('d-flex');
+
+            document.getElementById('close-install-prompt')?.addEventListener('click', () => {
+                prompt.classList.remove('d-flex');
+                prompt.classList.add('d-none');
+            });
+        }
+    }
+}
