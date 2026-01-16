@@ -106,6 +106,15 @@ body {
     border-radius: 0;
 }
 
+/* Force emulator to fill the Bootstrap ratio container */
+#emulator,
+#game {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
 @media (min-width: 768px) {
     #emulator-container {
         max-width: 1200px;
