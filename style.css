@@ -151,3 +151,51 @@ body {
     color: white;
     box-shadow: none;
 }
+
+/* --- Mobile Fullscreen Mode (CSS Override) --- */
+@media (max-width: 768px) {
+    body.mobile-playing {
+        overflow: hidden;
+        /* Lock scroll */
+    }
+
+    body.mobile-playing #emulator-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        background: #000;
+        margin: 0;
+        padding: 0;
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    /* Convert Ratio box to flexible flex-grow container */
+    body.mobile-playing .ratio {
+        flex-grow: 1;
+        width: 100%;
+        height: auto;
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Kill Bootstrap Aspect Ratio Hack */
+    body.mobile-playing .ratio::before {
+        display: none !important;
+    }
+
+    /* Floating Back Button */
+    body.mobile-playing #back-btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 10000;
+        margin: 0 !important;
+        opacity: 0.6;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
