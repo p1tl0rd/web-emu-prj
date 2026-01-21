@@ -291,57 +291,17 @@ function startGame(game) {
         window.EJS_language = "en-US"; // Keep this fix to avoid 404
 
         // --- Save Injection Hook ---
-        window.EJS_onGameStart = async function () {
-            console.log("Emulator Started. Checking cloud saves for:", currentProfile.name);
-            if (!currentProfile) return;
-
-            const gameId = currentGameConfig.id;
-            const romName = currentGameConfig.rom_path.split('/').pop();
-            const saveFileName = romName.replace(/\.\w+$/, '.srm');
-
-            const snapshot = await get(child(ref(db), `users/${currentProfile.id}/saves/${gameId}`));
-
-            if (snapshot.exists()) {
-                const cloudData = snapshot.val();
-                // console.log("Found save!", new Date(cloudData.timestamp).toLocaleString());
-
-                const saveBytes = base64ToUint8Array(cloudData.srm_data);
-                const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
-
-                try {
-                    if (window.Module && window.Module.FS) {
-                        window.Module.FS.createPath('/home/web_user/retroarch/userdata', 'saves', true, true);
-                        window.Module.FS.writeFile(virtualPath, saveBytes);
-                        console.log(`Restored save to ${virtualPath}`);
-                    }
-                } catch (e) {
-                    console.error("Failed to inject save:", e);
-                }
-            }
-        };
+        // --- Save Injection Hook ---
+        // window.EJS_onGameStart = async function () {
+        //     console.log("Emulator Started. Checking cloud saves for:", currentProfile.name);
+        //     if (!currentProfile) return;
+        //     ... 
+        // };
 
         // --- Save Extraction Hook ---
-        window.EJS_onSaveUpdate = function () {
-            if (!currentProfile || currentProfile.id === 'guest') return;
-
-            const romName = currentGameConfig.rom_path.split('/').pop();
-            const saveFileName = romName.replace(/\.\w+$/, '.srm');
-            const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
-
-            try {
-                if (window.Module && window.Module.FS) {
-                    const fileData = window.Module.FS.readFile(virtualPath);
-                    const base64String = uint8ArrayToBase64(fileData);
-
-                    set(ref(db, `users/${currentProfile.id}/saves/${currentGameConfig.id}`), {
-                        srm_data: base64String,
-                        timestamp: Date.now()
-                    });
-                }
-            } catch (e) {
-                // silent fail
-            }
-        };
+        // window.EJS_onSaveUpdate = function () {
+        //     ...
+        // };
 
         // Load loader - EXACT LEGACY WAY -> Just append, do not check/remove
         const script = document.createElement('script');
