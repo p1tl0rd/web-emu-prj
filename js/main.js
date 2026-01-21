@@ -356,50 +356,54 @@ function startGame(game) {
 }
 
 // --- Helpers ---
+// --- Helpers ---
 function isMobileDevice() {
-    function base64ToUint8Array(base64) {
-        const binaryString = window.atob(base64);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes;
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+function base64ToUint8Array(base64) {
+    const binaryString = window.atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
     }
+    return bytes;
+}
 
-    function uint8ArrayToBase64(bytes) {
-        let binary = '';
-        const len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
+function uint8ArrayToBase64(bytes) {
+    let binary = '';
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
     }
+    return window.btoa(binary);
+}
 
-    backBtn.addEventListener('click', () => {
-        document.body.classList.remove('game-active'); // Cleanup
-        location.reload();
-    });
+backBtn.addEventListener('click', () => {
+    document.body.classList.remove('game-active'); // Cleanup
+    location.reload();
+});
 
-    // Initialize
-    detectPWAEnvironment();
-    loadProfiles();
+// Initialize
+detectPWAEnvironment();
+loadProfiles();
 
-    function detectPWAEnvironment() {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        // @ts-ignore
-        const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+function detectPWAEnvironment() {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    // @ts-ignore
+    const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
 
-        if (isIOS && !isStandalone) {
-            const prompt = document.getElementById('ios-install-prompt');
-            if (prompt) {
-                prompt.classList.remove('d-none');
-                prompt.classList.add('d-flex');
+    if (isIOS && !isStandalone) {
+        const prompt = document.getElementById('ios-install-prompt');
+        if (prompt) {
+            prompt.classList.remove('d-none');
+            prompt.classList.add('d-flex');
 
-                document.getElementById('close-install-prompt')?.addEventListener('click', () => {
-                    prompt.classList.remove('d-flex');
-                    prompt.classList.add('d-none');
-                });
-            }
+            document.getElementById('close-install-prompt')?.addEventListener('click', () => {
+                prompt.classList.remove('d-flex');
+                prompt.classList.add('d-none');
+            });
         }
     }
+}
