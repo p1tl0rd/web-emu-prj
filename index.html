@@ -86,12 +86,30 @@
             <!-- Emulator Screen -->
             <div id="emulator-container" style="display:none;">
                 <button id="back-btn" class="btn btn-outline-secondary mb-3">
-                    <i class="bi bi-arrow-left"></i> Back to Menu
+                    <i class="bi bi-arrow-left"></i> <span class="d-none d-md-inline">Back to Menu</span>
                 </button>
+
+                <!-- Loading Spinner -->
+                <div id="emulator-loading" class="position-absolute top-50 start-50 translate-middle text-center d-none"
+                    style="z-index: 2000;">
+                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="mt-2 text-white fw-bold">Loading Game...</div>
+                </div>
+
                 <div class="ratio ratio-16x9 border border-secondary rounded overflow-hidden bg-black">
                     <div id="emulator"></div>
                 </div>
             </div>
+
+            <!-- Dev Info Footer -->
+            <footer class="mt-5 text-center text-secondary small pb-3">
+                <p>RetroCloud v1.0.1 (Dev Build)</p>
+                <button onclick="forceUpdate()" class="btn btn-link btn-sm text-secondary text-decoration-none">
+                    <i class="bi bi-arrow-clockwise"></i> Force Reload / Clear Cache
+                </button>
+            </footer>
         </main>
     </div>
 
@@ -141,7 +159,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Main Content -->
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js?v=20260122_DEV"></script>
 </body>
 
 </html>

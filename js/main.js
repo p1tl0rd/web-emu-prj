@@ -23,6 +23,20 @@ const backBtn = document.getElementById('back-btn');
 let currentProfile = null; // { id: "string", name: "string" }
 let currentGameConfig = null;
 
+// --- Dev Helper: Force Update ---
+window.forceUpdate = () => {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+            for (let registration of registrations) {
+                registration.unregister();
+            }
+            window.location.reload();
+        });
+    } else {
+        window.location.reload();
+    }
+};
+
 // Debug Error Handler for Mobile
 window.onerror = function (msg, url, line, col, error) {
     if (isMobileDevice()) {

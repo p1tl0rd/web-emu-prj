@@ -1,6 +1,6 @@
 {
-    "name": "RetroCloud Emulator",
-    "short_name": "RetroCloud",
+    "name": "RetroTwo",
+    "short_name": "RetroTwo",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#000000",
