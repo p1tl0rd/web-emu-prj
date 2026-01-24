@@ -329,55 +329,92 @@ function startGame(game) {
 
         // --- Save Injection Hook ---
         // --- Save Injection Hook ---
+        // --- Save Injection Hook ---
         window.EJS_onGameStart = async function () {
-            console.log("Emulator Started. Checking cloud saves for:", currentProfile.name);
+            console.log("🔥 [LOAD] EJS_onGameStart triggered!");
+            console.log("   - Current Profile:", currentProfile ? currentProfile.name : "NULL");
             if (!currentProfile) return;
 
             const gameId = currentGameConfig.id;
             const romName = currentGameConfig.rom_path.split('/').pop();
             const saveFileName = romName.replace(/\.\w+$/, '.srm');
+            const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
 
-            const snapshot = await get(child(ref(db), `users/${currentProfile.id}/saves/${gameId}`));
+            console.log("   - Game ID:", gameId);
+            console.log("   - Target Virtual Path:", virtualPath);
 
-            if (snapshot.exists()) {
-                const cloudData = snapshot.val();
-                // console.log("Found save!", new Date(cloudData.timestamp).toLocaleString());
+            try {
+                console.log("   - Fetching from Firebase...");
+                const snapshot = await get(child(ref(db), `users/${currentProfile.id}/saves/${gameId}`));
 
-                const saveBytes = base64ToUint8Array(cloudData.srm_data);
-                const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
+                if (snapshot.exists()) {
+                    const cloudData = snapshot.val();
+                    console.log("   ✅ [LOAD] Save found in cloud!");
+                    console.log("   - Timestamp:", new Date(cloudData.timestamp).toLocaleString());
+                    console.log("   - Size (Base64):", cloudData.srm_data.length);
 
-                try {
+                    const saveBytes = base64ToUint8Array(cloudData.srm_data);
+                    
                     if (window.Module && window.Module.FS) {
+                        console.log("   - Writing to virtual FS...");
                         window.Module.FS.createPath('/home/web_user/retroarch/userdata', 'saves', true, true);
                         window.Module.FS.writeFile(virtualPath, saveBytes);
-                        console.log(`Restored save to ${virtualPath}`);
+                        console.log(`   ✅ [LOAD] Restored save to ${virtualPath}`);
+                    } else {
+                        console.error("   ❌ [LOAD] window.Module.FS is undefined!");
                     }
-                } catch (e) {
-                    console.error("Failed to inject save:", e);
+                } else {
+                    console.log("   ⚠️ [LOAD] No save found in cloud for this game.");
                 }
+            } catch (err) {
+                console.error("   ❌ [LOAD] Error fetching save:", err);
             }
         };
 
         // --- Save Extraction Hook ---
         window.EJS_onSaveUpdate = function () {
-            if (!currentProfile || currentProfile.id === 'guest') return;
+            console.log("🔥 [SAVE] EJS_onSaveUpdate triggered!");
+            
+            if (!currentProfile || currentProfile.id === 'guest') {
+                console.log("   ⚠️ [SAVE] Guest or No Profile. Skipping save.");
+                return;
+            };
 
             const romName = currentGameConfig.rom_path.split('/').pop();
             const saveFileName = romName.replace(/\.\w+$/, '.srm');
             const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
+            
+            console.log("   - Virtual Path:", virtualPath);
 
             try {
                 if (window.Module && window.Module.FS) {
+                    // Check if file exists first? Module.FS.stat throws if not found
+                    try {
+                        const stat = window.Module.FS.stat(virtualPath);
+                        console.log("   - File stats:", stat);
+                    } catch (e) {
+                         console.log("   ⚠️ [SAVE] Save file does not exist in FS yet.");
+                         return;
+                    }
+
                     const fileData = window.Module.FS.readFile(virtualPath);
+                    console.log("   - Read file success. Bytes:", fileData.length);
                     const base64String = uint8ArrayToBase64(fileData);
 
+                    console.log("   - Uploading to Firebase...");
                     set(ref(db, `users/${currentProfile.id}/saves/${currentGameConfig.id}`), {
                         srm_data: base64String,
                         timestamp: Date.now()
+                    }).then(() => {
+                        console.log("   ✅ [SAVE] Upload success!");
+                    }).catch(e => {
+                        console.error("   ❌ [SAVE] Upload failed:", e);
                     });
+                } else {
+                    console.error("   ❌ [SAVE] window.Module.FS is undefined!");
                 }
             } catch (e) {
-                // silent fail
+                console.error("   ❌ [SAVE] Unexpected error:", e);
             }
         };
 
