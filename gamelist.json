@@ -1,11 +1,123 @@
 [
     {
-        "id": "super_mario_advance_2_-_super_mario_world_(usa,_australia)_gba",
-        "name": "Super Mario Advance 2 - Super Mario World",
+        "id": "castlevania_-_aria_of_sorrow_(usa)_gba",
+        "name": "Castlevania - Aria of Sorrow",
         "system": "gba",
-        "rom_path": "roms/gba/Super Mario Advance 2 - Super Mario World (USA, Australia).gba",
+        "rom_path": "roms/gba/Castlevania - Aria of Sorrow (USA).gba",
         "core": "mgba",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Super%20Mario%20Advance%202%20-%20Super%20Mario%20World%20%28USA%2C%20Australia%29.png"
+        "image": "assets/gba/Castlevania - Aria of Sorrow (USA).png"
+    },
+    {
+        "id": "dragon_ball_-_advanced_adventure_(usa)_gba",
+        "name": "Dragon Ball - Advanced Adventure",
+        "system": "gba",
+        "rom_path": "roms/gba/Dragon Ball - Advanced Adventure (USA).gba",
+        "core": "mgba",
+        "image": "assets/gba/Dragon Ball - Advanced Adventure (USA).png"
+    },
+    {
+        "id": "f-zero_-_maximum_velocity_(ue)_[!]_gba",
+        "name": "F-Zero - Maximum Velocity",
+        "system": "gba",
+        "rom_path": "roms/gba/F-Zero - Maximum Velocity (UE) [!].gba",
+        "core": "mgba",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/F-Zero%20-%20Maximum%20Velocity%20%28UE%29%20%5B%21%5D.png"
+    },
+    {
+        "id": "final_fantasy_tactics_advance_(usa)_gba",
+        "name": "Final Fantasy Tactics Advance",
+        "system": "gba",
+        "rom_path": "roms/gba/Final Fantasy Tactics Advance (USA).gba",
+        "core": "mgba",
+        "image": "assets/gba/Final Fantasy Tactics Advance (USA).png"
+    },
+    {
+        "id": "final_fantasy_vi_advance_(usa)_gba",
+        "name": "Final Fantasy VI Advance",
+        "system": "gba",
+        "rom_path": "roms/gba/Final Fantasy VI Advance (USA).gba",
+        "core": "mgba",
+        "image": "assets/gba/Final Fantasy VI Advance (USA).png"
+    },
+    {
+        "id": "fire_emblem_-_the_sacred_stones_(u)_gba",
+        "name": "Fire Emblem - The Sacred Stones",
+        "system": "gba",
+        "rom_path": "roms/gba/Fire Emblem - The Sacred Stones (U).gba",
+        "core": "mgba",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Fire%20Emblem%20-%20The%20Sacred%20Stones%20%28U%29.png"
+    },
+    {
+        "id": "harvest_moon_-_friends_of_mineral_town_(usa)_gba",
+        "name": "Harvest Moon - Friends of Mineral Town",
+        "system": "gba",
+        "rom_path": "roms/gba/Harvest Moon - Friends of Mineral Town (USA).gba",
+        "core": "mgba",
+        "image": "assets/gba/Harvest Moon - Friends of Mineral Town (USA).png"
+    },
+    {
+        "id": "mario_&_luigi_-_superstar_saga_(usa)_gba",
+        "name": "Mario & Luigi - Superstar Saga",
+        "system": "gba",
+        "rom_path": "roms/gba/Mario & Luigi - Superstar Saga (USA).gba",
+        "core": "mgba",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Mario%20%26%20Luigi%20-%20Superstar%20Saga%20%28USA%29.png"
+    },
+    {
+        "id": "mario_kart_-_super_circuit_(usa)_gba",
+        "name": "Mario Kart - Super Circuit",
+        "system": "gba",
+        "rom_path": "roms/gba/Mario Kart - Super Circuit (USA).gba",
+        "core": "mgba",
+        "image": "assets/gba/Mario Kart - Super Circuit (USA).png"
+    },
+    {
+        "id": "mega_man_zero_(usa,_europe)_gba",
+        "name": "Mega Man Zero",
+        "system": "gba",
+        "rom_path": "roms/gba/Mega Man Zero (USA, Europe).gba",
+        "core": "mgba",
+        "image": "assets/gba/Mega Man Zero (USA, Europe).png"
+    },
+    {
+        "id": "metroid_fusion_(usa)_gba",
+        "name": "Metroid Fusion",
+        "system": "gba",
+        "rom_path": "roms/gba/Metroid Fusion (USA).gba",
+        "core": "mgba",
+        "image": "assets/gba/Metroid Fusion (USA).png"
+    },
+    {
+        "id": "mother_3_gba",
+        "name": "Mother 3",
+        "system": "gba",
+        "rom_path": "roms/gba/Mother 3.gba",
+        "core": "mgba",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Mother%203.png"
+    },
+    {
+        "id": "pokemon_emerald_seaglass_3_0_(pokemonemeraldseaglass_com)_gba",
+        "name": "Pokemon Emerald Seaglass 3.0",
+        "system": "gba",
+        "rom_path": "roms/gba/Pokemon Emerald Seaglass 3.0 (PokemonEmeraldseaglass.com).gba",
+        "core": "mgba",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Pokemon%20Emerald%20Seaglass%203.0%20%28PokemonEmeraldseaglass.com%29.png"
+    },
+    {
+        "id": "pokemon_mystery_dungeon_-_red_rescue_team_(usa,_australia)_gba",
+        "name": "Pokemon Mystery Dungeon - Red Rescue Team",
+        "system": "gba",
+        "rom_path": "roms/gba/Pokemon Mystery Dungeon - Red Rescue Team (USA, Australia).gba",
+        "core": "mgba",
+        "image": "assets/gba/Pokemon Mystery Dungeon - Red Rescue Team (USA, Australia).png"
+    },
+    {
+        "id": "super_mario_advance_3_-_yoshi's_island_(usa)_gba",
+        "name": "Super Mario Advance 3 - Yoshi's Island",
+        "system": "gba",
+        "rom_path": "roms/gba/Super Mario Advance 3 - Yoshi's Island (USA).gba",
+        "core": "mgba",
+        "image": "assets/gba/Super Mario Advance 3 - Yoshi's Island (USA).png"
     },
     {
         "id": "the_legend_of_zelda_-_the_minish_cap_(usa)_gba",
@@ -16,12 +128,100 @@
         "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The%20-%20The%20Minish%20Cap%20%28USA%29.png"
     },
     {
+        "id": "worms_-_world_party_(u)_(m5)_gba",
+        "name": "Worms - World Party",
+        "system": "gba",
+        "rom_path": "roms/gba/Worms - World Party (U) (M5).gba",
+        "core": "mgba",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Worms%20-%20World%20Party%20%28U%29%20%28M5%29.png"
+    },
+    {
+        "id": "yu-gi-oh!_-_ultimate_masters_-_world_championship_tournament_2006_(usa)_(en,ja,fr,de,es,it)_gba",
+        "name": "Yu-Gi-Oh! - Ultimate Masters - World Championship Tournament 2006",
+        "system": "gba",
+        "rom_path": "roms/gba/Yu-Gi-Oh! - Ultimate Masters - World Championship Tournament 2006 (USA) (En,Ja,Fr,De,Es,It).gba",
+        "core": "mgba",
+        "image": "assets/gba/Yu-Gi-Oh! - Ultimate Masters - World Championship Tournament 2006 (USA) (En,Ja,Fr,De,Es,It).png"
+    },
+    {
+        "id": "donkey_kong_(world)_(rev_a)_(sgb_enhanced)_gb",
+        "name": "Donkey Kong",
+        "system": "gb",
+        "rom_path": "roms/gbc/Donkey Kong (World) (Rev A) (SGB Enhanced).gb",
+        "core": "gambatte",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy/master/Named_Boxarts/Donkey%20Kong%20%28World%29%20%28Rev%20A%29%20%28SGB%20Enhanced%29.png"
+    },
+    {
         "id": "legend_of_zelda,_the_-_link's_awakening_dx_(usa,_europe)_(rev_2)_(sgb_enhanced)_(gb_compatible)_gbc",
         "name": "The Legend of Zelda - Link's Awakening DX",
         "system": "gbc",
         "rom_path": "roms/gbc/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible).gbc",
         "core": "gambatte",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The%20-%20Link%27s%20Awakening%20DX%20%28USA%2C%20Europe%29%20%28Rev%202%29%20%28SGB%20Enhanced%29%20%28GB%20Compatible%29.png"
+        "image": "assets/gbc/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible).png"
+    },
+    {
+        "id": "metroid_ii_-_ejrtq_colorization_(v1_3)_-_canon_samus_gb",
+        "name": "Metroid II - EJRTQ Colorization - Canon Samus",
+        "system": "gb",
+        "rom_path": "roms/gbc/Metroid II - EJRTQ Colorization (v1.3) - Canon Samus.gb",
+        "core": "gambatte",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy/master/Named_Boxarts/Metroid%20II%20-%20EJRTQ%20Colorization%20%28v1.3%29%20-%20Canon%20Samus.png"
+    },
+    {
+        "id": "pokemon_blue_-_color_gen2_(v1_2)_gbc",
+        "name": "Pokemon Blue - Color Gen2",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Pokemon Blue - Color Gen2 (v1.2).gbc",
+        "core": "gambatte",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Pokemon%20Blue%20-%20Color%20Gen2%20%28v1.2%29.png"
+    },
+    {
+        "id": "pokemon_pinball_generations_v1_5_gbc",
+        "name": "Pokemon Pinball Generations v1.5",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Pokemon Pinball Generations v1.5.gbc",
+        "core": "gambatte",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Pokemon%20Pinball%20Generations%20v1.5.png"
+    },
+    {
+        "id": "pokemon_trading_card_game_(usa,_australia)_gbc",
+        "name": "Pokemon Trading Card Game",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Pokemon Trading Card Game (USA, Australia).gbc",
+        "core": "gambatte",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Pokemon%20Trading%20Card%20Game%20%28USA%2C%20Australia%29.png"
+    },
+    {
+        "id": "shantae_(usa)_gbc",
+        "name": "Shantae",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Shantae (USA).gbc",
+        "core": "gambatte",
+        "image": "assets/gbc/Shantae (USA).png"
+    },
+    {
+        "id": "super_mario_land_2_dx_gbc",
+        "name": "Super Mario Land 2 DX",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Super Mario Land 2 DX.gbc",
+        "core": "gambatte",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Super%20Mario%20Land%202%20DX.png"
+    },
+    {
+        "id": "survival_kids_(usa)_(sgb_enhanced)_(gb_compatible)_gbc",
+        "name": "Survival Kids",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Survival Kids (USA) (SGB Enhanced) (GB Compatible).gbc",
+        "core": "gambatte",
+        "image": "assets/gbc/Survival Kids (USA) (SGB Enhanced) (GB Compatible).png"
+    },
+    {
+        "id": "tetris_dx_(world)_(sgb_enhanced)_(gb_compatible)_gbc",
+        "name": "Tetris DX",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Tetris DX (World) (SGB Enhanced) (GB Compatible).gbc",
+        "core": "gambatte",
+        "image": "assets/gbc/Tetris DX (World) (SGB Enhanced) (GB Compatible).png"
     },
     {
         "id": "legend_of_zelda,_the_-_majora's_mask_(usa)_z64",
@@ -29,7 +229,71 @@
         "system": "n64",
         "rom_path": "roms/n64/Legend of Zelda, The - Majora's Mask (USA).z64",
         "core": "mupen64plus_next",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_64/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The%20-%20Majora%27s%20Mask%20%28USA%29.png"
+        "image": "assets/n64/Legend of Zelda, The - Majora's Mask (USA).png"
+    },
+    {
+        "id": "super_mario_64_(u)_[!]_z64",
+        "name": "Super Mario 64",
+        "system": "n64",
+        "rom_path": "roms/n64/Super Mario 64 (U) [!].z64",
+        "core": "mupen64plus_next",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_64/master/Named_Boxarts/Super%20Mario%2064%20%28U%29%20%5B%21%5D.png"
+    },
+    {
+        "id": "contra_(usa)_nes",
+        "name": "Contra",
+        "system": "nes",
+        "rom_path": "roms/nes/Contra (USA).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Contra (USA).png"
+    },
+    {
+        "id": "donkey_kong_(world)_(rev_1)_nes",
+        "name": "Donkey Kong",
+        "system": "nes",
+        "rom_path": "roms/nes/Donkey Kong (World) (Rev 1).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Donkey Kong (World) (Rev 1).png"
+    },
+    {
+        "id": "kirby's_adventure_(usa)_(rev_1)_nes",
+        "name": "Kirby's Adventure",
+        "system": "nes",
+        "rom_path": "roms/nes/Kirby's Adventure (USA) (Rev 1).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Kirby's Adventure (USA) (Rev 1).png"
+    },
+    {
+        "id": "legend_of_zelda,_the_(usa)_(rev_1)_nes",
+        "name": "The Legend of Zelda",
+        "system": "nes",
+        "rom_path": "roms/nes/Legend of Zelda, The (USA) (Rev 1).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Legend of Zelda, The (USA) (Rev 1).png"
+    },
+    {
+        "id": "mega_man_6_(usa)_nes",
+        "name": "Mega Man 6",
+        "system": "nes",
+        "rom_path": "roms/nes/Mega Man 6 (USA).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Mega Man 6 (USA).png"
+    },
+    {
+        "id": "super_mario_bros__(world)_nes",
+        "name": "Super Mario Bros.",
+        "system": "nes",
+        "rom_path": "roms/nes/Super Mario Bros. (World).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Super Mario Bros. (World).png"
+    },
+    {
+        "id": "super_mario_bros__2_(usa)_(rev_1)_nes",
+        "name": "Super Mario Bros. 2",
+        "system": "nes",
+        "rom_path": "roms/nes/Super Mario Bros. 2 (USA) (Rev 1).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Super Mario Bros. 2 (USA) (Rev 1).png"
     },
     {
         "id": "super_mario_bros__3_(usa)_(rev_1)_nes",
@@ -37,23 +301,127 @@
         "system": "nes",
         "rom_path": "roms/nes/Super Mario Bros. 3 (USA) (Rev 1).nes",
         "core": "fceumm",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/master/Named_Boxarts/Super%20Mario%20Bros.%203%20%28USA%29%20%28Rev%201%29.png"
+        "image": "assets/nes/Super Mario Bros. 3 (USA) (Rev 1).png"
+    },
+    {
+        "id": "teenage_mutant_ninja_turtles_ii_-_the_arcade_game_(usa)_nes",
+        "name": "Teenage Mutant Ninja Turtles II - The Arcade Game",
+        "system": "nes",
+        "rom_path": "roms/nes/Teenage Mutant Ninja Turtles II - The Arcade Game (USA).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Teenage Mutant Ninja Turtles II - The Arcade Game (USA).png"
+    },
+    {
+        "id": "teenage_mutant_ninja_turtles_iii_-_the_manhattan_project_(usa)_nes",
+        "name": "Teenage Mutant Ninja Turtles III - The Manhattan Project",
+        "system": "nes",
+        "rom_path": "roms/nes/Teenage Mutant Ninja Turtles III - The Manhattan Project (USA).nes",
+        "core": "fceumm",
+        "image": "assets/nes/Teenage Mutant Ninja Turtles III - The Manhattan Project (USA).png"
+    },
+    {
+        "id": "puyo_pop_(world)_(en,ja)_(v1_06)_ngc",
+        "name": "Puyo Pop",
+        "system": "ngp",
+        "rom_path": "roms/ngp/Puyo Pop (World) (En,Ja) (v1.06).ngc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Puyo%20Pop%20%28World%29%20%28En%2CJa%29%20%28v1.06%29.png"
+    },
+    {
+        "id": "rockman_-_battle_&_fighters_(english_v1_0)_ngc",
+        "name": "Rockman - Battle & Fighters",
+        "system": "ngp",
+        "rom_path": "roms/ngp/Rockman - Battle & Fighters (English v1.0).ngc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Rockman%20-%20Battle%20%26%20Fighters%20%28English%20v1.0%29.png"
+    },
+    {
+        "id": "snk_vs__capcom_-_card_fighters'_clash_-_snk_version_(usa)_ngc",
+        "name": "SNK vs. Capcom - Card Fighters' Clash - SNK Version",
+        "system": "ngp",
+        "rom_path": "roms/ngp/SNK vs. Capcom - Card Fighters' Clash - SNK Version (USA).ngc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/SNK%20vs.%20Capcom%20-%20Card%20Fighters%27%20Clash%20-%20SNK%20Version%20%28USA%29.png"
+    },
+    {
+        "id": "aladdin_(usa)_md",
+        "name": "Aladdin",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Aladdin (USA).md",
+        "core": "picodrive",
+        "image": "assets/sega_md/Aladdin (USA).png"
+    },
+    {
+        "id": "castlevania_-_bloodlines_(usa)_md",
+        "name": "Castlevania - Bloodlines",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Castlevania - Bloodlines (USA).md",
+        "core": "picodrive",
+        "image": "assets/sega_md/Castlevania - Bloodlines (USA).png"
+    },
+    {
+        "id": "earthworm_jim_2_(usa)_md",
+        "name": "Earthworm Jim 2",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Earthworm Jim 2 (USA).md",
+        "core": "picodrive",
+        "image": "assets/sega_md/Earthworm Jim 2 (USA).png"
+    },
+    {
+        "id": "gunstar_heroes_(usa)_md",
+        "name": "Gunstar Heroes",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Gunstar Heroes (USA).md",
+        "core": "picodrive",
+        "image": "assets/sega_md/Gunstar Heroes (USA).png"
+    },
+    {
+        "id": "nba_jam_-_tournament_edition_(world)_md",
+        "name": "NBA Jam - Tournament Edition",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/NBA Jam - Tournament Edition (World).md",
+        "core": "picodrive",
+        "image": "assets/sega_md/NBA Jam - Tournament Edition (World).png"
+    },
+    {
+        "id": "phantasy_star_iv_(usa)_md",
+        "name": "Phantasy Star IV",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Phantasy Star IV (USA).md",
+        "core": "picodrive",
+        "image": "assets/sega_md/Phantasy Star IV (USA).png"
     },
     {
         "id": "road_rash_(usa,_europe)_md",
         "name": "Road Rash",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Road Rash (USA, Europe).md",
-        "core": "genesis_plus_gx",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Road%20Rash%20%28USA%2C%20Europe%29.png"
+        "core": "picodrive",
+        "image": "assets/sega_md/Road Rash (USA, Europe).png"
     },
     {
         "id": "sonic_&_knuckles_+_sonic_the_hedgehog_3_(usa)_md",
         "name": "Sonic & Knuckles + Sonic The Hedgehog 3",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Sonic & Knuckles + Sonic The Hedgehog 3 (USA).md",
-        "core": "genesis_plus_gx",
+        "core": "picodrive",
         "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Sonic%20The%20Hedgehog%203%20%28USA%29.png"
+    },
+    {
+        "id": "teenage_mutant_ninja_turtles_-_the_hyperstone_heist_(usa)_md",
+        "name": "Teenage Mutant Ninja Turtles - The Hyperstone Heist",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA).md",
+        "core": "picodrive",
+        "image": "assets/sega_md/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA).png"
+    },
+    {
+        "id": "ultimate_mortal_kombat_3_(usa)_md",
+        "name": "Ultimate Mortal Kombat 3",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/Ultimate Mortal Kombat 3 (USA).md",
+        "core": "picodrive",
+        "image": "assets/sega_md/Ultimate Mortal Kombat 3 (USA).png"
     },
     {
         "id": "contra_iii_-_the_alien_wars_(usa)_sfc",
@@ -61,6 +429,78 @@
         "system": "snes",
         "rom_path": "roms/snes/Contra III - The Alien Wars (USA).sfc",
         "core": "snes9x",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Super_Nintendo_Entertainment_System/master/Named_Boxarts/Contra%20III%20-%20The%20Alien%20Wars%20%28USA%29.png"
+        "image": "assets/snes/Contra III - The Alien Wars (USA).png"
+    },
+    {
+        "id": "donkey_kong_country_2_-_diddy's_kong_quest_(usa)_(en,fr)_(rev_1)_sfc",
+        "name": "Donkey Kong Country 2 - Diddy's Kong Quest",
+        "system": "snes",
+        "rom_path": "roms/snes/Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) (Rev 1).sfc",
+        "core": "snes9x",
+        "image": "assets/snes/Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) (Rev 1).png"
+    },
+    {
+        "id": "mega_man_x3_(usa)_sfc",
+        "name": "Mega Man X3",
+        "system": "snes",
+        "rom_path": "roms/snes/Mega Man X3 (USA).sfc",
+        "core": "snes9x",
+        "image": "assets/snes/Mega Man X3 (USA).png"
+    },
+    {
+        "id": "street_fighter_ii_turbo_(usa)_(rev_1)_sfc",
+        "name": "Street Fighter II Turbo",
+        "system": "snes",
+        "rom_path": "roms/snes/Street Fighter II Turbo (USA) (Rev 1).sfc",
+        "core": "snes9x",
+        "image": "assets/snes/Street Fighter II Turbo (USA) (Rev 1).png"
+    },
+    {
+        "id": "super_bomberman_2_(usa)_sfc",
+        "name": "Super Bomberman 2",
+        "system": "snes",
+        "rom_path": "roms/snes/Super Bomberman 2 (USA).sfc",
+        "core": "snes9x",
+        "image": "assets/snes/Super Bomberman 2 (USA).png"
+    },
+    {
+        "id": "super_castlevania_iv_(usa)_sfc",
+        "name": "Super Castlevania IV",
+        "system": "snes",
+        "rom_path": "roms/snes/Super Castlevania IV (USA).sfc",
+        "core": "snes9x",
+        "image": "assets/snes/Super Castlevania IV (USA).png"
+    },
+    {
+        "id": "super_mario_world_(usa)_sfc",
+        "name": "Super Mario World",
+        "system": "snes",
+        "rom_path": "roms/snes/Super Mario World (USA).sfc",
+        "core": "snes9x",
+        "image": "assets/snes/Super Mario World (USA).png"
+    },
+    {
+        "id": "super_punch-out!!_(usa)_sfc",
+        "name": "Super Punch-Out!!",
+        "system": "snes",
+        "rom_path": "roms/snes/Super Punch-Out!! (USA).sfc",
+        "core": "snes9x",
+        "image": "assets/snes/Super Punch-Out!! (USA).png"
+    },
+    {
+        "id": "teenage_mutant_ninja_turtles_iv_-_turtles_in_time_(usa)_sfc",
+        "name": "Teenage Mutant Ninja Turtles IV - Turtles in Time",
+        "system": "snes",
+        "rom_path": "roms/snes/Teenage Mutant Ninja Turtles IV - Turtles in Time (USA).sfc",
+        "core": "snes9x",
+        "image": "assets/snes/Teenage Mutant Ninja Turtles IV - Turtles in Time (USA).png"
+    },
+    {
+        "id": "the_legend_of_zelda_-_a_link_to_the_past_(usa)_sfc",
+        "name": "The Legend of Zelda - A Link to the Past",
+        "system": "snes",
+        "rom_path": "roms/snes/The Legend of Zelda - A Link to the Past (USA).sfc",
+        "core": "snes9x",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Super_Nintendo_Entertainment_System/master/Named_Boxarts/The%20Legend%20of%20Zelda%20-%20A%20Link%20to%20the%20Past%20%28USA%29.png"
     }
 ]

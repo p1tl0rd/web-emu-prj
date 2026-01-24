@@ -21,8 +21,8 @@ EXTENSIONS_MAP = {
     '.v64': {'system': 'n64', 'core': 'mupen64plus_next'},
     
     # SEGA
-    '.md': {'system': 'segaMD', 'core': 'genesis_plus_gx'},
-    '.gen': {'system': 'segaMD', 'core': 'genesis_plus_gx'},
+    '.md': {'system': 'segaMD', 'core': 'picodrive'},
+    '.gen': {'system': 'segaMD', 'core': 'picodrive'},
     '.gg': {'system': 'segaGG', 'core': 'genesis_plus_gx'},
     '.sms': {'system': 'segaMS', 'core': 'smsplus'},
     '.32x': {'system': 'sega32x', 'core': 'picodrive'},
@@ -76,7 +76,7 @@ def scan_roms():
                     config = {'system': 'psx', 'core': 'pcsx_rearmed'}
                 else:
                     # Default to Sega Genesis/Mega Drive
-                    config = {'system': 'segaMD', 'core': 'genesis_plus_gx'}
+                    config = {'system': 'segaMD', 'core': 'picodrive'}
             elif ext == '.cue':
                  if 'psx' in root.lower() or 'playstation' in root.lower():
                     config = {'system': 'psx', 'core': 'pcsx_rearmed'}
