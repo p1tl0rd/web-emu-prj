@@ -448,14 +448,6 @@
         "image": "assets/sega_md/Phantasy Star IV (USA).png"
     },
     {
-        "id": "road_rash_(usa,_europe)_md",
-        "name": "Road Rash",
-        "system": "segaMD",
-        "rom_path": "roms/sega_md/Road Rash (USA, Europe).md",
-        "core": "segaMD",
-        "image": "assets/sega_md/Road Rash (USA, Europe).png"
-    },
-    {
         "id": "sonic_&_knuckles_+_sonic_the_hedgehog_3_(usa)_md",
         "name": "Sonic & Knuckles + Sonic The Hedgehog 3",
         "system": "segaMD",
@@ -470,6 +462,14 @@
         "rom_path": "roms/sega_md/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA).md",
         "core": "segaMD",
         "image": "assets/sega_md/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA).png"
+    },
+    {
+        "id": "toejam_&_earl_(usa,_europe,_korea)_md",
+        "name": "ToeJam & Earl",
+        "system": "segaMD",
+        "rom_path": "roms/sega_md/ToeJam & Earl (USA, Europe, Korea).md",
+        "core": "segaMD",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/ToeJam%20%26%20Earl%20%28USA%2C%20Europe%2C%20Korea%29.png"
     },
     {
         "id": "ultimate_mortal_kombat_3_(usa)_md",

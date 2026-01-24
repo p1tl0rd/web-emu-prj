@@ -486,6 +486,40 @@ function startGame(game) {
                 console.error("   ❌ [POLL] Unexpected Error:", e);
             }
         }
+
+        // --- Native Event Hooks (RomM Style) ---
+        window.EJS_onSaveSave = function (e) {
+            // e is likely the Uint8Array or an object containing it
+            console.log("🔥 [EVENT] EJS_onSaveSave triggered!", e);
+            
+            if (!currentProfile || currentProfile.id === 'guest') return;
+            
+            // If e represents the file content (Uint8Array)
+            if (e && (e instanceof Uint8Array || e.byteLength !== undefined)) {
+                 const fileData = new Uint8Array(e);
+                 
+                 // Smart check
+                 if (arraysEqual(fileData, lastSaveData)) {
+                     console.log("   💤 [EVENT] Content matches cache. Skipping upload.");
+                     return;
+                 }
+                 
+                 console.log("   💾 [EVENT] Uploading via Native Hook... (" + fileData.length + " bytes)");
+                 const base64String = uint8ArrayToBase64(fileData);
+                 
+                 const gameId = currentGameConfig.id; // Global var
+                 
+                 set(ref(db, `users/${currentProfile.id}/saves/${gameId}`), {
+                    srm_data: base64String,
+                    timestamp: Date.now()
+                }).then(() => {
+                   console.log("   ✅ [EVENT] Native Upload Success!");
+                   lastSaveData = fileData; // Update cache
+                }).catch(err => {
+                    console.error("   ❌ [EVENT] Upload failed:", err);
+                });
+            }
+        };
         
         // Keep Event hook just in case, but delegate to poller logic?
         window.EJS_onSaveUpdate = function () {
