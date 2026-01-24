@@ -370,11 +370,18 @@ function startGame(game) {
 
         // --- Save Injection Hook ---
         // --- Save Injection Hook ---
+        let saveInterval;
+        let lastSaveData = null; // Store Uint8Array of last known save state
+
         // --- Save Injection Hook ---
         window.EJS_onGameStart = async function () {
             console.log("🔥 [LOAD] EJS_onGameStart triggered!");
             console.log("   - Current Profile:", currentProfile ? currentProfile.name : "NULL");
             if (!currentProfile) return;
+
+            // Stop any existing interval
+            if (saveInterval) clearInterval(saveInterval);
+            lastSaveData = null; // Reset cache
 
             const gameId = currentGameConfig.id;
             const romName = currentGameConfig.rom_path.split('/').pop();
@@ -395,6 +402,7 @@ function startGame(game) {
                     console.log("   - Size (Base64):", cloudData.srm_data.length);
 
                     const saveBytes = base64ToUint8Array(cloudData.srm_data);
+                    lastSaveData = saveBytes; // Cache initial cloud state
                     
                     if (window.Module && window.Module.FS) {
                         console.log("   - Writing to virtual FS...");
@@ -410,53 +418,71 @@ function startGame(game) {
             } catch (err) {
                 console.error("   ❌ [LOAD] Error fetching save:", err);
             }
+
+            // Start Polling for new saves
+            console.log("   ⏳ [POLL] Starting Save Poller (1s interval)...");
+            saveInterval = setInterval(() => checkForSaveUpdate(virtualPath, gameId), 1000);
         };
 
-        // --- Save Extraction Hook ---
-        window.EJS_onSaveUpdate = function () {
-            console.log("🔥 [SAVE] EJS_onSaveUpdate triggered!");
-            
-            if (!currentProfile || currentProfile.id === 'guest') {
-                console.log("   ⚠️ [SAVE] Guest or No Profile. Skipping save.");
-                return;
-            };
+        // --- Helper: Compare Byte Arrays ---
+        function arraysEqual(a, b) {
+            if (a === b) return true;
+            if (a == null || b == null) return false;
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; ++i) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
 
-            const romName = currentGameConfig.rom_path.split('/').pop();
-            const saveFileName = romName.replace(/\.\w+$/, '.srm');
-            const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
+        // --- Polling Function ---
+        function checkForSaveUpdate(virtualPath, gameId) {
+            if (!currentProfile || currentProfile.id === 'guest') return;
             
-            console.log("   - Virtual Path:", virtualPath);
-
             try {
                 if (window.Module && window.Module.FS) {
-                    // Check if file exists first? Module.FS.stat throws if not found
                     try {
-                        const stat = window.Module.FS.stat(virtualPath);
-                        console.log("   - File stats:", stat);
+                        // Check if file exists
+                        window.Module.FS.stat(virtualPath); // Throws if missing
+
+                        // Read file
+                        const fileData = window.Module.FS.readFile(virtualPath);
+                        
+                        // SMART CHECK: Only upload if different from last cache
+                        if (arraysEqual(fileData, lastSaveData)) {
+                             // console.log("   💤 [POLL] No changes detected.");
+                             return;
+                        }
+
+                        console.log("   💾 [POLL] Save changed! Uploading... (" + fileData.length + " bytes)");
+                        const base64String = uint8ArrayToBase64(fileData);
+                        
+                        set(ref(db, `users/${currentProfile.id}/saves/${gameId}`), {
+                            srm_data: base64String,
+                            timestamp: Date.now()
+                        }).then(() => {
+                           console.log("   ✅ [POLL] Cloud Sync Success!");
+                           lastSaveData = fileData; // Update cache after success
+                        }).catch(e => {
+                            console.error("   ❌ [POLL] Upload failed:", e);
+                        });
+
                     } catch (e) {
-                         console.log("   ⚠️ [SAVE] Save file does not exist in FS yet.");
-                         return;
+                         // File not found yet
                     }
-
-                    const fileData = window.Module.FS.readFile(virtualPath);
-                    console.log("   - Read file success. Bytes:", fileData.length);
-                    const base64String = uint8ArrayToBase64(fileData);
-
-                    console.log("   - Uploading to Firebase...");
-                    set(ref(db, `users/${currentProfile.id}/saves/${currentGameConfig.id}`), {
-                        srm_data: base64String,
-                        timestamp: Date.now()
-                    }).then(() => {
-                        console.log("   ✅ [SAVE] Upload success!");
-                    }).catch(e => {
-                        console.error("   ❌ [SAVE] Upload failed:", e);
-                    });
-                } else {
-                    console.error("   ❌ [SAVE] window.Module.FS is undefined!");
                 }
             } catch (e) {
-                console.error("   ❌ [SAVE] Unexpected error:", e);
+                console.error("   ❌ [POLL] Error:", e);
             }
+        }
+        
+        // Keep Event hook just in case, but delegate to poller logic?
+        window.EJS_onSaveUpdate = function () {
+             console.log("🔥 [EVENT] EJS_onSaveUpdate triggered (Rare)!");
+             // We can trigger an immediate check
+             if (saveInterval) {
+                 // Logic likely handled by poller, but good to know if it fires.
+             }
         };
 
         // Load loader - EXACT LEGACY WAY -> Just append, do not check/remove
