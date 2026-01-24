@@ -303,6 +303,47 @@ function startGame(game) {
         window.EJS_pathtodata = "data/";
         window.EJS_startOnLoaded = true;
         window.EJS_language = "en-US"; // Keep this fix to avoid 404
+
+        // --- Custom Control Mapping (WASD + IJKL) ---
+        window.EJS_defaultControls = {
+            0: {
+                0: { 'value': 'j', 'value2': 'BUTTON_2' },  // B (Bottom) -> J key (Primary 1)
+                1: { 'value': 'l', 'value2': 'BUTTON_4' },  // Y (Left)   -> L key (Secondary 1)
+                2: { 'value': 'v', 'value2': 'SELECT' },
+                3: { 'value': 'enter', 'value2': 'START' },
+                4: { 'value': 'w', 'value2': 'DPAD_UP' },    // Up    -> W
+                5: { 'value': 's', 'value2': 'DPAD_DOWN' },  // Down  -> S
+                6: { 'value': 'a', 'value2': 'DPAD_LEFT' },  // Left  -> A
+                7: { 'value': 'd', 'value2': 'DPAD_RIGHT' }, // Right -> D
+                8: { 'value': 'k', 'value2': 'BUTTON_1' },  // A (Right)  -> K key (Primary 2)
+                9: { 'value': 'i', 'value2': 'BUTTON_3' },  // X (Top)    -> I key (Secondary 2)
+                10: { 'value': 'q', 'value2': 'LEFT_TOP_SHOULDER' },
+                11: { 'value': 'e', 'value2': 'RIGHT_TOP_SHOULDER' },
+                12: { 'value': 'tab', 'value2': 'LEFT_BOTTOM_SHOULDER' },
+                13: { 'value': 'r', 'value2': 'RIGHT_BOTTOM_SHOULDER' },
+                14: { 'value': '', 'value2': 'LEFT_STICK' },
+                15: { 'value': '', 'value2': 'RIGHT_STICK' },
+                16: { 'value': 'd', 'value2': 'LEFT_STICK_X:+1' }, // Duplicate WASD to Left Stick for N64
+                17: { 'value': 'a', 'value2': 'LEFT_STICK_X:-1' },
+                18: { 'value': 's', 'value2': 'LEFT_STICK_Y:+1' },
+                19: { 'value': 'w', 'value2': 'LEFT_STICK_Y:-1' },
+                
+                20: { 'value': 'l', 'value2': 'RIGHT_STICK_X:+1' },
+                21: { 'value': 'j', 'value2': 'RIGHT_STICK_X:-1' },
+                22: { 'value': 'i', 'value2': 'RIGHT_STICK_Y:-1' },
+                23: { 'value': 'k', 'value2': 'RIGHT_STICK_Y:+1' },
+                
+                24: { 'value': '1' },
+                25: { 'value': '2' },
+                26: { 'value': '3' },
+                27: { 'value': 'add' },
+                28: { 'value': 'space' },
+                29: { 'value': 'subtract' }
+            },
+            1: {},
+            2: {},
+            3: {}
+        };
         
         // --- COI / SharedArrayBuffer Fix for Edge/GH Pages ---
         console.log("Environment Check:", {
