@@ -51,6 +51,7 @@ EXTENSIONS_MAP = {
     '.sgx': {'system': 'pce', 'core': 'mednafen_pce'},
     '.ngp': {'system': 'ngp', 'core': 'mednafen_ngp'},
     '.ngc': {'system': 'ngp', 'core': 'mednafen_ngp'},
+    '.npc': {'system': 'ngp', 'core': 'mednafen_ngp'},
     '.ws': {'system': 'wswan', 'core': 'mednafen_wswan'},
     '.wsc': {'system': 'wswan', 'core': 'mednafen_wswan'},
     '.col': {'system': 'coleco', 'core': 'gearcoleco'},

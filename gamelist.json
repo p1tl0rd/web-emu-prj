@@ -320,6 +320,54 @@
         "image": "assets/nes/Teenage Mutant Ninja Turtles III - The Manhattan Project (USA).png"
     },
     {
+        "id": "bust-a-move_pocket_(ue)_npc",
+        "name": "Bust-A-Move Pocket",
+        "system": "ngp",
+        "rom_path": "roms/ngp/Bust-A-Move Pocket (UE).npc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Bust-A-Move%20Pocket%20%28UE%29.png"
+    },
+    {
+        "id": "last_blade,_the_(ue)_[!]_npc",
+        "name": "The Last Blade",
+        "system": "ngp",
+        "rom_path": "roms/ngp/Last Blade, The (UE) [!].npc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Last%20Blade%2C%20The%20%28UE%29%20%5B%21%5D.png"
+    },
+    {
+        "id": "metal_slug_-_1st_mission_(jue)_npc",
+        "name": "Metal Slug - 1st Mission",
+        "system": "ngp",
+        "rom_path": "roms/ngp/Metal Slug - 1st Mission (JUE).npc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Metal%20Slug%20-%201st%20Mission%20%28JUE%29.png"
+    },
+    {
+        "id": "metal_slug_-_2nd_mission_(jue)_[!]_npc",
+        "name": "Metal Slug - 2nd Mission",
+        "system": "ngp",
+        "rom_path": "roms/ngp/Metal Slug - 2nd Mission (JUE) [!].npc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Metal%20Slug%20-%202nd%20Mission%20%28JUE%29%20%5B%21%5D.png"
+    },
+    {
+        "id": "neo_turf_masters_(jue)_[!]_npc",
+        "name": "Neo Turf Masters",
+        "system": "ngp",
+        "rom_path": "roms/ngp/Neo Turf Masters (JUE) [!].npc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Neo%20Turf%20Masters%20%28JUE%29%20%5B%21%5D.png"
+    },
+    {
+        "id": "pocket_tennis_color_(jue)_[!]_npc",
+        "name": "Pocket Tennis Color",
+        "system": "ngp",
+        "rom_path": "roms/ngp/Pocket Tennis Color (JUE) [!].npc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Pocket%20Tennis%20Color%20%28JUE%29%20%5B%21%5D.png"
+    },
+    {
         "id": "puyo_pop_(world)_(en,ja)_(v1_06)_ngc",
         "name": "Puyo Pop",
         "system": "ngp",
@@ -334,6 +382,14 @@
         "rom_path": "roms/ngp/Rockman - Battle & Fighters (English v1.0).ngc",
         "core": "mednafen_ngp",
         "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Rockman%20-%20Battle%20%26%20Fighters%20%28English%20v1.0%29.png"
+    },
+    {
+        "id": "snk_vs_capcom_-_match_of_the_millennium_(jue)_[!]_npc",
+        "name": "SNK Vs Capcom - Match Of The Millennium",
+        "system": "ngp",
+        "rom_path": "roms/ngp/SNK Vs Capcom - Match Of The Millennium (JUE) [!].npc",
+        "core": "mednafen_ngp",
+        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/SNK%20Vs%20Capcom%20-%20Match%20Of%20The%20Millennium%20%28JUE%29%20%5B%21%5D.png"
     },
     {
         "id": "snk_vs__capcom_-_card_fighters'_clash_-_snk_version_(usa)_ngc",
