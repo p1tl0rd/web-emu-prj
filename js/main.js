@@ -308,11 +308,19 @@ function startGame(game) {
         console.log("Environment Check:", {
             crossOriginIsolated: window.crossOriginIsolated,
             secureContext: window.isSecureContext,
-            sharedArrayBuffer: typeof window.SharedArrayBuffer !== 'undefined'
+            sharedArrayBuffer: typeof window.SharedArrayBuffer !== 'undefined',
+            userAgent: navigator.userAgent
         });
 
-        if (!window.crossOriginIsolated) {
-            console.warn("⚠️ Cross-Origin Isolation failed. Disabling EmulatorJS threads to prevent WASM crash.");
+        // FORCE FIX: Edge often reports COI=true via service worker but still crashes with SharedArrayBuffer
+        const isEdge = /Edg/.test(navigator.userAgent);
+        
+        if (!window.crossOriginIsolated || (isEdge && window.location.hostname.includes("github.io"))) {
+            if (isEdge) {
+                 console.warn("⚠️ Edge + GitHub Pages detected. Force disabling threads to prevent 'memory access out of bounds' crash.");
+            } else {
+                 console.warn("⚠️ Cross-Origin Isolation failed. Disabling EmulatorJS threads to prevent WASM crash.");
+            }
             window.EJS_threads = false; 
         } else {
              console.log("✅ Cross-Origin Isolation active. Threads enabled.");
