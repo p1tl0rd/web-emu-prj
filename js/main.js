@@ -303,6 +303,21 @@ function startGame(game) {
         window.EJS_pathtodata = "data/";
         window.EJS_startOnLoaded = true;
         window.EJS_language = "en-US"; // Keep this fix to avoid 404
+        
+        // --- COI / SharedArrayBuffer Fix for Edge/GH Pages ---
+        console.log("Environment Check:", {
+            crossOriginIsolated: window.crossOriginIsolated,
+            secureContext: window.isSecureContext,
+            sharedArrayBuffer: typeof window.SharedArrayBuffer !== 'undefined'
+        });
+
+        if (!window.crossOriginIsolated) {
+            console.warn("⚠️ Cross-Origin Isolation failed. Disabling EmulatorJS threads to prevent WASM crash.");
+            window.EJS_threads = false; 
+        } else {
+             console.log("✅ Cross-Origin Isolation active. Threads enabled.");
+        }
+
 
         // --- Save Injection Hook ---
         // --- Save Injection Hook ---
