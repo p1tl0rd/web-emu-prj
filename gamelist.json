@@ -404,7 +404,7 @@
         "name": "Aladdin",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Aladdin (USA).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/Aladdin (USA).png"
     },
     {
@@ -412,7 +412,7 @@
         "name": "Castlevania - Bloodlines",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Castlevania - Bloodlines (USA).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/Castlevania - Bloodlines (USA).png"
     },
     {
@@ -420,7 +420,7 @@
         "name": "Earthworm Jim 2",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Earthworm Jim 2 (USA).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/Earthworm Jim 2 (USA).png"
     },
     {
@@ -428,7 +428,7 @@
         "name": "Gunstar Heroes",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Gunstar Heroes (USA).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/Gunstar Heroes (USA).png"
     },
     {
@@ -436,7 +436,7 @@
         "name": "NBA Jam - Tournament Edition",
         "system": "segaMD",
         "rom_path": "roms/sega_md/NBA Jam - Tournament Edition (World).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/NBA Jam - Tournament Edition (World).png"
     },
     {
@@ -444,7 +444,7 @@
         "name": "Phantasy Star IV",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Phantasy Star IV (USA).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/Phantasy Star IV (USA).png"
     },
     {
@@ -452,7 +452,7 @@
         "name": "Road Rash",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Road Rash (USA, Europe).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/Road Rash (USA, Europe).png"
     },
     {
@@ -460,7 +460,7 @@
         "name": "Sonic & Knuckles + Sonic The Hedgehog 3",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Sonic & Knuckles + Sonic The Hedgehog 3 (USA).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Sonic%20The%20Hedgehog%203%20%28USA%29.png"
     },
     {
@@ -468,7 +468,7 @@
         "name": "Teenage Mutant Ninja Turtles - The Hyperstone Heist",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA).png"
     },
     {
@@ -476,7 +476,7 @@
         "name": "Ultimate Mortal Kombat 3",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Ultimate Mortal Kombat 3 (USA).md",
-        "core": "picodrive",
+        "core": "segaMD",
         "image": "assets/sega_md/Ultimate Mortal Kombat 3 (USA).png"
     },
     {

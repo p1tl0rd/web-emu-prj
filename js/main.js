@@ -370,8 +370,13 @@ function startGame(game) {
 
         // --- Save Injection Hook ---
         // --- Save Injection Hook ---
-        let saveInterval;
-        let lastSaveData = null; // Store Uint8Array of last known save state
+        // --- Helper: Get Emscripten FileSystem ---
+        function getFS() {
+            if (window.Module && window.Module.FS) return window.Module.FS;
+            if (window.EJS_emulator && window.EJS_emulator.Module && window.EJS_emulator.Module.FS) return window.EJS_emulator.Module.FS;
+            if (window.EJS_emulator && window.EJS_emulator.gameManager && window.EJS_emulator.gameManager.Module && window.EJS_emulator.gameManager.Module.FS) return window.EJS_emulator.gameManager.Module.FS;
+            return null;
+        }
 
         // --- Save Injection Hook ---
         window.EJS_onGameStart = async function () {
@@ -404,13 +409,14 @@ function startGame(game) {
                     const saveBytes = base64ToUint8Array(cloudData.srm_data);
                     lastSaveData = saveBytes; // Cache initial cloud state
                     
-                    if (window.Module && window.Module.FS) {
+                    const fs = getFS();
+                    if (fs) {
                         console.log("   - Writing to virtual FS...");
-                        window.Module.FS.createPath('/home/web_user/retroarch/userdata', 'saves', true, true);
-                        window.Module.FS.writeFile(virtualPath, saveBytes);
+                        fs.createPath('/home/web_user/retroarch/userdata', 'saves', true, true);
+                        fs.writeFile(virtualPath, saveBytes);
                         console.log(`   ✅ [LOAD] Restored save to ${virtualPath}`);
                     } else {
-                        console.error("   ❌ [LOAD] window.Module.FS is undefined!");
+                        console.error("   ❌ [LOAD] FS not found (Module/EJS_emulator issue)!");
                     }
                 } else {
                     console.log("   ⚠️ [LOAD] No save found in cloud for this game.");
@@ -440,13 +446,14 @@ function startGame(game) {
             if (!currentProfile || currentProfile.id === 'guest') return;
             
             try {
-                if (window.Module && window.Module.FS) {
+                const fs = getFS();
+                if (fs) {
                     try {
                         // Check if file exists
-                        window.Module.FS.stat(virtualPath); // Throws if missing
+                        fs.stat(virtualPath); // Throws if missing
 
                         // Read file
-                        const fileData = window.Module.FS.readFile(virtualPath);
+                        const fileData = fs.readFile(virtualPath);
                         
                         // SMART CHECK: Only upload if different from last cache
                         if (arraysEqual(fileData, lastSaveData)) {
@@ -469,10 +476,14 @@ function startGame(game) {
 
                     } catch (e) {
                          // File not found yet
+                         // console.warn("   ⚠️ [POLL] Save file not found yet at:", virtualPath);
+                         // Suppress warn to avoid spamming console every 1s
                     }
+                } else {
+                    // console.warn("   ⚠️ [POLL] FS not ready.");
                 }
             } catch (e) {
-                console.error("   ❌ [POLL] Error:", e);
+                console.error("   ❌ [POLL] Unexpected Error:", e);
             }
         }
         
