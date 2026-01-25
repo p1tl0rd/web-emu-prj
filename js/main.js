@@ -378,6 +378,32 @@ function startGame(game) {
             return null;
         }
 
+        // --- Helper: Find Save Directory ---
+        function findSaveDir(fs) {
+            const candidates = [
+                '/home/web_user/retroarch/userdata/saves',
+                '/home/web_user/retroarch/saves',
+                '/data/saves',
+                '/saves',
+                '/userdata/saves'
+            ];
+            
+            for (const path of candidates) {
+                try {
+                    // Try to list directory. If it succeeds, the dir exists.
+                    if (fs.readdir(path)) {
+                        console.log("   🔍 [FS] Found valid save dir:", path);
+                        return path;
+                    }
+                } catch (e) {
+                    // Path not found or not accessible
+                }
+            }
+            
+            console.warn("   ⚠️ [FS] No standard save dir found. Defaulting to standard.");
+            return '/home/web_user/retroarch/userdata/saves';
+        }
+
         // --- Save Injection Hook ---
         window.EJS_onGameStart = async function () {
             console.log("🔥 [LOAD] EJS_onGameStart triggered!");
@@ -391,7 +417,24 @@ function startGame(game) {
             const gameId = currentGameConfig.id;
             const romName = currentGameConfig.rom_path.split('/').pop();
             const saveFileName = romName.replace(/\.\w+$/, '.srm');
-            const virtualPath = `/home/web_user/retroarch/userdata/saves/${saveFileName}`;
+            
+            // Wait for FS to be ready (sometimes slight delay)
+            let fs = getFS();
+            let retries = 0;
+            while (!fs && retries < 10) {
+                await new Promise(r => setTimeout(r, 500));
+                console.log("   ⏳ Waiting for FS...");
+                fs = getFS();
+                retries++;
+            }
+            
+            if (!fs) {
+                console.error("   ❌ [LOAD] FS not found after waiting!");
+                return;
+            }
+            
+            const saveDir = findSaveDir(fs);
+            const virtualPath = `${saveDir}/${saveFileName}`;
 
             console.log("   - Game ID:", gameId);
             console.log("   - Target Virtual Path:", virtualPath);
@@ -409,15 +452,32 @@ function startGame(game) {
                     const saveBytes = base64ToUint8Array(cloudData.srm_data);
                     lastSaveData = saveBytes; // Cache initial cloud state
                     
-                    const fs = getFS();
-                    if (fs) {
-                        console.log("   - Writing to virtual FS...");
-                        fs.createPath('/home/web_user/retroarch/userdata', 'saves', true, true);
+                    console.log("   - Writing to virtual FS...");
+                    // Ensure dir exists (createPath params: parent, name, canRead, canWrite)
+                    // We need to recursively create path if findSaveDir returned a default that doesn't exist
+                    // But fs.createPath implementation usually needs parent to exist.
+                    // Simplified: just try writing. If parent invalid, we might need mkdirp.
+                    // Start simple:
+                    
+                    try {
+                        // Attempt to ensure directory exists (non-recursive check)
+                         const parts = saveDir.split('/').filter(p => p);
+                         let currentPath = '';
+                         for(let i=0; i<parts.length; i++) {
+                             const parent = currentPath || '/';
+                             const name = parts[i];
+                             currentPath = (currentPath ? currentPath + '/' : '/') + name;
+                             try { fs.stat(currentPath); } catch(e) { 
+                                 fs.createPath(parent, name, true, true); 
+                             }
+                         }
+                        
                         fs.writeFile(virtualPath, saveBytes);
                         console.log(`   ✅ [LOAD] Restored save to ${virtualPath}`);
-                    } else {
-                        console.error("   ❌ [LOAD] FS not found (Module/EJS_emulator issue)!");
+                    } catch(e) {
+                         console.error("   ❌ [LOAD] Error writing file:", e);
                     }
+
                 } else {
                     console.log("   ⚠️ [LOAD] No save found in cloud for this game.");
                 }
