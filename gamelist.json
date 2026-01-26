@@ -152,14 +152,6 @@
         "image": "assets/gb/Donkey Kong.png"
     },
     {
-        "id": "gb_Donkey_Kong",
-        "name": "Donkey Kong",
-        "system": "gb",
-        "rom_path": "roms/gbc/Donkey Kong (World).gb",
-        "core": "gambatte",
-        "image": "assets/gb/Donkey Kong.png"
-    },
-    {
         "id": "gbc_Legend_of_Zelda,_The_-_Link's_Awakening_DX",
         "name": "Legend of Zelda, The - Link's Awakening DX",
         "system": "gbc",
@@ -198,14 +190,6 @@
         "rom_path": "roms/gbc/Pokemon Pinball Generations v1.5.gbc",
         "core": "gambatte",
         "image": "assets/gbc/Pokemon Pinball Generations v1.5.png"
-    },
-    {
-        "id": "gbc_Pokemon_Pinball_Generations",
-        "name": "Pokemon Pinball Generations",
-        "system": "gbc",
-        "rom_path": "roms/gbc/Pokemon Pinball Generations.gbc",
-        "core": "gambatte",
-        "image": "assets/gbc/Pokemon Pinball Generations.png"
     },
     {
         "id": "gbc_Pokemon_Trading_Card_Game",
