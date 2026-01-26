@@ -70,13 +70,13 @@ EXTENSIONS_MAP = {
     '.psp': {'system': 'psp', 'core': 'ppsspp'},
 }
 
-# System ID -> Libretro Repo Name
+# System ID -> Libretro Repo Name (or List of Names)
 SYSTEM_TO_REPO_MAP = {
     'nes': 'Nintendo_-_Nintendo_Entertainment_System',
     'snes': 'Nintendo_-_Super_Nintendo_Entertainment_System',
     'n64': 'Nintendo_-_Nintendo_64',
-    'gb': 'Nintendo_-_Game_Boy',
-    'gbc': 'Nintendo_-_Game_Boy_Color',
+    'gb': ['Nintendo_-_Game_Boy', 'Nintendo_-_Game_Boy_Color'], # Fallback for dual compatible
+    'gbc': ['Nintendo_-_Game_Boy_Color', 'Nintendo_-_Game_Boy'],
     'gba': 'Nintendo_-_Game_Boy_Advance',
     'nds': 'Nintendo_-_Nintendo_DS',
     'vb': 'Nintendo_-_Virtual_Boy',
@@ -88,13 +88,13 @@ SYSTEM_TO_REPO_MAP = {
     'psx': 'Sony_-_PlayStation',
     'psp': 'Sony_-_PlayStation_Portable',
     'neogeo': 'SNK_-_Neo_Geo',
-    'ngp': 'SNK_-_Neo_Geo_Pocket_Color', # Updated to Color repo
+    'ngp': ['SNK_-_Neo_Geo_Pocket_Color', 'SNK_-_Neo_Geo_Pocket'], # Search both
     'atari2600': 'Atari_-_2600',
     'arcade': 'FBNeo_-_Arcade_Games' 
 }
 
 # --- Caching ---
-_repo_cache = {} # repo_name -> list of files
+_repo_cache = {} # repo_name -> {'files': [], 'clean_map': {}}
 
 # --- Helpers ---
 
@@ -104,7 +104,7 @@ def clean_filename(filename):
     name = re.sub(r'[^a-zA-Z0-9\s]', ' ', name)
     return name.strip().lower()
 
-def get_repo_files_cached(repo_name):
+def get_repo_data_cached(repo_name):
     if repo_name in _repo_cache:
         return _repo_cache[repo_name]
     
@@ -116,26 +116,33 @@ def get_repo_files_cached(repo_name):
         if response.status_code == 200:
             data = response.json()
             files = []
+            clean_map = {}
             if 'tree' in data:
                 for item in data['tree']:
                     path = item['path']
                     if path.startswith('Named_Boxarts/') and path.endswith('.png'):
-                        files.append(os.path.basename(path))
+                        fname = os.path.basename(path)
+                        files.append(fname)
+                        # Pre-calc clean name
+                        cname = clean_filename(fname)
+                        clean_map[cname] = fname
+                        
             print(f"  [API] Found {len(files)} covers.")
-            _repo_cache[repo_name] = files
-            return files
+            cache_data = {'files': files, 'clean_map': clean_map}
+            _repo_cache[repo_name] = cache_data
+            return cache_data
         elif response.status_code == 403:
              print("  [API] rate limit exceeded (60 req/hr).")
-             _repo_cache[repo_name] = [] # Cache empty so we don't retry immediately
-             return []
+             _repo_cache[repo_name] = None
+             return None
         else:
              print(f"  [API] Error {response.status_code}")
-             _repo_cache[repo_name] = []
-             return []
+             _repo_cache[repo_name] = None
+             return None
     except Exception as e:
         print(f"  [API] Exception: {e}")
-        _repo_cache[repo_name] = []
-        return []
+        _repo_cache[repo_name] = None
+        return None
 
 def download_file(repo_name, filename, save_path):
     safe_name = urllib.parse.quote(filename)
@@ -157,7 +164,6 @@ def get_smart_cover(system_id, raw_filename, asset_rel_path):
     Returns: Path to image (local) if success, or None.
     """
     # 1. Check if we already have it locally
-    # Supports multiple extensions for local check
     base_asset_path = os.path.splitext(asset_rel_path)[0] # remove default .png
     for ext in ['.png', '.jpg', '.jpeg', '.webp']:
         check_path = base_asset_path + ext
@@ -165,35 +171,47 @@ def get_smart_cover(system_id, raw_filename, asset_rel_path):
             return check_path.replace('\\', '/')
 
     # 2. Not found? Try Smart Download
-    repo_name = SYSTEM_TO_REPO_MAP.get(system_id)
-    if not repo_name:
-        return None  # Unknown system or no repo mapped, use default later
+    repo_entries = SYSTEM_TO_REPO_MAP.get(system_id)
+    if not repo_entries:
+        return None  
     
-    remote_files = get_repo_files_cached(repo_name)
-    if not remote_files:
-        return None
-    
-    # Fuzzy Match
-    clean_search = clean_filename(raw_filename)
-    remote_bases = [os.path.splitext(f)[0] for f in remote_files]
-    
-    matches = difflib.get_close_matches(clean_search, remote_bases, n=1, cutoff=MATCH_THRESHOLD)
-    
-    if matches:
-        best_base = matches[0]
-        # Find original filename
-        match_filename = next((rf for rf in remote_files if os.path.splitext(rf)[0] == best_base), None)
+    # Normalize to list
+    if isinstance(repo_entries, str):
+        repos = [repo_entries]
+    else:
+        repos = repo_entries
         
+    for repo_name in repos:
+        repo_data = get_repo_data_cached(repo_name)
+        if not repo_data:
+            continue
+        
+        clean_map = repo_data['clean_map']
+        clean_search = clean_filename(raw_filename)
+        match_filename = None
+        
+        # A. Exact Clean Match
+        if clean_search in clean_map:
+            match_filename = clean_map[clean_search]
+            print(f"    -> [Matches] Found Exact Clean in {repo_name}: {match_filename}")
+        else:
+            # B. Fuzzy Clean Match
+            matches = difflib.get_close_matches(clean_search, clean_map.keys(), n=1, cutoff=MATCH_THRESHOLD)
+            if matches:
+                best_clean = matches[0]
+                match_filename = clean_map[best_clean]
+                print(f"    -> [Matches] Found Fuzzy in {repo_name}: {match_filename} (from '{best_clean}')")
+
         if match_filename:
-            print(f"    -> [Download] Found match for '{raw_filename}': {match_filename}")
-            # Target path always PNG for new downloads
             target_path = asset_rel_path
             if download_file(repo_name, match_filename, target_path):
                 time.sleep(0.1) # Politeness
                 return target_path.replace('\\', '/')
             else:
                 print("    -> [Download] Failed.")
-    
+                # Don't break immediately, maybe found in next match? (Unlikely if one failed, but safe to continue or return None)
+                continue 
+
     return None
 
 

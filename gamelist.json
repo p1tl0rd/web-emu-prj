@@ -21,7 +21,7 @@
         "system": "gba",
         "rom_path": "roms/gba/F-Zero - Maximum Velocity (UE) [!].gba",
         "core": "mgba",
-        "image": "assets/default.png"
+        "image": "assets/gba/F-Zero - Maximum Velocity (UE) [!].png"
     },
     {
         "id": "final_fantasy_tactics_advance_(usa)_gba",
@@ -101,7 +101,7 @@
         "system": "gba",
         "rom_path": "roms/gba/Pokemon Emerald Seaglass 3.0 (PokemonEmeraldseaglass.com).gba",
         "core": "mgba",
-        "image": "assets/default.png"
+        "image": "assets/gba/Pokemon Emerald Seaglass 3.0 (PokemonEmeraldseaglass.com).png"
     },
     {
         "id": "pokemon_mystery_dungeon_-_red_rescue_team_(usa,_australia)_gba",
@@ -133,7 +133,7 @@
         "system": "gba",
         "rom_path": "roms/gba/Worms - World Party (U) (M5).gba",
         "core": "mgba",
-        "image": "assets/default.png"
+        "image": "assets/gba/Worms - World Party (U) (M5).png"
     },
     {
         "id": "yu-gi-oh!_-_ultimate_masters_-_world_championship_tournament_2006_(usa)_(en,ja,fr,de,es,it)_gba",
@@ -149,7 +149,7 @@
         "system": "gb",
         "rom_path": "roms/gbc/Donkey Kong (World) (Rev A) (SGB Enhanced).gb",
         "core": "gambatte",
-        "image": "assets/default.png"
+        "image": "assets/gbc/Donkey Kong (World) (Rev A) (SGB Enhanced).png"
     },
     {
         "id": "legend_of_zelda,_the_-_link's_awakening_dx_(usa,_europe)_(rev_2)_(sgb_enhanced)_(gb_compatible)_gbc",
@@ -165,7 +165,7 @@
         "system": "gb",
         "rom_path": "roms/gbc/Metroid II - EJRTQ Colorization (v1.3) - Canon Samus.gb",
         "core": "gambatte",
-        "image": "assets/default.png"
+        "image": "assets/gbc/Metroid II - EJRTQ Colorization (v1.3) - Canon Samus.png"
     },
     {
         "id": "pokemon_blue_-_color_gen2_(v1_2)_gbc",
@@ -173,7 +173,7 @@
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Blue - Color Gen2 (v1.2).gbc",
         "core": "gambatte",
-        "image": "assets/default.png"
+        "image": "assets/gbc/Pokemon Blue - Color Gen2 (v1.2).png"
     },
     {
         "id": "pokemon_pinball_generations_v1_5_gbc",
@@ -181,7 +181,7 @@
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Pinball Generations v1.5.gbc",
         "core": "gambatte",
-        "image": "assets/default.png"
+        "image": "assets/gbc/Pokemon Pinball Generations v1.5.png"
     },
     {
         "id": "pokemon_trading_card_game_(usa,_australia)_gbc",
@@ -189,7 +189,7 @@
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Trading Card Game (USA, Australia).gbc",
         "core": "gambatte",
-        "image": "assets/default.png"
+        "image": "assets/gbc/Pokemon Trading Card Game (USA, Australia).png"
     },
     {
         "id": "shantae_(usa)_gbc",
@@ -325,7 +325,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Bust-A-Move Pocket (UE).npc",
         "core": "mednafen_ngp",
-        "image": "assets/default.png"
+        "image": "assets/ngp/Bust-A-Move Pocket (UE).png"
     },
     {
         "id": "last_blade,_the_(ue)_[!]_npc",
@@ -357,7 +357,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Neo Turf Masters (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "assets/default.png"
+        "image": "assets/ngp/Neo Turf Masters (JUE) [!].png"
     },
     {
         "id": "pocket_tennis_color_(jue)_[!]_npc",
@@ -365,7 +365,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Pocket Tennis Color (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "assets/default.png"
+        "image": "assets/ngp/Pocket Tennis Color (JUE) [!].png"
     },
     {
         "id": "puyo_pop_(world)_(en,ja)_(v1_06)_ngc",
@@ -373,7 +373,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Puyo Pop (World) (En,Ja) (v1.06).ngc",
         "core": "mednafen_ngp",
-        "image": "assets/default.png"
+        "image": "assets/ngp/Puyo Pop (World) (En,Ja) (v1.06).png"
     },
     {
         "id": "rockman_-_battle_&_fighters_(english_v1_0)_ngc",
@@ -469,7 +469,7 @@
         "system": "segaMD",
         "rom_path": "roms/sega_md/ToeJam & Earl (USA, Europe, Korea).md",
         "core": "segaMD",
-        "image": "assets/default.png"
+        "image": "assets/sega_md/ToeJam & Earl (USA, Europe, Korea).png"
     },
     {
         "id": "ultimate_mortal_kombat_3_(usa)_md",
