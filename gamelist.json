@@ -152,6 +152,14 @@
         "image": "assets/gb/Donkey Kong.png"
     },
     {
+        "id": "gb_Donkey_Kong",
+        "name": "Donkey Kong",
+        "system": "gb",
+        "rom_path": "roms/gbc/Donkey Kong (World).gb",
+        "core": "gambatte",
+        "image": "assets/gb/Donkey Kong.png"
+    },
+    {
         "id": "gbc_Legend_of_Zelda,_The_-_Link's_Awakening_DX",
         "name": "Legend of Zelda, The - Link's Awakening DX",
         "system": "gbc",
@@ -176,12 +184,28 @@
         "image": "assets/gbc/Pokemon Blue - Color Gen2.png"
     },
     {
+        "id": "gbc_Pokemon_Blue",
+        "name": "Pokemon Blue",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Pokemon Blue.gbc",
+        "core": "gambatte",
+        "image": "assets/gbc/Pokemon Blue.png"
+    },
+    {
         "id": "gbc_Pokemon_Pinball_Generations_v1.5",
         "name": "Pokemon Pinball Generations v1.5",
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Pinball Generations v1.5.gbc",
         "core": "gambatte",
         "image": "assets/gbc/Pokemon Pinball Generations v1.5.png"
+    },
+    {
+        "id": "gbc_Pokemon_Pinball_Generations",
+        "name": "Pokemon Pinball Generations",
+        "system": "gbc",
+        "rom_path": "roms/gbc/Pokemon Pinball Generations.gbc",
+        "core": "gambatte",
+        "image": "assets/gbc/Pokemon Pinball Generations.png"
     },
     {
         "id": "gbc_Pokemon_Trading_Card_Game",
@@ -244,7 +268,7 @@
         "name": "Metal Slug X - Super Vehicle-001",
         "system": "neogeo",
         "rom_path": "roms/neogeo/mslugx.zip",
-        "core": "fbneo",
+        "core": "mame2003_plus",
         "image": "assets/neogeo/Metal Slug X - Super Vehicle-001.png"
     },
     {
@@ -252,7 +276,7 @@
         "name": "Neo Geo BIOS",
         "system": "neogeo",
         "rom_path": "roms/neogeo/neogeo.zip",
-        "core": "fbneo",
+        "core": "mame2003_plus",
         "image": "assets/default.png"
     },
     {

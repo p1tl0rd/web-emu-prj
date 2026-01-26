@@ -351,7 +351,7 @@ def scan_roms():
                  if 'psx' in root.lower() or 'playstation' in root.lower(): config = {'system': 'psx', 'core': 'pcsx_rearmed'}
                  else: config = {'system': 'segaCD', 'core': 'genesis_plus_gx'}
             elif ext == '.zip':
-                 if 'neogeo' in root.lower(): config = {'system': 'neogeo', 'core': 'fbneo'}
+                 if 'neogeo' in root.lower(): config = {'system': 'neogeo', 'core': 'mame2003_plus'}
                  else: config = {'system': 'arcade', 'core': 'fbneo'}
             elif ext in EXTENSIONS_MAP:
                 config = EXTENSIONS_MAP[ext]
