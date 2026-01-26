@@ -21,7 +21,7 @@
         "system": "gba",
         "rom_path": "roms/gba/F-Zero - Maximum Velocity (UE) [!].gba",
         "core": "mgba",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/F-Zero%20-%20Maximum%20Velocity%20%28UE%29%20%5B%21%5D.png"
+        "image": "assets/default.png"
     },
     {
         "id": "final_fantasy_tactics_advance_(usa)_gba",
@@ -45,7 +45,7 @@
         "system": "gba",
         "rom_path": "roms/gba/Fire Emblem - The Sacred Stones (U).gba",
         "core": "mgba",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Fire%20Emblem%20-%20The%20Sacred%20Stones%20%28U%29.png"
+        "image": "assets/gba/Fire Emblem - The Sacred Stones (U).png"
     },
     {
         "id": "harvest_moon_-_friends_of_mineral_town_(usa)_gba",
@@ -61,7 +61,7 @@
         "system": "gba",
         "rom_path": "roms/gba/Mario & Luigi - Superstar Saga (USA).gba",
         "core": "mgba",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Mario%20%26%20Luigi%20-%20Superstar%20Saga%20%28USA%29.png"
+        "image": "assets/gba/Mario & Luigi - Superstar Saga (USA).png"
     },
     {
         "id": "mario_kart_-_super_circuit_(usa)_gba",
@@ -93,7 +93,7 @@
         "system": "gba",
         "rom_path": "roms/gba/Mother 3.gba",
         "core": "mgba",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Mother%203.png"
+        "image": "assets/gba/Mother 3.png"
     },
     {
         "id": "pokemon_emerald_seaglass_3_0_(pokemonemeraldseaglass_com)_gba",
@@ -101,7 +101,7 @@
         "system": "gba",
         "rom_path": "roms/gba/Pokemon Emerald Seaglass 3.0 (PokemonEmeraldseaglass.com).gba",
         "core": "mgba",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Pokemon%20Emerald%20Seaglass%203.0%20%28PokemonEmeraldseaglass.com%29.png"
+        "image": "assets/default.png"
     },
     {
         "id": "pokemon_mystery_dungeon_-_red_rescue_team_(usa,_australia)_gba",
@@ -133,7 +133,7 @@
         "system": "gba",
         "rom_path": "roms/gba/Worms - World Party (U) (M5).gba",
         "core": "mgba",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Worms%20-%20World%20Party%20%28U%29%20%28M5%29.png"
+        "image": "assets/default.png"
     },
     {
         "id": "yu-gi-oh!_-_ultimate_masters_-_world_championship_tournament_2006_(usa)_(en,ja,fr,de,es,it)_gba",
@@ -149,7 +149,7 @@
         "system": "gb",
         "rom_path": "roms/gbc/Donkey Kong (World) (Rev A) (SGB Enhanced).gb",
         "core": "gambatte",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy/master/Named_Boxarts/Donkey%20Kong%20%28World%29%20%28Rev%20A%29%20%28SGB%20Enhanced%29.png"
+        "image": "assets/default.png"
     },
     {
         "id": "legend_of_zelda,_the_-_link's_awakening_dx_(usa,_europe)_(rev_2)_(sgb_enhanced)_(gb_compatible)_gbc",
@@ -165,7 +165,7 @@
         "system": "gb",
         "rom_path": "roms/gbc/Metroid II - EJRTQ Colorization (v1.3) - Canon Samus.gb",
         "core": "gambatte",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy/master/Named_Boxarts/Metroid%20II%20-%20EJRTQ%20Colorization%20%28v1.3%29%20-%20Canon%20Samus.png"
+        "image": "assets/default.png"
     },
     {
         "id": "pokemon_blue_-_color_gen2_(v1_2)_gbc",
@@ -173,7 +173,7 @@
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Blue - Color Gen2 (v1.2).gbc",
         "core": "gambatte",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Pokemon%20Blue%20-%20Color%20Gen2%20%28v1.2%29.png"
+        "image": "assets/default.png"
     },
     {
         "id": "pokemon_pinball_generations_v1_5_gbc",
@@ -181,7 +181,7 @@
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Pinball Generations v1.5.gbc",
         "core": "gambatte",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Pokemon%20Pinball%20Generations%20v1.5.png"
+        "image": "assets/default.png"
     },
     {
         "id": "pokemon_trading_card_game_(usa,_australia)_gbc",
@@ -189,7 +189,7 @@
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Trading Card Game (USA, Australia).gbc",
         "core": "gambatte",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Pokemon%20Trading%20Card%20Game%20%28USA%2C%20Australia%29.png"
+        "image": "assets/default.png"
     },
     {
         "id": "shantae_(usa)_gbc",
@@ -205,7 +205,7 @@
         "system": "gbc",
         "rom_path": "roms/gbc/Super Mario Land 2 DX.gbc",
         "core": "gambatte",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Color/master/Named_Boxarts/Super%20Mario%20Land%202%20DX.png"
+        "image": "assets/gbc/Super Mario Land 2 DX.png"
     },
     {
         "id": "survival_kids_(usa)_(sgb_enhanced)_(gb_compatible)_gbc",
@@ -237,7 +237,7 @@
         "system": "n64",
         "rom_path": "roms/n64/Super Mario 64 (U) [!].z64",
         "core": "mupen64plus_next",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_64/master/Named_Boxarts/Super%20Mario%2064%20%28U%29%20%5B%21%5D.png"
+        "image": "assets/n64/Super Mario 64 (U) [!].png"
     },
     {
         "id": "contra_(usa)_nes",
@@ -325,7 +325,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Bust-A-Move Pocket (UE).npc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Bust-A-Move%20Pocket%20%28UE%29.png"
+        "image": "assets/default.png"
     },
     {
         "id": "last_blade,_the_(ue)_[!]_npc",
@@ -333,7 +333,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Last Blade, The (UE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Last%20Blade%2C%20The%20%28UE%29%20%5B%21%5D.png"
+        "image": "assets/default.png"
     },
     {
         "id": "metal_slug_-_1st_mission_(jue)_npc",
@@ -341,7 +341,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Metal Slug - 1st Mission (JUE).npc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Metal%20Slug%20-%201st%20Mission%20%28JUE%29.png"
+        "image": "assets/ngp/Metal Slug - 1st Mission (JUE).png"
     },
     {
         "id": "metal_slug_-_2nd_mission_(jue)_[!]_npc",
@@ -349,7 +349,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Metal Slug - 2nd Mission (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Metal%20Slug%20-%202nd%20Mission%20%28JUE%29%20%5B%21%5D.png"
+        "image": "assets/ngp/Metal Slug - 2nd Mission (JUE) [!].png"
     },
     {
         "id": "neo_turf_masters_(jue)_[!]_npc",
@@ -357,7 +357,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Neo Turf Masters (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Neo%20Turf%20Masters%20%28JUE%29%20%5B%21%5D.png"
+        "image": "assets/default.png"
     },
     {
         "id": "pocket_tennis_color_(jue)_[!]_npc",
@@ -365,7 +365,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Pocket Tennis Color (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Pocket%20Tennis%20Color%20%28JUE%29%20%5B%21%5D.png"
+        "image": "assets/default.png"
     },
     {
         "id": "puyo_pop_(world)_(en,ja)_(v1_06)_ngc",
@@ -373,7 +373,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Puyo Pop (World) (En,Ja) (v1.06).ngc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Puyo%20Pop%20%28World%29%20%28En%2CJa%29%20%28v1.06%29.png"
+        "image": "assets/default.png"
     },
     {
         "id": "rockman_-_battle_&_fighters_(english_v1_0)_ngc",
@@ -381,7 +381,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Rockman - Battle & Fighters (English v1.0).ngc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/Rockman%20-%20Battle%20%26%20Fighters%20%28English%20v1.0%29.png"
+        "image": "assets/ngp/Rockman - Battle & Fighters (English v1.0).png"
     },
     {
         "id": "snk_vs_capcom_-_match_of_the_millennium_(jue)_[!]_npc",
@@ -389,7 +389,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/SNK Vs Capcom - Match Of The Millennium (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/SNK%20Vs%20Capcom%20-%20Match%20Of%20The%20Millennium%20%28JUE%29%20%5B%21%5D.png"
+        "image": "assets/ngp/SNK Vs Capcom - Match Of The Millennium (JUE) [!].png"
     },
     {
         "id": "snk_vs__capcom_-_card_fighters'_clash_-_snk_version_(usa)_ngc",
@@ -397,7 +397,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/SNK vs. Capcom - Card Fighters' Clash - SNK Version (USA).ngc",
         "core": "mednafen_ngp",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/master/Named_Boxarts/SNK%20vs.%20Capcom%20-%20Card%20Fighters%27%20Clash%20-%20SNK%20Version%20%28USA%29.png"
+        "image": "assets/ngp/SNK vs. Capcom - Card Fighters' Clash - SNK Version (USA).png"
     },
     {
         "id": "aladdin_(usa)_md",
@@ -469,7 +469,7 @@
         "system": "segaMD",
         "rom_path": "roms/sega_md/ToeJam & Earl (USA, Europe, Korea).md",
         "core": "segaMD",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/ToeJam%20%26%20Earl%20%28USA%2C%20Europe%2C%20Korea%29.png"
+        "image": "assets/default.png"
     },
     {
         "id": "ultimate_mortal_kombat_3_(usa)_md",
@@ -557,6 +557,6 @@
         "system": "snes",
         "rom_path": "roms/snes/The Legend of Zelda - A Link to the Past (USA).sfc",
         "core": "snes9x",
-        "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Super_Nintendo_Entertainment_System/master/Named_Boxarts/The%20Legend%20of%20Zelda%20-%20A%20Link%20to%20the%20Past%20%28USA%29.png"
+        "image": "assets/snes/The Legend of Zelda - A Link to the Past (USA).png"
     }
 ]
