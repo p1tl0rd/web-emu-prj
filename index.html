@@ -89,17 +89,94 @@
                     <i class="bi bi-arrow-left"></i> <span class="d-none d-md-inline">Back to Menu</span>
                 </button>
 
-                <!-- Loading Spinner -->
-                <div id="emulator-loading" class="position-absolute top-50 start-50 translate-middle text-center d-none"
-                    style="z-index: 2000;">
-                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    <div class="mt-2 text-white fw-bold">Loading Game...</div>
-                </div>
+                <div class="row g-4">
+                    <!-- Left: Emulator Core -->
+                    <div class="col-lg-8">
+                        <div class="emulator-wrapper position-relative">
+                            <!-- Loading Spinner -->
+                            <div id="emulator-loading"
+                                class="position-absolute top-50 start-50 translate-middle text-center d-none"
+                                style="z-index: 2000;">
+                                <div class="spinner-border text-primary" role="status"
+                                    style="width: 3rem; height: 3rem;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="mt-2 text-white fw-bold">Loading Game...</div>
+                            </div>
 
-                <div class="ratio ratio-16x9 border border-secondary rounded overflow-hidden bg-black">
-                    <div id="emulator"></div>
+                            <div
+                                class="ratio ratio-16x9 border border-secondary rounded overflow-hidden bg-black shadow-lg">
+                                <div id="emulator"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Controls Info -->
+                    <div class="col-lg-4">
+                        <div class="controls-card bg-dark border border-secondary rounded p-3 h-100">
+                            <h5 class="text-success border-bottom border-secondary pb-2 mb-3">
+                                <i class="bi bi-keyboard"></i> Controls
+                            </h5>
+
+                            <div class="control-group mb-3">
+                                <div class="small text-secondary text-uppercase fw-bold mb-2">Movement</div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">D-Pad / Joystick</span>
+                                    <span class="badge bg-secondary font-monospace">W, A, S, D</span>
+                                </div>
+                            </div>
+
+                            <div class="control-group mb-3">
+                                <div class="small text-secondary text-uppercase fw-bold mb-2">Main Buttons</div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">Button A</span>
+                                    <span class="badge bg-primary font-monospace">L</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">Button B</span>
+                                    <span class="badge bg-danger font-monospace">K</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">Button X</span>
+                                    <span class="badge bg-warning text-dark font-monospace">I</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">Button Y</span>
+                                    <span class="badge bg-success font-monospace">J</span>
+                                </div>
+                            </div>
+
+                            <div class="control-group mb-3">
+                                <div class="small text-secondary text-uppercase fw-bold mb-2">Shoulders</div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">L / L2</span>
+                                    <span class="badge bg-secondary font-monospace">Q / U</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">R / R2</span>
+                                    <span class="badge bg-secondary font-monospace">O / E</span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="small text-secondary text-uppercase fw-bold mb-2">System</div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">Start</span>
+                                    <span class="badge bg-dark border border-secondary font-monospace">Enter</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-white-50">Select</span>
+                                    <span class="badge bg-dark border border-secondary font-monospace">V</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-3 border-top border-secondary text-center">
+                                <p class="small text-secondary mb-0">
+                                    <i class="bi bi-info-circle"></i> Use these keys on your keyboard to play.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
