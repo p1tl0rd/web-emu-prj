@@ -114,59 +114,133 @@
                     <!-- Right: Controls Info -->
                     <div class="col-lg-4">
                         <div class="controls-card bg-dark border border-secondary rounded p-3 h-100">
-                            <h5 class="text-success border-bottom border-secondary pb-2 mb-3">
-                                <i class="bi bi-keyboard"></i> Controls
-                            </h5>
-
-                            <div class="control-group mb-3">
-                                <div class="small text-secondary text-uppercase fw-bold mb-2">Movement</div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">D-Pad / Joystick</span>
-                                    <span class="badge bg-secondary font-monospace">W, A, S, D</span>
-                                </div>
+                            <div
+                                class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-3">
+                                <h5 class="text-success mb-0">
+                                    <i class="bi bi-keyboard"></i> Controls
+                                </h5>
+                                <ul class="nav nav-pills nav-sm" id="controlsTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active py-1 px-2" id="p1-tab" data-bs-toggle="tab"
+                                            data-bs-target="#p1-content" type="button" role="tab">P1</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link py-1 px-2" id="p2-tab" data-bs-toggle="tab"
+                                            data-bs-target="#p2-content" type="button" role="tab">P2</button>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <div class="control-group mb-3">
-                                <div class="small text-secondary text-uppercase fw-bold mb-2">Main Buttons</div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">Button A</span>
-                                    <span class="badge bg-primary font-monospace">L</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">Button B</span>
-                                    <span class="badge bg-danger font-monospace">K</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">Button X</span>
-                                    <span class="badge bg-warning text-dark font-monospace">I</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">Button Y</span>
-                                    <span class="badge bg-success font-monospace">J</span>
-                                </div>
-                            </div>
+                            <div class="tab-content" id="controlsTabContent">
+                                <!-- Player 1 -->
+                                <div class="tab-pane fade show active" id="p1-content" role="tabpanel">
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Movement</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">D-Pad / Joystick</span>
+                                            <span class="badge bg-secondary font-monospace">W, A, S, D</span>
+                                        </div>
+                                    </div>
 
-                            <div class="control-group mb-3">
-                                <div class="small text-secondary text-uppercase fw-bold mb-2">Shoulders</div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">L / L2</span>
-                                    <span class="badge bg-secondary font-monospace">Q / U</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">R / R2</span>
-                                    <span class="badge bg-secondary font-monospace">O / E</span>
-                                </div>
-                            </div>
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Main Buttons</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button A</span>
+                                            <span class="badge bg-primary font-monospace">L</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button B</span>
+                                            <span class="badge bg-danger font-monospace">K</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button X</span>
+                                            <span class="badge bg-warning text-dark font-monospace">I</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button Y</span>
+                                            <span class="badge bg-success font-monospace">J</span>
+                                        </div>
+                                    </div>
 
-                            <div class="control-group">
-                                <div class="small text-secondary text-uppercase fw-bold mb-2">System</div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">Start</span>
-                                    <span class="badge bg-dark border border-secondary font-monospace">Enter</span>
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Shoulders</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">L / L2</span>
+                                            <span class="badge bg-secondary font-monospace">Q / U</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">R / R2</span>
+                                            <span class="badge bg-secondary font-monospace">O / E</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">System</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Start</span>
+                                            <span
+                                                class="badge bg-dark border border-secondary font-monospace">Enter</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Select</span>
+                                            <span class="badge bg-dark border border-secondary font-monospace">V</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-white-50">Select</span>
-                                    <span class="badge bg-dark border border-secondary font-monospace">V</span>
+
+                                <!-- Player 2 -->
+                                <div class="tab-pane fade" id="p2-content" role="tabpanel">
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Movement</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">D-Pad</span>
+                                            <span class="badge bg-secondary font-monospace">Arrow Keys</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Main Buttons</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button A</span>
+                                            <span class="badge bg-primary font-monospace">3</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button B</span>
+                                            <span class="badge bg-danger font-monospace">2</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button X</span>
+                                            <span class="badge bg-warning text-dark font-monospace">5</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button Y</span>
+                                            <span class="badge bg-success font-monospace">1</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Shoulders</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">L</span>
+                                            <span class="badge bg-secondary font-monospace">4</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">R</span>
+                                            <span class="badge bg-secondary font-monospace">6</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">System</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Start</span>
+                                            <span class="badge bg-dark border border-secondary font-monospace">9</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Select</span>
+                                            <span class="badge bg-dark border border-secondary font-monospace">7</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

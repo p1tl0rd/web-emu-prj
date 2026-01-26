@@ -73,6 +73,10 @@ function loadProfiles() {
             playAsGuest();
         } else if (savedProfileId && savedProfileName) {
             selectProfile(savedProfileId, savedProfileName);
+        } else {
+            // New User / No Profile -> Auto Guest
+            console.log("No profile found. Auto-triggering Guest Mode.");
+            playAsGuest();
         }
     }, (error) => {
         console.error("Firebase Read Error:", error);
