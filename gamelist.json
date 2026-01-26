@@ -1,94 +1,94 @@
 [
     {
-        "id": "castlevania_-_aria_of_sorrow_(usa)_gba",
+        "id": "gba_Castlevania_-_Aria_of_Sorrow",
         "name": "Castlevania - Aria of Sorrow",
         "system": "gba",
         "rom_path": "roms/gba/Castlevania - Aria of Sorrow (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Castlevania - Aria of Sorrow (USA).png"
+        "image": "assets/gba/Castlevania - Aria of Sorrow.png"
     },
     {
-        "id": "dragon_ball_-_advanced_adventure_(usa)_gba",
+        "id": "gba_Dragon_Ball_-_Advanced_Adventure",
         "name": "Dragon Ball - Advanced Adventure",
         "system": "gba",
         "rom_path": "roms/gba/Dragon Ball - Advanced Adventure (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Dragon Ball - Advanced Adventure (USA).png"
+        "image": "assets/gba/Dragon Ball - Advanced Adventure.png"
     },
     {
-        "id": "f-zero_-_maximum_velocity_(ue)_[!]_gba",
+        "id": "gba_F-Zero_-_Maximum_Velocity",
         "name": "F-Zero - Maximum Velocity",
         "system": "gba",
         "rom_path": "roms/gba/F-Zero - Maximum Velocity (UE) [!].gba",
         "core": "mgba",
-        "image": "assets/gba/F-Zero - Maximum Velocity (UE) [!].png"
+        "image": "assets/gba/F-Zero - Maximum Velocity.png"
     },
     {
-        "id": "final_fantasy_tactics_advance_(usa)_gba",
+        "id": "gba_Final_Fantasy_Tactics_Advance",
         "name": "Final Fantasy Tactics Advance",
         "system": "gba",
         "rom_path": "roms/gba/Final Fantasy Tactics Advance (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Final Fantasy Tactics Advance (USA).png"
+        "image": "assets/gba/Final Fantasy Tactics Advance.png"
     },
     {
-        "id": "final_fantasy_vi_advance_(usa)_gba",
+        "id": "gba_Final_Fantasy_VI_Advance",
         "name": "Final Fantasy VI Advance",
         "system": "gba",
         "rom_path": "roms/gba/Final Fantasy VI Advance (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Final Fantasy VI Advance (USA).png"
+        "image": "assets/gba/Final Fantasy VI Advance.png"
     },
     {
-        "id": "fire_emblem_-_the_sacred_stones_(u)_gba",
+        "id": "gba_Fire_Emblem_-_The_Sacred_Stones",
         "name": "Fire Emblem - The Sacred Stones",
         "system": "gba",
         "rom_path": "roms/gba/Fire Emblem - The Sacred Stones (U).gba",
         "core": "mgba",
-        "image": "assets/gba/Fire Emblem - The Sacred Stones (U).png"
+        "image": "assets/gba/Fire Emblem - The Sacred Stones.png"
     },
     {
-        "id": "harvest_moon_-_friends_of_mineral_town_(usa)_gba",
+        "id": "gba_Harvest_Moon_-_Friends_of_Mineral_Town",
         "name": "Harvest Moon - Friends of Mineral Town",
         "system": "gba",
         "rom_path": "roms/gba/Harvest Moon - Friends of Mineral Town (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Harvest Moon - Friends of Mineral Town (USA).png"
+        "image": "assets/gba/Harvest Moon - Friends of Mineral Town.png"
     },
     {
-        "id": "mario_&_luigi_-_superstar_saga_(usa)_gba",
+        "id": "gba_Mario_&_Luigi_-_Superstar_Saga",
         "name": "Mario & Luigi - Superstar Saga",
         "system": "gba",
         "rom_path": "roms/gba/Mario & Luigi - Superstar Saga (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Mario & Luigi - Superstar Saga (USA).png"
+        "image": "assets/gba/Mario  Luigi - Superstar Saga.png"
     },
     {
-        "id": "mario_kart_-_super_circuit_(usa)_gba",
+        "id": "gba_Mario_Kart_-_Super_Circuit",
         "name": "Mario Kart - Super Circuit",
         "system": "gba",
         "rom_path": "roms/gba/Mario Kart - Super Circuit (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Mario Kart - Super Circuit (USA).png"
+        "image": "assets/gba/Mario Kart - Super Circuit.png"
     },
     {
-        "id": "mega_man_zero_(usa,_europe)_gba",
+        "id": "gba_Mega_Man_Zero",
         "name": "Mega Man Zero",
         "system": "gba",
         "rom_path": "roms/gba/Mega Man Zero (USA, Europe).gba",
         "core": "mgba",
-        "image": "assets/gba/Mega Man Zero (USA, Europe).png"
+        "image": "assets/gba/Mega Man Zero.png"
     },
     {
-        "id": "metroid_fusion_(usa)_gba",
+        "id": "gba_Metroid_Fusion",
         "name": "Metroid Fusion",
         "system": "gba",
         "rom_path": "roms/gba/Metroid Fusion (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Metroid Fusion (USA).png"
+        "image": "assets/gba/Metroid Fusion.png"
     },
     {
-        "id": "mother_3_gba",
+        "id": "gba_Mother_3",
         "name": "Mother 3",
         "system": "gba",
         "rom_path": "roms/gba/Mother 3.gba",
@@ -96,31 +96,31 @@
         "image": "assets/gba/Mother 3.png"
     },
     {
-        "id": "pokemon_emerald_seaglass_3_0_(pokemonemeraldseaglass_com)_gba",
+        "id": "gba_Pokemon_Emerald_Seaglass_3.0",
         "name": "Pokemon Emerald Seaglass 3.0",
         "system": "gba",
         "rom_path": "roms/gba/Pokemon Emerald Seaglass 3.0 (PokemonEmeraldseaglass.com).gba",
         "core": "mgba",
-        "image": "assets/gba/Pokemon Emerald Seaglass 3.0 (PokemonEmeraldseaglass.com).png"
+        "image": "assets/gba/Pokemon Emerald Seaglass 3.0.png"
     },
     {
-        "id": "pokemon_mystery_dungeon_-_red_rescue_team_(usa,_australia)_gba",
+        "id": "gba_Pokemon_Mystery_Dungeon_-_Red_Rescue_Team",
         "name": "Pokemon Mystery Dungeon - Red Rescue Team",
         "system": "gba",
         "rom_path": "roms/gba/Pokemon Mystery Dungeon - Red Rescue Team (USA, Australia).gba",
         "core": "mgba",
-        "image": "assets/gba/Pokemon Mystery Dungeon - Red Rescue Team (USA, Australia).png"
+        "image": "assets/gba/Pokemon Mystery Dungeon - Red Rescue Team.png"
     },
     {
-        "id": "super_mario_advance_3_-_yoshi's_island_(usa)_gba",
+        "id": "gba_Super_Mario_Advance_3_-_Yoshi's_Island",
         "name": "Super Mario Advance 3 - Yoshi's Island",
         "system": "gba",
         "rom_path": "roms/gba/Super Mario Advance 3 - Yoshi's Island (USA).gba",
         "core": "mgba",
-        "image": "assets/gba/Super Mario Advance 3 - Yoshi's Island (USA).png"
+        "image": "assets/gba/Super Mario Advance 3 - Yoshis Island.png"
     },
     {
-        "id": "the_legend_of_zelda_-_the_minish_cap_(usa)_gba",
+        "id": "gba_The_Legend_of_Zelda_-_The_Minish_Cap",
         "name": "The Legend of Zelda - The Minish Cap",
         "system": "gba",
         "rom_path": "roms/gba/The Legend of Zelda - The Minish Cap (USA).gba",
@@ -128,55 +128,55 @@
         "image": "https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Game_Boy_Advance/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The%20-%20The%20Minish%20Cap%20%28USA%29.png"
     },
     {
-        "id": "worms_-_world_party_(u)_(m5)_gba",
+        "id": "gba_Worms_-_World_Party",
         "name": "Worms - World Party",
         "system": "gba",
         "rom_path": "roms/gba/Worms - World Party (U) (M5).gba",
         "core": "mgba",
-        "image": "assets/gba/Worms - World Party (U) (M5).png"
+        "image": "assets/gba/Worms - World Party.png"
     },
     {
-        "id": "yu-gi-oh!_-_ultimate_masters_-_world_championship_tournament_2006_(usa)_(en,ja,fr,de,es,it)_gba",
+        "id": "gba_Yu-Gi-Oh!_-_Ultimate_Masters_-_World_Championship_Tournament_2006",
         "name": "Yu-Gi-Oh! - Ultimate Masters - World Championship Tournament 2006",
         "system": "gba",
         "rom_path": "roms/gba/Yu-Gi-Oh! - Ultimate Masters - World Championship Tournament 2006 (USA) (En,Ja,Fr,De,Es,It).gba",
         "core": "mgba",
-        "image": "assets/gba/Yu-Gi-Oh! - Ultimate Masters - World Championship Tournament 2006 (USA) (En,Ja,Fr,De,Es,It).png"
+        "image": "assets/gba/Yu-Gi-Oh - Ultimate Masters - World Championship Tournament 2006.png"
     },
     {
-        "id": "donkey_kong_(world)_(rev_a)_(sgb_enhanced)_gb",
+        "id": "gb_Donkey_Kong",
         "name": "Donkey Kong",
         "system": "gb",
         "rom_path": "roms/gbc/Donkey Kong (World) (Rev A) (SGB Enhanced).gb",
         "core": "gambatte",
-        "image": "assets/gbc/Donkey Kong (World) (Rev A) (SGB Enhanced).png"
+        "image": "assets/gb/Donkey Kong.png"
     },
     {
-        "id": "legend_of_zelda,_the_-_link's_awakening_dx_(usa,_europe)_(rev_2)_(sgb_enhanced)_(gb_compatible)_gbc",
-        "name": "The Legend of Zelda - Link's Awakening DX",
+        "id": "gbc_Legend_of_Zelda,_The_-_Link's_Awakening_DX",
+        "name": "Legend of Zelda, The - Link's Awakening DX",
         "system": "gbc",
         "rom_path": "roms/gbc/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible).gbc",
         "core": "gambatte",
-        "image": "assets/gbc/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible).png"
+        "image": "assets/gbc/Legend of Zelda The - Links Awakening DX.png"
     },
     {
-        "id": "metroid_ii_-_ejrtq_colorization_(v1_3)_-_canon_samus_gb",
+        "id": "gb_Metroid_II_-_EJRTQ_Colorization_-_Canon_Samus",
         "name": "Metroid II - EJRTQ Colorization - Canon Samus",
         "system": "gb",
         "rom_path": "roms/gbc/Metroid II - EJRTQ Colorization (v1.3) - Canon Samus.gb",
         "core": "gambatte",
-        "image": "assets/gbc/Metroid II - EJRTQ Colorization (v1.3) - Canon Samus.png"
+        "image": "assets/gb/Metroid II - EJRTQ Colorization - Canon Samus.png"
     },
     {
-        "id": "pokemon_blue_-_color_gen2_(v1_2)_gbc",
+        "id": "gbc_Pokemon_Blue_-_Color_Gen2",
         "name": "Pokemon Blue - Color Gen2",
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Blue - Color Gen2 (v1.2).gbc",
         "core": "gambatte",
-        "image": "assets/gbc/Pokemon Blue - Color Gen2 (v1.2).png"
+        "image": "assets/gbc/Pokemon Blue - Color Gen2.png"
     },
     {
-        "id": "pokemon_pinball_generations_v1_5_gbc",
+        "id": "gbc_Pokemon_Pinball_Generations_v1.5",
         "name": "Pokemon Pinball Generations v1.5",
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Pinball Generations v1.5.gbc",
@@ -184,23 +184,23 @@
         "image": "assets/gbc/Pokemon Pinball Generations v1.5.png"
     },
     {
-        "id": "pokemon_trading_card_game_(usa,_australia)_gbc",
+        "id": "gbc_Pokemon_Trading_Card_Game",
         "name": "Pokemon Trading Card Game",
         "system": "gbc",
         "rom_path": "roms/gbc/Pokemon Trading Card Game (USA, Australia).gbc",
         "core": "gambatte",
-        "image": "assets/gbc/Pokemon Trading Card Game (USA, Australia).png"
+        "image": "assets/gbc/Pokemon Trading Card Game.png"
     },
     {
-        "id": "shantae_(usa)_gbc",
+        "id": "gbc_Shantae",
         "name": "Shantae",
         "system": "gbc",
         "rom_path": "roms/gbc/Shantae (USA).gbc",
         "core": "gambatte",
-        "image": "assets/gbc/Shantae (USA).png"
+        "image": "assets/gbc/Shantae.png"
     },
     {
-        "id": "super_mario_land_2_dx_gbc",
+        "id": "gbc_Super_Mario_Land_2_DX",
         "name": "Super Mario Land 2 DX",
         "system": "gbc",
         "rom_path": "roms/gbc/Super Mario Land 2 DX.gbc",
@@ -208,247 +208,263 @@
         "image": "assets/gbc/Super Mario Land 2 DX.png"
     },
     {
-        "id": "survival_kids_(usa)_(sgb_enhanced)_(gb_compatible)_gbc",
+        "id": "gbc_Survival_Kids",
         "name": "Survival Kids",
         "system": "gbc",
         "rom_path": "roms/gbc/Survival Kids (USA) (SGB Enhanced) (GB Compatible).gbc",
         "core": "gambatte",
-        "image": "assets/gbc/Survival Kids (USA) (SGB Enhanced) (GB Compatible).png"
+        "image": "assets/gbc/Survival Kids.png"
     },
     {
-        "id": "tetris_dx_(world)_(sgb_enhanced)_(gb_compatible)_gbc",
+        "id": "gbc_Tetris_DX",
         "name": "Tetris DX",
         "system": "gbc",
         "rom_path": "roms/gbc/Tetris DX (World) (SGB Enhanced) (GB Compatible).gbc",
         "core": "gambatte",
-        "image": "assets/gbc/Tetris DX (World) (SGB Enhanced) (GB Compatible).png"
+        "image": "assets/gbc/Tetris DX.png"
     },
     {
-        "id": "legend_of_zelda,_the_-_majora's_mask_(usa)_z64",
-        "name": "The Legend of Zelda - Majora's Mask",
+        "id": "n64_Legend_of_Zelda,_The_-_Majora's_Mask",
+        "name": "Legend of Zelda, The - Majora's Mask",
         "system": "n64",
         "rom_path": "roms/n64/Legend of Zelda, The - Majora's Mask (USA).z64",
         "core": "mupen64plus_next",
-        "image": "assets/n64/Legend of Zelda, The - Majora's Mask (USA).png"
+        "image": "assets/n64/Legend of Zelda The - Majoras Mask.png"
     },
     {
-        "id": "super_mario_64_(u)_[!]_z64",
+        "id": "n64_Super_Mario_64",
         "name": "Super Mario 64",
         "system": "n64",
         "rom_path": "roms/n64/Super Mario 64 (U) [!].z64",
         "core": "mupen64plus_next",
-        "image": "assets/n64/Super Mario 64 (U) [!].png"
+        "image": "assets/n64/Super Mario 64.png"
     },
     {
-        "id": "contra_(usa)_nes",
+        "id": "neogeo_Metal_Slug_X_-_Super_Vehicle-001",
+        "name": "Metal Slug X - Super Vehicle-001",
+        "system": "neogeo",
+        "rom_path": "roms/neogeo/mslugx.zip",
+        "core": "fbneo",
+        "image": "assets/neogeo/Metal Slug X - Super Vehicle-001.png"
+    },
+    {
+        "id": "neogeo_Neo_Geo_BIOS",
+        "name": "Neo Geo BIOS",
+        "system": "neogeo",
+        "rom_path": "roms/neogeo/neogeo.zip",
+        "core": "fbneo",
+        "image": "assets/default.png"
+    },
+    {
+        "id": "nes_Contra",
         "name": "Contra",
         "system": "nes",
         "rom_path": "roms/nes/Contra (USA).nes",
         "core": "fceumm",
-        "image": "assets/nes/Contra (USA).png"
+        "image": "assets/nes/Contra.png"
     },
     {
-        "id": "donkey_kong_(world)_(rev_1)_nes",
+        "id": "nes_Donkey_Kong",
         "name": "Donkey Kong",
         "system": "nes",
         "rom_path": "roms/nes/Donkey Kong (World) (Rev 1).nes",
         "core": "fceumm",
-        "image": "assets/nes/Donkey Kong (World) (Rev 1).png"
+        "image": "assets/nes/Donkey Kong.png"
     },
     {
-        "id": "kirby's_adventure_(usa)_(rev_1)_nes",
+        "id": "nes_Kirby's_Adventure",
         "name": "Kirby's Adventure",
         "system": "nes",
         "rom_path": "roms/nes/Kirby's Adventure (USA) (Rev 1).nes",
         "core": "fceumm",
-        "image": "assets/nes/Kirby's Adventure (USA) (Rev 1).png"
+        "image": "assets/nes/Kirbys Adventure.png"
     },
     {
-        "id": "legend_of_zelda,_the_(usa)_(rev_1)_nes",
-        "name": "The Legend of Zelda",
+        "id": "nes_Legend_of_Zelda,_The",
+        "name": "Legend of Zelda, The",
         "system": "nes",
         "rom_path": "roms/nes/Legend of Zelda, The (USA) (Rev 1).nes",
         "core": "fceumm",
-        "image": "assets/nes/Legend of Zelda, The (USA) (Rev 1).png"
+        "image": "assets/nes/Legend of Zelda The.png"
     },
     {
-        "id": "mega_man_6_(usa)_nes",
+        "id": "nes_Mega_Man_6",
         "name": "Mega Man 6",
         "system": "nes",
         "rom_path": "roms/nes/Mega Man 6 (USA).nes",
         "core": "fceumm",
-        "image": "assets/nes/Mega Man 6 (USA).png"
+        "image": "assets/nes/Mega Man 6.png"
     },
     {
-        "id": "super_mario_bros__(world)_nes",
+        "id": "nes_Super_Mario_Bros.",
         "name": "Super Mario Bros.",
         "system": "nes",
         "rom_path": "roms/nes/Super Mario Bros. (World).nes",
         "core": "fceumm",
-        "image": "assets/nes/Super Mario Bros. (World).png"
+        "image": "assets/nes/Super Mario Bros..png"
     },
     {
-        "id": "super_mario_bros__2_(usa)_(rev_1)_nes",
+        "id": "nes_Super_Mario_Bros._2",
         "name": "Super Mario Bros. 2",
         "system": "nes",
         "rom_path": "roms/nes/Super Mario Bros. 2 (USA) (Rev 1).nes",
         "core": "fceumm",
-        "image": "assets/nes/Super Mario Bros. 2 (USA) (Rev 1).png"
+        "image": "assets/nes/Super Mario Bros. 2.png"
     },
     {
-        "id": "super_mario_bros__3_(usa)_(rev_1)_nes",
+        "id": "nes_Super_Mario_Bros._3",
         "name": "Super Mario Bros. 3",
         "system": "nes",
         "rom_path": "roms/nes/Super Mario Bros. 3 (USA) (Rev 1).nes",
         "core": "fceumm",
-        "image": "assets/nes/Super Mario Bros. 3 (USA) (Rev 1).png"
+        "image": "assets/nes/Super Mario Bros. 3.png"
     },
     {
-        "id": "teenage_mutant_ninja_turtles_ii_-_the_arcade_game_(usa)_nes",
+        "id": "nes_Teenage_Mutant_Ninja_Turtles_II_-_The_Arcade_Game",
         "name": "Teenage Mutant Ninja Turtles II - The Arcade Game",
         "system": "nes",
         "rom_path": "roms/nes/Teenage Mutant Ninja Turtles II - The Arcade Game (USA).nes",
         "core": "fceumm",
-        "image": "assets/nes/Teenage Mutant Ninja Turtles II - The Arcade Game (USA).png"
+        "image": "assets/nes/Teenage Mutant Ninja Turtles II - The Arcade Game.png"
     },
     {
-        "id": "teenage_mutant_ninja_turtles_iii_-_the_manhattan_project_(usa)_nes",
+        "id": "nes_Teenage_Mutant_Ninja_Turtles_III_-_The_Manhattan_Project",
         "name": "Teenage Mutant Ninja Turtles III - The Manhattan Project",
         "system": "nes",
         "rom_path": "roms/nes/Teenage Mutant Ninja Turtles III - The Manhattan Project (USA).nes",
         "core": "fceumm",
-        "image": "assets/nes/Teenage Mutant Ninja Turtles III - The Manhattan Project (USA).png"
+        "image": "assets/nes/Teenage Mutant Ninja Turtles III - The Manhattan Project.png"
     },
     {
-        "id": "bust-a-move_pocket_(ue)_npc",
+        "id": "ngp_Bust-A-Move_Pocket",
         "name": "Bust-A-Move Pocket",
         "system": "ngp",
         "rom_path": "roms/ngp/Bust-A-Move Pocket (UE).npc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/Bust-A-Move Pocket (UE).png"
+        "image": "assets/ngp/Bust-A-Move Pocket.png"
     },
     {
-        "id": "last_blade,_the_(ue)_[!]_npc",
-        "name": "The Last Blade",
+        "id": "ngp_Last_Blade,_The",
+        "name": "Last Blade, The",
         "system": "ngp",
         "rom_path": "roms/ngp/Last Blade, The (UE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/Last Blade, The (UE) [!].png"
+        "image": "assets/ngp/Last Blade The.png"
     },
     {
-        "id": "metal_slug_-_1st_mission_(jue)_npc",
+        "id": "ngp_Metal_Slug_-_1st_Mission",
         "name": "Metal Slug - 1st Mission",
         "system": "ngp",
         "rom_path": "roms/ngp/Metal Slug - 1st Mission (JUE).npc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/Metal Slug - 1st Mission (JUE).png"
+        "image": "assets/ngp/Metal Slug - 1st Mission.png"
     },
     {
-        "id": "metal_slug_-_2nd_mission_(jue)_[!]_npc",
+        "id": "ngp_Metal_Slug_-_2nd_Mission",
         "name": "Metal Slug - 2nd Mission",
         "system": "ngp",
         "rom_path": "roms/ngp/Metal Slug - 2nd Mission (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/Metal Slug - 2nd Mission (JUE) [!].png"
+        "image": "assets/ngp/Metal Slug - 2nd Mission.png"
     },
     {
-        "id": "neo_turf_masters_(jue)_[!]_npc",
+        "id": "ngp_Neo_Turf_Masters",
         "name": "Neo Turf Masters",
         "system": "ngp",
         "rom_path": "roms/ngp/Neo Turf Masters (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/Neo Turf Masters (JUE) [!].png"
+        "image": "assets/ngp/Neo Turf Masters.png"
     },
     {
-        "id": "pocket_tennis_color_(jue)_[!]_npc",
+        "id": "ngp_Pocket_Tennis_Color",
         "name": "Pocket Tennis Color",
         "system": "ngp",
         "rom_path": "roms/ngp/Pocket Tennis Color (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/Pocket Tennis Color (JUE) [!].png"
+        "image": "assets/ngp/Pocket Tennis Color.png"
     },
     {
-        "id": "puyo_pop_(world)_(en,ja)_(v1_06)_ngc",
+        "id": "ngp_Puyo_Pop",
         "name": "Puyo Pop",
         "system": "ngp",
         "rom_path": "roms/ngp/Puyo Pop (World) (En,Ja) (v1.06).ngc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/Puyo Pop (World) (En,Ja) (v1.06).png"
+        "image": "assets/ngp/Puyo Pop.png"
     },
     {
-        "id": "rockman_-_battle_&_fighters_(english_v1_0)_ngc",
+        "id": "ngp_Rockman_-_Battle_&_Fighters",
         "name": "Rockman - Battle & Fighters",
         "system": "ngp",
         "rom_path": "roms/ngp/Rockman - Battle & Fighters (English v1.0).ngc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/Rockman - Battle & Fighters (English v1.0).png"
+        "image": "assets/ngp/Rockman - Battle  Fighters.png"
     },
     {
-        "id": "snk_vs_capcom_-_match_of_the_millennium_(jue)_[!]_npc",
+        "id": "ngp_SNK_Vs_Capcom_-_Match_Of_The_Millennium",
         "name": "SNK Vs Capcom - Match Of The Millennium",
         "system": "ngp",
         "rom_path": "roms/ngp/SNK Vs Capcom - Match Of The Millennium (JUE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/SNK Vs Capcom - Match Of The Millennium (JUE) [!].png"
+        "image": "assets/ngp/SNK Vs Capcom - Match Of The Millennium.png"
     },
     {
-        "id": "snk_vs__capcom_-_card_fighters'_clash_-_snk_version_(usa)_ngc",
+        "id": "ngp_SNK_vs._Capcom_-_Card_Fighters'_Clash_-_SNK_Version",
         "name": "SNK vs. Capcom - Card Fighters' Clash - SNK Version",
         "system": "ngp",
         "rom_path": "roms/ngp/SNK vs. Capcom - Card Fighters' Clash - SNK Version (USA).ngc",
         "core": "mednafen_ngp",
-        "image": "assets/ngp/SNK vs. Capcom - Card Fighters' Clash - SNK Version (USA).png"
+        "image": "assets/ngp/SNK vs. Capcom - Card Fighters Clash - SNK Version.png"
     },
     {
-        "id": "aladdin_(usa)_md",
+        "id": "segaMD_Aladdin",
         "name": "Aladdin",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Aladdin (USA).md",
         "core": "segaMD",
-        "image": "assets/sega_md/Aladdin (USA).png"
+        "image": "assets/segaMD/Aladdin.png"
     },
     {
-        "id": "castlevania_-_bloodlines_(usa)_md",
+        "id": "segaMD_Castlevania_-_Bloodlines",
         "name": "Castlevania - Bloodlines",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Castlevania - Bloodlines (USA).md",
         "core": "segaMD",
-        "image": "assets/sega_md/Castlevania - Bloodlines (USA).png"
+        "image": "assets/segaMD/Castlevania - Bloodlines.png"
     },
     {
-        "id": "earthworm_jim_2_(usa)_md",
+        "id": "segaMD_Earthworm_Jim_2",
         "name": "Earthworm Jim 2",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Earthworm Jim 2 (USA).md",
         "core": "segaMD",
-        "image": "assets/sega_md/Earthworm Jim 2 (USA).png"
+        "image": "assets/segaMD/Earthworm Jim 2.png"
     },
     {
-        "id": "gunstar_heroes_(usa)_md",
+        "id": "segaMD_Gunstar_Heroes",
         "name": "Gunstar Heroes",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Gunstar Heroes (USA).md",
         "core": "segaMD",
-        "image": "assets/sega_md/Gunstar Heroes (USA).png"
+        "image": "assets/segaMD/Gunstar Heroes.png"
     },
     {
-        "id": "nba_jam_-_tournament_edition_(world)_md",
+        "id": "segaMD_NBA_Jam_-_Tournament_Edition",
         "name": "NBA Jam - Tournament Edition",
         "system": "segaMD",
         "rom_path": "roms/sega_md/NBA Jam - Tournament Edition (World).md",
         "core": "segaMD",
-        "image": "assets/sega_md/NBA Jam - Tournament Edition (World).png"
+        "image": "assets/segaMD/NBA Jam - Tournament Edition.png"
     },
     {
-        "id": "phantasy_star_iv_(usa)_md",
+        "id": "segaMD_Phantasy_Star_IV",
         "name": "Phantasy Star IV",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Phantasy Star IV (USA).md",
         "core": "segaMD",
-        "image": "assets/sega_md/Phantasy Star IV (USA).png"
+        "image": "assets/segaMD/Phantasy Star IV.png"
     },
     {
-        "id": "sonic_&_knuckles_+_sonic_the_hedgehog_3_(usa)_md",
+        "id": "segaMD_Sonic_&_Knuckles_+_Sonic_The_Hedgehog_3",
         "name": "Sonic & Knuckles + Sonic The Hedgehog 3",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Sonic & Knuckles + Sonic The Hedgehog 3 (USA).md",
@@ -456,107 +472,107 @@
         "image": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Sonic%20The%20Hedgehog%203%20%28USA%29.png"
     },
     {
-        "id": "teenage_mutant_ninja_turtles_-_the_hyperstone_heist_(usa)_md",
+        "id": "segaMD_Teenage_Mutant_Ninja_Turtles_-_The_Hyperstone_Heist",
         "name": "Teenage Mutant Ninja Turtles - The Hyperstone Heist",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA).md",
         "core": "segaMD",
-        "image": "assets/sega_md/Teenage Mutant Ninja Turtles - The Hyperstone Heist (USA).png"
+        "image": "assets/segaMD/Teenage Mutant Ninja Turtles - The Hyperstone Heist.png"
     },
     {
-        "id": "toejam_&_earl_(usa,_europe,_korea)_md",
+        "id": "segaMD_ToeJam_&_Earl",
         "name": "ToeJam & Earl",
         "system": "segaMD",
         "rom_path": "roms/sega_md/ToeJam & Earl (USA, Europe, Korea).md",
         "core": "segaMD",
-        "image": "assets/sega_md/ToeJam & Earl (USA, Europe, Korea).png"
+        "image": "assets/segaMD/ToeJam  Earl.png"
     },
     {
-        "id": "ultimate_mortal_kombat_3_(usa)_md",
+        "id": "segaMD_Ultimate_Mortal_Kombat_3",
         "name": "Ultimate Mortal Kombat 3",
         "system": "segaMD",
         "rom_path": "roms/sega_md/Ultimate Mortal Kombat 3 (USA).md",
         "core": "segaMD",
-        "image": "assets/sega_md/Ultimate Mortal Kombat 3 (USA).png"
+        "image": "assets/segaMD/Ultimate Mortal Kombat 3.png"
     },
     {
-        "id": "contra_iii_-_the_alien_wars_(usa)_sfc",
+        "id": "snes_Contra_III_-_The_Alien_Wars",
         "name": "Contra III - The Alien Wars",
         "system": "snes",
         "rom_path": "roms/snes/Contra III - The Alien Wars (USA).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Contra III - The Alien Wars (USA).png"
+        "image": "assets/snes/Contra III - The Alien Wars.png"
     },
     {
-        "id": "donkey_kong_country_2_-_diddy's_kong_quest_(usa)_(en,fr)_(rev_1)_sfc",
+        "id": "snes_Donkey_Kong_Country_2_-_Diddy's_Kong_Quest",
         "name": "Donkey Kong Country 2 - Diddy's Kong Quest",
         "system": "snes",
         "rom_path": "roms/snes/Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) (Rev 1).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) (Rev 1).png"
+        "image": "assets/snes/Donkey Kong Country 2 - Diddys Kong Quest.png"
     },
     {
-        "id": "mega_man_x3_(usa)_sfc",
+        "id": "snes_Mega_Man_X3",
         "name": "Mega Man X3",
         "system": "snes",
         "rom_path": "roms/snes/Mega Man X3 (USA).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Mega Man X3 (USA).png"
+        "image": "assets/snes/Mega Man X3.png"
     },
     {
-        "id": "street_fighter_ii_turbo_(usa)_(rev_1)_sfc",
+        "id": "snes_Street_Fighter_II_Turbo",
         "name": "Street Fighter II Turbo",
         "system": "snes",
         "rom_path": "roms/snes/Street Fighter II Turbo (USA) (Rev 1).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Street Fighter II Turbo (USA) (Rev 1).png"
+        "image": "assets/snes/Street Fighter II Turbo.png"
     },
     {
-        "id": "super_bomberman_2_(usa)_sfc",
+        "id": "snes_Super_Bomberman_2",
         "name": "Super Bomberman 2",
         "system": "snes",
         "rom_path": "roms/snes/Super Bomberman 2 (USA).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Super Bomberman 2 (USA).png"
+        "image": "assets/snes/Super Bomberman 2.png"
     },
     {
-        "id": "super_castlevania_iv_(usa)_sfc",
+        "id": "snes_Super_Castlevania_IV",
         "name": "Super Castlevania IV",
         "system": "snes",
         "rom_path": "roms/snes/Super Castlevania IV (USA).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Super Castlevania IV (USA).png"
+        "image": "assets/snes/Super Castlevania IV.png"
     },
     {
-        "id": "super_mario_world_(usa)_sfc",
+        "id": "snes_Super_Mario_World",
         "name": "Super Mario World",
         "system": "snes",
         "rom_path": "roms/snes/Super Mario World (USA).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Super Mario World (USA).png"
+        "image": "assets/snes/Super Mario World.png"
     },
     {
-        "id": "super_punch-out!!_(usa)_sfc",
+        "id": "snes_Super_Punch-Out!!",
         "name": "Super Punch-Out!!",
         "system": "snes",
         "rom_path": "roms/snes/Super Punch-Out!! (USA).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Super Punch-Out!! (USA).png"
+        "image": "assets/snes/Super Punch-Out.png"
     },
     {
-        "id": "teenage_mutant_ninja_turtles_iv_-_turtles_in_time_(usa)_sfc",
+        "id": "snes_Teenage_Mutant_Ninja_Turtles_IV_-_Turtles_in_Time",
         "name": "Teenage Mutant Ninja Turtles IV - Turtles in Time",
         "system": "snes",
         "rom_path": "roms/snes/Teenage Mutant Ninja Turtles IV - Turtles in Time (USA).sfc",
         "core": "snes9x",
-        "image": "assets/snes/Teenage Mutant Ninja Turtles IV - Turtles in Time (USA).png"
+        "image": "assets/snes/Teenage Mutant Ninja Turtles IV - Turtles in Time.png"
     },
     {
-        "id": "the_legend_of_zelda_-_a_link_to_the_past_(usa)_sfc",
+        "id": "snes_The_Legend_of_Zelda_-_A_Link_to_the_Past",
         "name": "The Legend of Zelda - A Link to the Past",
         "system": "snes",
         "rom_path": "roms/snes/The Legend of Zelda - A Link to the Past (USA).sfc",
         "core": "snes9x",
-        "image": "assets/snes/The Legend of Zelda - A Link to the Past (USA).png"
+        "image": "assets/snes/The Legend of Zelda - A Link to the Past.png"
     }
 ]

@@ -90,7 +90,44 @@ SYSTEM_TO_REPO_MAP = {
     'neogeo': 'SNK_-_Neo_Geo',
     'ngp': ['SNK_-_Neo_Geo_Pocket_Color', 'SNK_-_Neo_Geo_Pocket'], # Search both
     'atari2600': 'Atari_-_2600',
+    'atari7800': 'Atari_-_7800', 
     'arcade': 'FBNeo_-_Arcade_Games' 
+}
+
+# Manual Mapping for Arcade/NeoGeo abbreviations
+ARCADE_NAMES = {
+    'mslug': 'Metal Slug - Super Vehicle-001',
+    'mslug2': 'Metal Slug 2 - Super Vehicle-001/II',
+    'mslugx': 'Metal Slug X - Super Vehicle-001',
+    'mslug3': 'Metal Slug 3',
+    'mslug4': 'Metal Slug 4',
+    'mslug5': 'Metal Slug 5',
+    'kof94': 'The King of Fighters \'94',
+    'kof95': 'The King of Fighters \'95',
+    'kof96': 'The King of Fighters \'96',
+    'kof97': 'The King of Fighters \'97',
+    'kof98': 'The King of Fighters \'98 - The Slugfest',
+    'kof99': 'The King of Fighters \'99 - Millennium Battle',
+    'kof2000': 'The King of Fighters 2000',
+    'kof2001': 'The King of Fighters 2001',
+    'kof2002': 'The King of Fighters 2002 - Challenge to Ultimate Battle',
+    'kof2003': 'The King of Fighters 2003',
+    'samsho': 'Samurai Shodown',
+    'samsho2': 'Samurai Shodown II',
+    'samsho3': 'Samurai Shodown III',
+    'samsho4': 'Samurai Shodown IV - Amakusa\'s Revenge',
+    'samsho5': 'Samurai Shodown V',
+    'lastblad': 'The Last Blade',
+    'lastbld2': 'The Last Blade 2',
+    'garou': 'Garou - Mark of the Wolves',
+    'fatfury1': 'Fatal Fury - King of Fighters',
+    'fatfury2': 'Fatal Fury 2',
+    'fatfursp': 'Fatal Fury Special',
+    'rbff1': 'Real Bout Fatal Fury',
+    'rbff2': 'Real Bout Fatal Fury 2 - The Newcomers',
+    'rbffspec': 'Real Bout Fatal Fury Special',
+    'svc': 'SNK vs. Capcom - SVC Chaos',
+    'neogeo': 'Neo Geo BIOS' 
 }
 
 # --- Caching ---
@@ -99,6 +136,11 @@ _repo_cache = {} # repo_name -> {'files': [], 'clean_map': {}}
 # --- Helpers ---
 
 def clean_filename(filename):
+    # check if plain filename (without extension) is in our arcade map
+    name_no_ext = os.path.splitext(filename)[0].lower()
+    if name_no_ext in ARCADE_NAMES:
+        return ARCADE_NAMES[name_no_ext].lower()
+
     name = os.path.splitext(filename)[0]
     name = re.sub(r'[\(\[].*?[\)\]]', '', name)
     name = re.sub(r'[^a-zA-Z0-9\s]', ' ', name)
@@ -109,6 +151,7 @@ def get_repo_data_cached(repo_name):
         return _repo_cache[repo_name]
     
     print(f"  [API] Fetching file list for {repo_name}...")
+    # Use recursive tree to get all files
     url = f"{GITHUB_API_BASE}/{repo_name}/git/trees/master?recursive=1"
     
     try:
@@ -120,6 +163,7 @@ def get_repo_data_cached(repo_name):
             if 'tree' in data:
                 for item in data['tree']:
                     path = item['path']
+                    # Libretro structure: Named_Boxarts/Game Name.png
                     if path.startswith('Named_Boxarts/') and path.endswith('.png'):
                         fname = os.path.basename(path)
                         files.append(fname)
@@ -295,65 +339,56 @@ def scan_roms():
                 game_id = file.replace('.', '_').replace(' ', '_').lower()
                 raw_name = os.path.splitext(file)[0]
                 
-                # Display Name
-                clean_name = re.sub(r'\s*\(.*?\)', '', raw_name)
-                clean_name = re.sub(r'\s*\[.*?\]', '', clean_name)
-                clean_name = clean_name.strip()
-                if ", The" in clean_name: clean_name = "The " + clean_name.replace(", The", "")
-                if ", the" in clean_name: clean_name = "The " + clean_name.replace(", the", "")
-
-                # Image Logic
-                image_path = "assets/default.png"
+                # Determine display name
+                display_name = raw_name
                 
-                # Manual Override Map check
-                if raw_name in cover_map:
-                    image_path = cover_map[raw_name]
+                # Try to resolve arcade name for better display
+                name_key = display_name.lower()
+                if name_key in ARCADE_NAMES:
+                    display_name = ARCADE_NAMES[name_key]
                 else:
-                    # Determine where asset should be
-                    subfolder = os.path.relpath(root, ROM_DIR)
-                    if subfolder == '.': subfolder = ''
-                    
-                    # We usually want assets/<system>/name.png
-                    # But the structure suggests assets/gba/name.png if roms/gba/name.gba
-                    # Let's trust subfolder structure matches
-                    
-                    # Fallback asset path (where we want to save it)
-                    target_asset_path = os.path.join(ASSETS_DIR, subfolder, raw_name + ".png")
-                    
-                    # Smart Check & Download
-                    found_asset = get_smart_cover(config['system'], file, target_asset_path)
-                    
-                    if found_asset:
-                        image_path = found_asset
-                    else:
-                        # Final Fallback to Remote URL (Old logic) - Only if really needed
-                        # The user seems to prefer local DL. If failed, just keep default or generate a link?
-                        # Generating a blind link is risky if file doesn't exist. 
-                        # Let's generate the link as a last resort if we have a repo map.
-                        if config['system'] in SYSTEM_TO_REPO_MAP:
-                             repo = SYSTEM_TO_REPO_MAP[config['system']]
-                             safe_name = urllib.parse.quote(raw_name)
-                             # image_path = f"{RAW_BASE_URL}/{repo}/master/Named_Boxarts/{safe_name}.png"
-                             # Commented out: Prefer default.png than broken link if Fuzzy search failed.
-                             pass
+                    clean_display = re.sub(r'\s*\(.*?\)', '', display_name)
+                    clean_display = re.sub(r'\s*\[.*?\]', '', clean_display)
+                    display_name = clean_display.strip()
 
-                entry = {
-                    "id": game_id,
-                    "name": clean_name,
+                
+                game_entry = {
+                    "id": f"{config['system']}_{display_name.replace(' ', '_').replace('/', '')}", # unique id
+                    "name": display_name,
                     "system": config['system'],
                     "rom_path": web_path,
                     "core": config['core'],
-                    "image": image_path
+                    "image": "assets/default.png" # Default
                 }
-                game_list.append(entry)
-                # print(f"  Processed: {clean_name}")
+                
+                # Check for cover override
+                if raw_name in cover_map:
+                     game_entry["image"] = cover_map[raw_name]
+                else:
+                    # Smart Cover Discovery
+                    system_dir = os.path.join(ASSETS_DIR, config['system'])
+                    if not os.path.exists(system_dir): os.makedirs(system_dir)
+                    
+                    # If we have a resolved name, use it for the asset filename too to match repo
+                    asset_filename = display_name if display_name != raw_name else raw_name
+                    # Sanitize for filesystem
+                    asset_filename = re.sub(r'[^a-zA-Z0-9\s\-\.]', '', asset_filename) + ".png"
+                    
+                    asset_rel_path = os.path.join(ASSETS_DIR, config['system'], asset_filename)
+                    
+                    found_cover = get_smart_cover(config['system'], file, asset_rel_path)
+                    
+                    if found_cover:
+                        game_entry["image"] = found_cover
+                    else:
+                        print(f"[Cover] Missing for {file} ({config['system']})")
+                
+                game_list.append(game_entry)
 
-    if game_list:
-        with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-            json.dump(game_list, f, indent=4, ensure_ascii=False)
+    # Save
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        json.dump(game_list, f, indent=4)
         print(f"\nSuccessfully generated {OUTPUT_FILE} with {len(game_list)} games.")
-    else:
-        print("No games found.")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     scan_roms()
