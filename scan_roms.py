@@ -144,17 +144,37 @@ def get_repo_data_cached(repo_name):
         _repo_cache[repo_name] = None
         return None
 
-def download_file(repo_name, filename, save_path):
+def download_file(repo_name, filename, save_path, depth=0):
+    if depth > 3: # Prevention for circular symlinks
+        print(f"    -> [Error] Too many symlink jumps for {filename}")
+        return False
+
     safe_name = urllib.parse.quote(filename)
     url = f"{RAW_BASE_URL}/{repo_name}/master/Named_Boxarts/{safe_name}"
     try:
         response = requests.get(url, timeout=10)
         if response.status_code == 200:
-            os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            with open(save_path, 'wb') as f:
-                f.write(response.content)
-            return True
-    except:
+            content = response.content
+            
+            # Check if it's a PNG or a Symlink (text file pointing to another .png)
+            if content.startswith(b'\x89PNG'):
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                with open(save_path, 'wb') as f:
+                    f.write(content)
+                return True
+            else:
+                # Might be a symlink text
+                try:
+                    link_target = content.decode('utf-8').strip()
+                    if link_target.endswith('.png'):
+                        print(f"    -> [Link] Following symlink: {filename} -> {link_target}")
+                        return download_file(repo_name, link_target, save_path, depth + 1)
+                except:
+                    pass
+                
+                print(f"    -> [Error] Content is not a PNG for {filename}")
+    except Exception as e:
+        print(f"    -> [Exception] Download error: {e}")
         pass
     return False
 
@@ -168,7 +188,9 @@ def get_smart_cover(system_id, raw_filename, asset_rel_path):
     for ext in ['.png', '.jpg', '.jpeg', '.webp']:
         check_path = base_asset_path + ext
         if os.path.exists(check_path):
-            return check_path.replace('\\', '/')
+            # Check if valid file (not corrupted/text)
+            if os.path.getsize(check_path) > 200:
+                return check_path.replace('\\', '/')
 
     # 2. Not found? Try Smart Download
     repo_entries = SYSTEM_TO_REPO_MAP.get(system_id)
@@ -176,15 +198,11 @@ def get_smart_cover(system_id, raw_filename, asset_rel_path):
         return None  
     
     # Normalize to list
-    if isinstance(repo_entries, str):
-        repos = [repo_entries]
-    else:
-        repos = repo_entries
+    repos = [repo_entries] if isinstance(repo_entries, str) else repo_entries
         
     for repo_name in repos:
         repo_data = get_repo_data_cached(repo_name)
-        if not repo_data:
-            continue
+        if not repo_data: continue
         
         clean_map = repo_data['clean_map']
         clean_search = clean_filename(raw_filename)
@@ -201,22 +219,46 @@ def get_smart_cover(system_id, raw_filename, asset_rel_path):
                 best_clean = matches[0]
                 match_filename = clean_map[best_clean]
                 print(f"    -> [Matches] Found Fuzzy in {repo_name}: {match_filename} (from '{best_clean}')")
+            else:
+                # C. Substring/Prefix Fallback (For titles like "The Last Blade" vs "Last Blade, The...")
+                # We check if clean_search is IN the clean_remote or vice versa
+                for c_remote, r_file in clean_map.items():
+                    if clean_search in c_remote or c_remote in clean_search:
+                        # Only accept if they are reasonably similar or one contains the other significantly
+                        if len(clean_search) > 5 and len(c_remote) > 5:
+                             match_filename = r_file
+                             print(f"    -> [Matches] Found Substring in {repo_name}: {match_filename}")
+                             break
 
         if match_filename:
-            target_path = asset_rel_path
-            if download_file(repo_name, match_filename, target_path):
+            if download_file(repo_name, match_filename, asset_rel_path):
                 time.sleep(0.1) # Politeness
-                return target_path.replace('\\', '/')
-            else:
-                print("    -> [Download] Failed.")
-                # Don't break immediately, maybe found in next match? (Unlikely if one failed, but safe to continue or return None)
-                continue 
-
+                return asset_rel_path.replace('\\', '/')
+            
     return None
+
+def cleanup_corrupted_assets():
+    """Delete files < 200 bytes in assets/ as they are likely corrupted symlinks."""
+    if not os.path.exists(ASSETS_DIR): return
+    print("--- Cleaning up corrupted assets ---")
+    count = 0
+    for root, dirs, files in os.walk(ASSETS_DIR):
+        for f in files:
+            path = os.path.join(root, f)
+            if os.path.isfile(path) and os.path.getsize(path) < 200:
+                try:
+                    os.remove(path)
+                    count += 1
+                except:
+                    pass
+    if count > 0:
+        print(f"  Deleted {count} corrupted files.")
 
 
 def scan_roms():
     game_list = []
+    
+    cleanup_corrupted_assets()
     
     if not os.path.exists(ASSETS_DIR):
         os.makedirs(ASSETS_DIR)

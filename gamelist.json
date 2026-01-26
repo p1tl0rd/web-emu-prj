@@ -333,7 +333,7 @@
         "system": "ngp",
         "rom_path": "roms/ngp/Last Blade, The (UE) [!].npc",
         "core": "mednafen_ngp",
-        "image": "assets/default.png"
+        "image": "assets/ngp/Last Blade, The (UE) [!].png"
     },
     {
         "id": "metal_slug_-_1st_mission_(jue)_npc",
