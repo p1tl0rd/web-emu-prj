@@ -307,44 +307,54 @@ function startGame(game) {
         // --- Custom Control Mapping (WASD + IJKL + UO) ---
         window.EJS_defaultControls = {
             0: {
-                0: { 'value': 'j', 'value2': 'BUTTON_2' },  // B (Bottom) -> J
-                1: { 'value': 'l', 'value2': 'BUTTON_4' },  // Y (Left) -> L
-                2: { 'value': 'v', 'value2': 'SELECT' },    // Mode -> V
+                0: { 'value': 'k', 'value2': 'BUTTON_2' },  // B (Bottom) -> K
+                1: { 'value': 'j', 'value2': 'BUTTON_4' },  // Y (Left) -> J
+                2: { 'value': 'v', 'value2': 'SELECT' },    // Select -> V
                 3: { 'value': 'enter', 'value2': 'START' }, // Start -> Enter
                 4: { 'value': 'w', 'value2': 'DPAD_UP' },
                 5: { 'value': 's', 'value2': 'DPAD_DOWN' },
                 6: { 'value': 'a', 'value2': 'DPAD_LEFT' },
                 7: { 'value': 'd', 'value2': 'DPAD_RIGHT' },
-                8: { 'value': 'k', 'value2': 'BUTTON_1' },  // A (Right) -> K
+                8: { 'value': 'l', 'value2': 'BUTTON_1' },  // A (Right) -> L
                 9: { 'value': 'i', 'value2': 'BUTTON_3' },  // X (Top) -> I
-                10: { 'value': 'q', 'value2': 'LEFT_TOP_SHOULDER' },  // C -> Q (User Requested)
-                11: { 'value': 'o', 'value2': 'RIGHT_TOP_SHOULDER' }, // Z -> O (User Requested)
-                12: { 'value': 'u', 'value2': 'LEFT_BOTTOM_SHOULDER' }, // Was Q, moved to U
-                13: { 'value': 'e', 'value2': 'RIGHT_BOTTOM_SHOULDER' },
+                10: { 'value': 'q', 'value2': 'LEFT_TOP_SHOULDER' },  // L -> Q
+                11: { 'value': 'o', 'value2': 'RIGHT_TOP_SHOULDER' }, // R -> O
+                12: { 'value': 'u', 'value2': 'LEFT_BOTTOM_SHOULDER' }, // L2 -> U
+                13: { 'value': 'e', 'value2': 'RIGHT_BOTTOM_SHOULDER' }, // R2 -> E
                 14: { 'value': '', 'value2': 'LEFT_STICK' },
                 15: { 'value': '', 'value2': 'RIGHT_STICK' },
                 16: { 'value': 'd', 'value2': 'LEFT_STICK_X:+1' },
                 17: { 'value': 'a', 'value2': 'LEFT_STICK_X:-1' },
                 18: { 'value': 's', 'value2': 'LEFT_STICK_Y:+1' },
                 19: { 'value': 'w', 'value2': 'LEFT_STICK_Y:-1' },
-                
+
                 20: { 'value': 'l', 'value2': 'RIGHT_STICK_X:+1' },
                 21: { 'value': 'j', 'value2': 'RIGHT_STICK_X:-1' },
                 22: { 'value': 'i', 'value2': 'RIGHT_STICK_Y:-1' },
                 23: { 'value': 'k', 'value2': 'RIGHT_STICK_Y:+1' },
-                
-                24: { 'value': '1' },
-                25: { 'value': '2' },
-                26: { 'value': '3' },
+
                 27: { 'value': 'add' },
                 28: { 'value': 'space' },
                 29: { 'value': 'subtract' }
             },
-            1: {},
+            1: {
+                0: { 'value': '2', 'value2': 'BUTTON_2' },  // B (Bottom) -> 2
+                1: { 'value': '1', 'value2': 'BUTTON_4' },  // Y (Left) -> 1
+                4: { 'value': 'arrowup', 'value2': 'DPAD_UP' },
+                5: { 'value': 'arrowdown', 'value2': 'DPAD_DOWN' },
+                6: { 'value': 'arrowleft', 'value2': 'DPAD_LEFT' },
+                7: { 'value': 'arrowright', 'value2': 'DPAD_RIGHT' },
+                8: { 'value': '3', 'value2': 'BUTTON_1' },  // A (Right) -> 3
+                9: { 'value': '5', 'value2': 'BUTTON_3' },  // X (Top) -> 5
+                10: { 'value': '4', 'value2': 'LEFT_TOP_SHOULDER' },  // L -> 4
+                11: { 'value': '6', 'value2': 'RIGHT_TOP_SHOULDER' }, // R -> 6
+                2: { 'value': '7', 'value2': 'SELECT' },    // Select -> 7
+                3: { 'value': '9', 'value2': 'START' }      // Start -> 9
+            },
             2: {},
             3: {}
         };
-        
+
         // --- COI / SharedArrayBuffer Fix for Edge/GH Pages ---
         console.log("Environment Check:", {
             crossOriginIsolated: window.crossOriginIsolated,
@@ -355,16 +365,16 @@ function startGame(game) {
 
         // FORCE FIX: Edge often reports COI=true via service worker but still crashes with SharedArrayBuffer
         const isEdge = /Edg/.test(navigator.userAgent);
-        
+
         if (!window.crossOriginIsolated || (isEdge && window.location.hostname.includes("github.io"))) {
             if (isEdge) {
-                 console.warn("⚠️ Edge + GitHub Pages detected. Force disabling threads to prevent 'memory access out of bounds' crash.");
+                console.warn("⚠️ Edge + GitHub Pages detected. Force disabling threads to prevent 'memory access out of bounds' crash.");
             } else {
-                 console.warn("⚠️ Cross-Origin Isolation failed. Disabling EmulatorJS threads to prevent WASM crash.");
+                console.warn("⚠️ Cross-Origin Isolation failed. Disabling EmulatorJS threads to prevent WASM crash.");
             }
-            window.EJS_threads = false; 
+            window.EJS_threads = false;
         } else {
-             console.log("✅ Cross-Origin Isolation active. Threads enabled.");
+            console.log("✅ Cross-Origin Isolation active. Threads enabled.");
         }
 
 
@@ -387,7 +397,7 @@ function startGame(game) {
                 '/saves',
                 '/userdata/saves'
             ];
-            
+
             for (const path of candidates) {
                 try {
                     // Try to list directory. If it succeeds, the dir exists.
@@ -399,7 +409,7 @@ function startGame(game) {
                     // Path not found or not accessible
                 }
             }
-            
+
             console.warn("   ⚠️ [FS] No standard save dir found. Defaulting to standard.");
             return '/home/web_user/retroarch/userdata/saves';
         }
@@ -417,7 +427,7 @@ function startGame(game) {
             const gameId = currentGameConfig.id;
             const romName = currentGameConfig.rom_path.split('/').pop();
             const saveFileName = romName.replace(/\.\w+$/, '.srm');
-            
+
             // Wait for FS to be ready (sometimes slight delay)
             let fs = getFS();
             let retries = 0;
@@ -427,12 +437,12 @@ function startGame(game) {
                 fs = getFS();
                 retries++;
             }
-            
+
             if (!fs) {
                 console.error("   ❌ [LOAD] FS not found after waiting!");
                 return;
             }
-            
+
             const saveDir = findSaveDir(fs);
             const virtualPath = `${saveDir}/${saveFileName}`;
 
@@ -451,31 +461,31 @@ function startGame(game) {
 
                     const saveBytes = base64ToUint8Array(cloudData.srm_data);
                     lastSaveData = saveBytes; // Cache initial cloud state
-                    
+
                     console.log("   - Writing to virtual FS...");
                     // Ensure dir exists (createPath params: parent, name, canRead, canWrite)
                     // We need to recursively create path if findSaveDir returned a default that doesn't exist
                     // But fs.createPath implementation usually needs parent to exist.
                     // Simplified: just try writing. If parent invalid, we might need mkdirp.
                     // Start simple:
-                    
+
                     try {
                         // Attempt to ensure directory exists (non-recursive check)
-                         const parts = saveDir.split('/').filter(p => p);
-                         let currentPath = '';
-                         for(let i=0; i<parts.length; i++) {
-                             const parent = currentPath || '/';
-                             const name = parts[i];
-                             currentPath = (currentPath ? currentPath + '/' : '/') + name;
-                             try { fs.stat(currentPath); } catch(e) { 
-                                 fs.createPath(parent, name, true, true); 
-                             }
-                         }
-                        
+                        const parts = saveDir.split('/').filter(p => p);
+                        let currentPath = '';
+                        for (let i = 0; i < parts.length; i++) {
+                            const parent = currentPath || '/';
+                            const name = parts[i];
+                            currentPath = (currentPath ? currentPath + '/' : '/') + name;
+                            try { fs.stat(currentPath); } catch (e) {
+                                fs.createPath(parent, name, true, true);
+                            }
+                        }
+
                         fs.writeFile(virtualPath, saveBytes);
                         console.log(`   ✅ [LOAD] Restored save to ${virtualPath}`);
-                    } catch(e) {
-                         console.error("   ❌ [LOAD] Error writing file:", e);
+                    } catch (e) {
+                        console.error("   ❌ [LOAD] Error writing file:", e);
                     }
 
                 } else {
@@ -504,7 +514,7 @@ function startGame(game) {
         // --- Polling Function ---
         function checkForSaveUpdate(virtualPath, gameId) {
             if (!currentProfile || currentProfile.id === 'guest') return;
-            
+
             try {
                 const fs = getFS();
                 if (fs) {
@@ -514,30 +524,30 @@ function startGame(game) {
 
                         // Read file
                         const fileData = fs.readFile(virtualPath);
-                        
+
                         // SMART CHECK: Only upload if different from last cache
                         if (arraysEqual(fileData, lastSaveData)) {
-                             // console.log("   💤 [POLL] No changes detected.");
-                             return;
+                            // console.log("   💤 [POLL] No changes detected.");
+                            return;
                         }
 
                         console.log("   💾 [POLL] Save changed! Uploading... (" + fileData.length + " bytes)");
                         const base64String = uint8ArrayToBase64(fileData);
-                        
+
                         set(ref(db, `users/${currentProfile.id}/saves/${gameId}`), {
                             srm_data: base64String,
                             timestamp: Date.now()
                         }).then(() => {
-                           console.log("   ✅ [POLL] Cloud Sync Success!");
-                           lastSaveData = fileData; // Update cache after success
+                            console.log("   ✅ [POLL] Cloud Sync Success!");
+                            lastSaveData = fileData; // Update cache after success
                         }).catch(e => {
                             console.error("   ❌ [POLL] Upload failed:", e);
                         });
 
                     } catch (e) {
-                         // File not found yet
-                         // console.warn("   ⚠️ [POLL] Save file not found yet at:", virtualPath);
-                         // Suppress warn to avoid spamming console every 1s
+                        // File not found yet
+                        // console.warn("   ⚠️ [POLL] Save file not found yet at:", virtualPath);
+                        // Suppress warn to avoid spamming console every 1s
                     }
                 } else {
                     // console.warn("   ⚠️ [POLL] FS not ready.");
@@ -551,43 +561,43 @@ function startGame(game) {
         window.EJS_onSaveSave = function (e) {
             // e is likely the Uint8Array or an object containing it
             console.log("🔥 [EVENT] EJS_onSaveSave triggered!", e);
-            
+
             if (!currentProfile || currentProfile.id === 'guest') return;
-            
+
             // If e represents the file content (Uint8Array)
             if (e && (e instanceof Uint8Array || e.byteLength !== undefined)) {
-                 const fileData = new Uint8Array(e);
-                 
-                 // Smart check
-                 if (arraysEqual(fileData, lastSaveData)) {
-                     console.log("   💤 [EVENT] Content matches cache. Skipping upload.");
-                     return;
-                 }
-                 
-                 console.log("   💾 [EVENT] Uploading via Native Hook... (" + fileData.length + " bytes)");
-                 const base64String = uint8ArrayToBase64(fileData);
-                 
-                 const gameId = currentGameConfig.id; // Global var
-                 
-                 set(ref(db, `users/${currentProfile.id}/saves/${gameId}`), {
+                const fileData = new Uint8Array(e);
+
+                // Smart check
+                if (arraysEqual(fileData, lastSaveData)) {
+                    console.log("   💤 [EVENT] Content matches cache. Skipping upload.");
+                    return;
+                }
+
+                console.log("   💾 [EVENT] Uploading via Native Hook... (" + fileData.length + " bytes)");
+                const base64String = uint8ArrayToBase64(fileData);
+
+                const gameId = currentGameConfig.id; // Global var
+
+                set(ref(db, `users/${currentProfile.id}/saves/${gameId}`), {
                     srm_data: base64String,
                     timestamp: Date.now()
                 }).then(() => {
-                   console.log("   ✅ [EVENT] Native Upload Success!");
-                   lastSaveData = fileData; // Update cache
+                    console.log("   ✅ [EVENT] Native Upload Success!");
+                    lastSaveData = fileData; // Update cache
                 }).catch(err => {
                     console.error("   ❌ [EVENT] Upload failed:", err);
                 });
             }
         };
-        
+
         // Keep Event hook just in case, but delegate to poller logic?
         window.EJS_onSaveUpdate = function () {
-             console.log("🔥 [EVENT] EJS_onSaveUpdate triggered (Rare)!");
-             // We can trigger an immediate check
-             if (saveInterval) {
-                 // Logic likely handled by poller, but good to know if it fires.
-             }
+            console.log("🔥 [EVENT] EJS_onSaveUpdate triggered (Rare)!");
+            // We can trigger an immediate check
+            if (saveInterval) {
+                // Logic likely handled by poller, but good to know if it fires.
+            }
         };
 
         // Load loader - EXACT LEGACY WAY -> Just append, do not check/remove
