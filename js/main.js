@@ -424,8 +424,7 @@ function startGame(game) {
             console.log("   - Current Profile:", currentProfile ? currentProfile.name : "NULL");
             if (!currentProfile) return;
 
-            // Stop any existing interval
-            if (saveInterval) clearInterval(saveInterval);
+            // NO saveInterval anymore (Event-based)
             lastSaveData = null; // Reset cache
 
             const gameId = currentGameConfig.id;
@@ -447,7 +446,7 @@ function startGame(game) {
                 return;
             }
 
-            const saveDir = findSaveDir(fs);
+            const saveDir = window.findSaveDir(fs);
             const virtualPath = `${saveDir}/${saveFileName}`;
 
             console.log("   - Game ID:", gameId);
@@ -460,48 +459,68 @@ function startGame(game) {
                 if (snapshot.exists()) {
                     const cloudData = snapshot.val();
                     console.log("   ✅ [LOAD] Save found in cloud!");
-                    console.log("   - Timestamp:", new Date(cloudData.timestamp).toLocaleString());
-                    console.log("   - Size (Base64):", cloudData.srm_data.length);
 
-                    const saveBytes = base64ToUint8Array(cloudData.srm_data);
-                    lastSaveData = saveBytes; // Cache initial cloud state
-
-                    console.log("   - Writing to virtual FS...");
-                    // Ensure dir exists (createPath params: parent, name, canRead, canWrite)
-                    // We need to recursively create path if findSaveDir returned a default that doesn't exist
-                    // But fs.createPath implementation usually needs parent to exist.
-                    // Simplified: just try writing. If parent invalid, we might need mkdirp.
-                    // Start simple:
-
-                    try {
-                        // Attempt to ensure directory exists (non-recursive check)
-                        const parts = saveDir.split('/').filter(p => p);
-                        let currentPath = '';
-                        for (let i = 0; i < parts.length; i++) {
-                            const parent = currentPath || '/';
-                            const name = parts[i];
-                            currentPath = (currentPath ? currentPath + '/' : '/') + name;
-                            try { fs.stat(currentPath); } catch (e) {
-                                fs.createPath(parent, name, true, true);
-                            }
-                        }
-
-                        fs.writeFile(virtualPath, saveBytes);
-                        console.log(`   ✅ [LOAD] Restored save to ${virtualPath}`);
-                    } catch (e) {
-                        console.error("   ❌ [LOAD] Error writing file:", e);
+                    // Support both old format (direct object) and new format (type discrimination)
+                    let saveBytes = null;
+                    if (cloudData.srm_data) {
+                        console.log("   - Timestamp:", new Date(cloudData.timestamp).toLocaleString());
+                        saveBytes = base64ToUint8Array(cloudData.srm_data);
                     }
 
+                    if (saveBytes) {
+                        lastSaveData = saveBytes; // Cache initial cloud state
+
+                        console.log("   - Writing to virtual FS...");
+                        try {
+                            // Attempt to ensure directory exists (non-recursive check)
+                            const parts = saveDir.split('/').filter(p => p);
+                            let currentPath = '';
+                            for (let i = 0; i < parts.length; i++) {
+                                const parent = currentPath || '/';
+                                const name = parts[i];
+                                currentPath = (currentPath ? currentPath + '/' : '/') + name;
+                                try { fs.stat(currentPath); } catch (e) {
+                                    fs.createPath(parent, name, true, true);
+                                }
+                            }
+
+                            fs.writeFile(virtualPath, saveBytes);
+                            console.log(`   ✅ [LOAD] Restored save to ${virtualPath}`);
+                        } catch (e) {
+                            console.error("   ❌ [LOAD] Error writing file:", e);
+                        }
+                    }
                 } else {
                     console.log("   ⚠️ [LOAD] No save found in cloud for this game.");
                 }
             } catch (err) {
                 console.error("   ❌ [LOAD] Error fetching save:", err);
             }
+        };
 
-            // Start Polling for new saves
-            console.log("   ⏳ [POLL] Starting Save Poller (1s interval)...");
-            saveInterval = setInterval(() => checkForSaveUpdate(virtualPath, gameId), 1000);
+        // --- Helper: Find Save Directory (Exposed Global) ---
+        window.findSaveDir = function (fs) {
+            const candidates = [
+                '/home/web_user/retroarch/userdata/saves',
+                '/home/web_user/retroarch/saves',
+                '/data/saves',
+                '/saves',
+                '/userdata/saves'
+            ];
+
+            for (const path of candidates) {
+                try {
+                    // Try to list directory. If it succeeds, the dir exists.
+                    if (fs.readdir(path)) {
+                        console.log("   🔍 [FS] Found valid save dir:", path);
+                        return path;
+                    }
+                } catch (e) {
+                    // Path not found or not accessible
+                }
+            }
+            console.warn("   ⚠️ [FS] No standard save dir found. Defaulting to standard.");
+            return '/home/web_user/retroarch/userdata/saves';
         };
 
         // --- Helper: Compare Byte Arrays ---

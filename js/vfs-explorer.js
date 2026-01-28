@@ -14,7 +14,7 @@ function openVFSExplorer() {
         currentVFSPath = localStorage.getItem('lastVFSPath');
     } else {
         // Default to save dir
-        currentVFSPath = findSaveDir(fs) || '/';
+        currentVFSPath = (window.findSaveDir && window.findSaveDir(fs)) || '/';
     }
 
     const modal = new bootstrap.Modal(document.getElementById('vfsModal'));
