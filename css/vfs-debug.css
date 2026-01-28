@@ -1,0 +1,41 @@
+/* VFS Explorer Styles */
+#vfs-modal .modal-body {
+    background-color: #1e1e1e;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.vfs-item {
+    padding: 2px 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vfs-item:hover {
+    background-color: #333;
+}
+
+.vfs-folder {
+    color: #f1c40f;
+    font-weight: bold;
+}
+
+.vfs-file {
+    color: #2ecc71;
+}
+
+.vfs-size {
+    color: #95a5a6;
+    font-size: 0.8em;
+}
+
+.vfs-path {
+    background: #333;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #555;
+    font-weight: bold;
+}
