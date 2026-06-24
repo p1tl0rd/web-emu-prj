@@ -549,6 +549,8 @@ function startGame(game) {
 
         switchScreen(emulatorContainer);
 
+        let emulatorLoadDelay = 0;
+
         if (isMobileDevice()) {
             document.body.classList.add('game-active');
 
@@ -561,6 +563,8 @@ function startGame(game) {
                     // Ignore errors
                 }
             }
+
+            emulatorLoadDelay = 450;
         }
 
         // Configure EmulatorJS
@@ -899,16 +903,23 @@ function startGame(game) {
             }
         };
 
-        // Load loader - EXACT LEGACY WAY -> Just append, do not check/remove
-        const script = document.createElement('script');
-        script.src = "data/loader.js";
-        script.async = true;
-        document.body.appendChild(script);
+        if (emulatorLoadDelay > 0) {
+            setTimeout(loadEmulatorJS, emulatorLoadDelay);
+        } else {
+            loadEmulatorJS();
+        }
 
     } catch (e) {
         alert("StartGame Error: " + e.message);
         console.error(e);
     }
+}
+
+function loadEmulatorJS() {
+    const script = document.createElement('script');
+    script.src = "data/loader.js";
+    script.async = true;
+    document.body.appendChild(script);
 }
 
 // --- Helpers ---
