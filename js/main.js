@@ -549,22 +549,23 @@ function startGame(game) {
 
         switchScreen(emulatorContainer);
 
-        let emulatorLoadDelay = 0;
-
         if (isMobileDevice()) {
             document.body.classList.add('game-active');
 
-            const docEl = document.documentElement;
-            const requestFull = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
-            if (requestFull) {
-                try {
-                    requestFull.call(docEl).catch(err => console.warn("Fullscreen blocked:", err));
-                } catch (e) {
-                    // Ignore errors
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (!isIOS) {
+                const docEl = document.documentElement;
+                const requestFull = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
+                if (requestFull) {
+                    try {
+                        requestFull.call(docEl).catch(err => console.warn("Fullscreen blocked:", err));
+                    } catch (e) {
+                        // Ignore errors
+                    }
                 }
+            } else {
+                window.scrollTo(0, 0);
             }
-
-            emulatorLoadDelay = 450;
         }
 
         // Configure EmulatorJS
@@ -903,8 +904,20 @@ function startGame(game) {
             }
         };
 
-        if (emulatorLoadDelay > 0) {
-            setTimeout(loadEmulatorJS, emulatorLoadDelay);
+        if (isMobileDevice()) {
+            let loaded = false;
+            const doLoad = () => {
+                if (loaded) return;
+                loaded = true;
+                document.removeEventListener('fullscreenchange', doLoad);
+                document.removeEventListener('webkitfullscreenchange', doLoad);
+                setTimeout(loadEmulatorJS, 150);
+            };
+
+            document.addEventListener('fullscreenchange', doLoad);
+            document.addEventListener('webkitfullscreenchange', doLoad);
+
+            setTimeout(doLoad, 1000);
         } else {
             loadEmulatorJS();
         }
