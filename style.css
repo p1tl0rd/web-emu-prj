@@ -17,6 +17,7 @@
     --z-ios-prompt: 3000;
     --z-vfs-modal: 4000;
     --z-fullscreen: 9999;
+    --z-ios-pseudo-controls: 100000;
 }
 
 body {
@@ -869,6 +870,12 @@ body.game-active .controls-toggle-btn {
     body.game-active #back-btn:active {
         opacity: 1;
         transform: scale(0.95);
+    }
+
+    /* iOS pseudo-fullscreen: keep controls above the shimmed container (z-index 99999) */
+    body.ios-pseudo-fullscreen #back-btn,
+    body.ios-pseudo-fullscreen .controls-toggle-btn {
+        z-index: var(--z-ios-pseudo-controls);
     }
 }
 
