@@ -960,21 +960,33 @@ function installIOSFullscreenShim() {
     let fullscreenElement = null;
     let originalStyles = '';
 
+    const updateIOSViewport = () => {
+        const vv = window.visualViewport;
+        const height = vv ? vv.height : window.innerHeight;
+        document.documentElement.style.setProperty('--ios-vh', (height / 100) + 'px');
+    };
+
     const enterPseudoFullscreen = (element) => {
         if (fullscreenElement) return Promise.resolve();
         fullscreenElement = element;
         originalStyles = element.getAttribute('style') || '';
 
+        updateIOSViewport();
         element.style.cssText = (
             originalStyles +
             'position:fixed!important;' +
             'top:0!important;left:0!important;right:0!important;bottom:0!important;' +
-            'width:100vw!important;height:100svh!important;' +
+            'width:100vw!important;height:calc(var(--ios-vh, 1svh) * 100)!important;' +
             'z-index:99999!important;background:#000!important;' +
             'border:none!important;border-radius:0!important;'
         );
 
         document.body.classList.add('ios-pseudo-fullscreen');
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', updateIOSViewport, { passive: true });
+            window.visualViewport.addEventListener('scroll', updateIOSViewport, { passive: true });
+        }
+
         dispatchFullscreenChange(element);
         return Promise.resolve();
     };
@@ -985,6 +997,10 @@ function installIOSFullscreenShim() {
         fullscreenElement = null;
         originalStyles = '';
         document.body.classList.remove('ios-pseudo-fullscreen');
+        if (window.visualViewport) {
+            window.visualViewport.removeEventListener('resize', updateIOSViewport);
+            window.visualViewport.removeEventListener('scroll', updateIOSViewport);
+        }
         dispatchFullscreenChange(null);
         return Promise.resolve();
     };
