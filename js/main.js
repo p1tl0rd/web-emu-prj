@@ -22,6 +22,26 @@ const backBtn = document.getElementById('back-btn');
 
 let currentProfile = null; // { id: "string", name: "string" }
 let currentGameConfig = null;
+let lastSaveData = null;
+
+// Search & Filter State
+let activeSystemFilter = 'all';
+let searchDebounceTimer = null;
+const gameSearchInput = document.getElementById('game-search-input');
+const systemFilterPills = document.getElementById('system-filter-pills');
+const scrollTopBtn = document.getElementById('scroll-top-btn');
+const welcomeSystemGrid = document.getElementById('welcome-system-grid');
+const welcomeTotalCount = document.getElementById('welcome-total-count');
+const saveSyncStatus = document.getElementById('save-sync-status');
+const favoriteGamesSection = document.getElementById('favorite-games-section');
+const recentGamesSection = document.getElementById('recent-games-section');
+const controlsToggleBtn = document.getElementById('controls-toggle-btn');
+const mobileControlsOverlay = document.getElementById('mobile-controls-overlay');
+const closeControlsOverlay = document.getElementById('close-controls-overlay');
+
+const RECENT_GAMES_KEY = 'retrotwo_recent_games';
+const FAVORITES_KEY = 'retrotwo_favorites';
+const MAX_RECENT = 10;
 
 // --- Dev Helper: Force Update ---
 window.forceUpdate = () => {
@@ -36,6 +56,68 @@ window.forceUpdate = () => {
         window.location.reload();
     }
 };
+
+function updateSaveStatus(state, message) {
+    if (!saveSyncStatus) return;
+
+    const icon = saveSyncStatus.querySelector('i');
+    const text = saveSyncStatus.querySelector('.sync-status-text');
+
+    saveSyncStatus.className = 'save-sync-status';
+
+    const states = {
+        idle:     { cls: 'sync-idle',    icon: 'bi-cloud',              label: message || 'Idle' },
+        syncing:  { cls: 'sync-syncing',  icon: 'bi-cloud-arrow-up',    label: message || 'Syncing...' },
+        synced:   { cls: 'sync-synced',   icon: 'bi-check-circle-fill', label: message || 'Synced' },
+        error:    { cls: 'sync-error',    icon: 'bi-exclamation-triangle-fill', label: message || 'Sync Error' },
+        guest:    { cls: 'sync-guest',    icon: 'bi-person-fill-slash', label: message || 'Guest' }
+    };
+
+    const cfg = states[state] || states.idle;
+    saveSyncStatus.classList.add(cfg.cls);
+    if (icon) icon.className = `bi ${cfg.icon}`;
+    if (text) text.textContent = cfg.label;
+    saveSyncStatus.title = cfg.label;
+}
+
+function getFavorites() {
+    try {
+        return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+    } catch { return []; }
+}
+
+function isFavorite(gameId) {
+    return getFavorites().includes(gameId);
+}
+
+function setFavorites(favs) {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+}
+
+function toggleFavorite(gameId) {
+    let favs = getFavorites();
+    if (favs.includes(gameId)) {
+        favs = favs.filter(id => id !== gameId);
+    } else {
+        favs.push(gameId);
+    }
+    setFavorites(favs);
+    return favs.includes(gameId);
+}
+
+function getRecentGames() {
+    try {
+        return JSON.parse(localStorage.getItem(RECENT_GAMES_KEY)) || [];
+    } catch { return []; }
+}
+
+function saveRecentGame(game) {
+    const entry = { id: game.id, name: game.name, system: game.system, image: game.image, core: game.core, rom_path: game.rom_path };
+    let recent = getRecentGames().filter(g => g.id !== game.id);
+    recent.unshift(entry);
+    if (recent.length > MAX_RECENT) recent = recent.slice(0, MAX_RECENT);
+    localStorage.setItem(RECENT_GAMES_KEY, JSON.stringify(recent));
+}
 
 // Debug Error Handler for Mobile
 window.onerror = function (msg, url, line, col, error) {
@@ -155,10 +237,13 @@ switchProfileBtn.addEventListener('click', () => {
 
     profileSelect.value = "";
 
-    // Reset Screens
-    welcomeMessage.style.display = 'block';
-    gameSelection.style.display = 'none';
-    emulatorContainer.style.display = 'none';
+    activeSystemFilter = 'all';
+    if (gameSearchInput) gameSearchInput.value = '';
+    document.querySelectorAll('.system-pill').forEach(p => {
+        p.classList.toggle('active', p.dataset.system === 'all');
+    });
+
+    switchScreen(welcomeMessage);
 });
 
 function selectProfile(id, name) {
@@ -180,8 +265,13 @@ function updateUIForActiveProfile() {
     activeProfileView.classList.add('d-flex');
     profileSelectorView.classList.add('d-none');
 
-    welcomeMessage.style.display = 'none';
-    gameSelection.style.display = 'block';
+    switchScreen(gameSelection);
+
+    if (currentProfile.id === 'guest') {
+        updateSaveStatus('guest');
+    } else {
+        updateSaveStatus('idle');
+    }
 
     console.log("Selected Profile:", currentProfile);
 }
@@ -200,16 +290,21 @@ const SYSTEM_NAMES = {
     'snes': 'Super Nintendo',
     'n64': 'Nintendo 64',
     'segaMD': 'Sega Genesis / Mega Drive',
+    'neogeo': 'Neo Geo',
+    'ngp': 'Neo Geo Pocket',
     'psx': 'PlayStation',
     'nds': 'Nintendo DS'
 };
 
 async function loadGameList() {
     try {
-        // Cache Busting
         const response = await fetch(`gamelist.json?v=${new Date().getTime()}`);
         allGames = await response.json();
 
+        buildWelcomeOverview(allGames);
+        buildSystemFilterPills(allGames);
+        renderFavorites();
+        renderRecentGames();
         renderGroupedGames(allGames);
 
     } catch (error) {
@@ -226,7 +321,6 @@ function renderGroupedGames(games) {
         return;
     }
 
-    // 1. Group games by system
     const grouped = games.reduce((acc, game) => {
         const sys = game.system || 'other';
         if (!acc[sys]) acc[sys] = [];
@@ -234,12 +328,10 @@ function renderGroupedGames(games) {
         return acc;
     }, {});
 
-    // 2. Render each group
     Object.keys(grouped).sort().forEach(sysKey => {
         const gamesInSys = grouped[sysKey];
         const sysDisplayName = SYSTEM_NAMES[sysKey] || sysKey.toUpperCase();
 
-        // Create Section Container
         const section = document.createElement('div');
         section.className = 'mb-5 animate-fade-in';
 
@@ -247,25 +339,45 @@ function renderGroupedGames(games) {
             <h5 class="text-white-50 mb-3 border-bottom border-secondary pb-2">
                 ${sysDisplayName} <span class="badge bg-secondary text-white rounded-pill ms-2">${gamesInSys.length}</span>
             </h5>
-            <div class="row row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6 g-4">
-                <!-- Games injected here -->
+            <div class="row row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6 g-4 game-list-row">
             </div>
         `;
 
-        // Inject games into the row
         const row = section.querySelector('.row');
         gamesInSys.forEach(game => {
             const col = document.createElement('div');
             col.className = 'col';
+            const favClass = isFavorite(game.id) ? 'favorited' : '';
+            const favIcon = isFavorite(game.id) ? 'bi-star-fill' : 'bi-star';
             col.innerHTML = `
-                <button class="game-icon-card w-100 p-0 text-center" title="${game.name}">
-                    <div class="game-icon-wrapper">
-                        <img src="${game.image || 'assets/default.png'}" alt="${game.name}" loading="lazy">
+                <div class="game-icon-card w-100 p-0 text-center" role="button" tabindex="0" title="${game.name}">
+                    <div class="game-icon-wrapper skeleton">
+                        <button class="fav-star-btn ${favClass}" data-game-id="${game.id}" aria-label="Toggle favorite">
+                            <i class="bi ${favIcon}"></i>
+                        </button>
+                        <img src="${game.image || 'assets/default.png'}" alt="${game.name}" loading="lazy"
+                             onerror="this.onerror=null;this.src='assets/default.png';"
+                             onload="this.parentElement.classList.remove('skeleton')">
                     </div>
                     <div class="game-title mt-2 text-white">${game.name}</div>
-                </button>
+                </div>
             `;
-            col.querySelector('button').onclick = () => startGame(game);
+            const card = col.querySelector('.game-icon-card');
+            card.addEventListener('click', () => startGame(game));
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    startGame(game);
+                }
+            });
+            col.querySelector('.fav-star-btn').onclick = (e) => {
+                e.stopPropagation();
+                const nowFav = toggleFavorite(game.id);
+                const btn = e.currentTarget;
+                btn.classList.toggle('favorited', nowFav);
+                btn.querySelector('i').className = nowFav ? 'bi bi-star-fill' : 'bi bi-star';
+                renderFavorites();
+            };
             row.appendChild(col);
         });
 
@@ -273,18 +385,172 @@ function renderGroupedGames(games) {
     });
 }
 
+function renderFavorites() {
+    if (!favoriteGamesSection) return;
+    const favs = getFavorites();
+    const favGames = allGames.filter(g => favs.includes(g.id));
+
+    if (favGames.length === 0) {
+        favoriteGamesSection.style.display = 'none';
+        favoriteGamesSection.innerHTML = '';
+        return;
+    }
+
+    favoriteGamesSection.style.display = 'block';
+    favoriteGamesSection.innerHTML = '<div class="section-heading"><i class="bi bi-star-fill text-warning"></i> Favorites</div>';
+    const row = document.createElement('div');
+    row.className = 'horizontal-scroll-row';
+
+    favGames.forEach(game => {
+        row.appendChild(createScrollGameItem(game));
+    });
+
+    favoriteGamesSection.appendChild(row);
+}
+
+function renderRecentGames() {
+    if (!recentGamesSection) return;
+    const recent = getRecentGames();
+
+    if (recent.length === 0) {
+        recentGamesSection.style.display = 'none';
+        recentGamesSection.innerHTML = '';
+        return;
+    }
+
+    recentGamesSection.style.display = 'block';
+    recentGamesSection.innerHTML = '<div class="section-heading"><i class="bi bi-clock-history"></i> Recently Played</div>';
+    const row = document.createElement('div');
+    row.className = 'horizontal-scroll-row';
+
+    recent.forEach(game => {
+        const fullGame = allGames.find(g => g.id === game.id) || game;
+        row.appendChild(createScrollGameItem(fullGame));
+    });
+
+    recentGamesSection.appendChild(row);
+}
+
+function createScrollGameItem(game) {
+    const item = document.createElement('div');
+    item.className = 'game-scroll-item';
+
+    const btn = document.createElement('button');
+    btn.title = game.name;
+    btn.innerHTML = `
+        <div class="game-icon-wrapper">
+            <img src="${game.image || 'assets/default.png'}" alt="${game.name}"
+                 onerror="this.onerror=null;this.src='assets/default.png';">
+        </div>
+        <div class="game-title">${game.name}</div>
+    `;
+    btn.addEventListener('click', () => startGame(game));
+
+    item.appendChild(btn);
+    return item;
+}
+
+function buildWelcomeOverview(games) {
+    if (!welcomeSystemGrid) return;
+
+    const systemCounts = games.reduce((acc, game) => {
+        const sys = game.system || 'other';
+        acc[sys] = (acc[sys] || 0) + 1;
+        return acc;
+    }, {});
+
+    if (welcomeTotalCount) {
+        welcomeTotalCount.textContent = `${games.length} games across ${Object.keys(systemCounts).length} systems`;
+    }
+
+    const SYSTEM_ICONS = {
+        'gba': 'bi-device-hdd',
+        'gbc': 'bi-display',
+        'gb': 'bi-phone',
+        'nes': 'bi-controller',
+        'snes': 'bi-controller',
+        'n64': 'bi-controller',
+        'segaMD': 'bi-joystick',
+        'psx': 'bi-disc',
+        'nds': 'bi-tablet',
+        'neogeo': 'bi-cpu',
+        'ngp': 'bi-hand-index'
+    };
+
+    welcomeSystemGrid.innerHTML = '';
+    Object.keys(systemCounts).sort().forEach(sysKey => {
+        const card = document.createElement('div');
+        card.className = 'welcome-system-card';
+        const icon = SYSTEM_ICONS[sysKey] || 'bi-joystick';
+        const label = SYSTEM_NAMES[sysKey] || sysKey.toUpperCase();
+        card.innerHTML = `
+            <div class="system-icon"><i class="bi ${icon}"></i></div>
+            <div class="system-label">${label}</div>
+            <div class="system-count">${systemCounts[sysKey]}</div>
+        `;
+        welcomeSystemGrid.appendChild(card);
+    });
+}
+
+function buildSystemFilterPills(games) {
+    if (!systemFilterPills) return;
+
+    const systems = [...new Set(games.map(g => g.system || 'other'))].sort();
+
+    systemFilterPills.innerHTML = '';
+
+    const allPill = document.createElement('button');
+    allPill.className = 'system-pill active';
+    allPill.textContent = 'All';
+    allPill.dataset.system = 'all';
+    allPill.addEventListener('click', () => setActiveSystem('all'));
+    systemFilterPills.appendChild(allPill);
+
+    systems.forEach(sysKey => {
+        const pill = document.createElement('button');
+        pill.className = 'system-pill';
+        pill.textContent = SYSTEM_NAMES[sysKey] || sysKey.toUpperCase();
+        pill.dataset.system = sysKey;
+        pill.addEventListener('click', () => setActiveSystem(sysKey));
+        systemFilterPills.appendChild(pill);
+    });
+}
+
+function setActiveSystem(system) {
+    activeSystemFilter = system;
+    document.querySelectorAll('.system-pill').forEach(p => {
+        p.classList.toggle('active', p.dataset.system === system);
+    });
+    applyFilters();
+}
+
+function applyFilters() {
+    let filtered = allGames;
+
+    if (activeSystemFilter !== 'all') {
+        filtered = filtered.filter(g => (g.system || 'other') === activeSystemFilter);
+    }
+
+    const query = (gameSearchInput?.value || '').trim().toLowerCase();
+    if (query) {
+        filtered = filtered.filter(g => g.name.toLowerCase().includes(query));
+    }
+
+    renderGroupedGames(filtered);
+}
+
 function startGame(game) {
     try {
         if (!game) throw new Error("Game object is undefined");
         currentGameConfig = game;
 
-        // UI Switch
-        gameSelection.style.display = 'none';
-        emulatorContainer.style.display = 'block';
+        saveRecentGame(game);
+        renderRecentGames();
 
-        // Mobile Fullscreen Auto-Trigger
+        switchScreen(emulatorContainer);
+
         if (isMobileDevice()) {
-            document.body.classList.add('game-active'); // Trigger CSS Fullscreen
+            document.body.classList.add('game-active');
 
             const docEl = document.documentElement;
             const requestFull = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
@@ -454,6 +720,7 @@ function startGame(game) {
 
             try {
                 console.log("   - Fetching from Firebase...");
+                updateSaveStatus('syncing', 'Loading save...');
                 const snapshot = await get(child(ref(db), `users/${currentProfile.id}/saves/${gameId}`));
 
                 if (snapshot.exists()) {
@@ -486,15 +753,18 @@ function startGame(game) {
 
                             fs.writeFile(virtualPath, saveBytes);
                             console.log(`   ✅ [LOAD] Restored save to ${virtualPath}`);
+                            updateSaveStatus('synced', 'Save loaded');
                         } catch (e) {
                             console.error("   ❌ [LOAD] Error writing file:", e);
                         }
                     }
                 } else {
                     console.log("   ⚠️ [LOAD] No save found in cloud for this game.");
+                    updateSaveStatus('idle', 'No cloud save');
                 }
             } catch (err) {
                 console.error("   ❌ [LOAD] Error fetching save:", err);
+                updateSaveStatus('error', 'Load failed');
             }
         };
 
@@ -556,15 +826,18 @@ function startGame(game) {
 
                         console.log("   💾 [POLL] Save changed! Uploading... (" + fileData.length + " bytes)");
                         const base64String = uint8ArrayToBase64(fileData);
+                        updateSaveStatus('syncing', 'Syncing...');
 
                         set(ref(db, `users/${currentProfile.id}/saves/${gameId}`), {
                             srm_data: base64String,
                             timestamp: Date.now()
                         }).then(() => {
                             console.log("   ✅ [POLL] Cloud Sync Success!");
-                            lastSaveData = fileData; // Update cache after success
+                            lastSaveData = fileData;
+                            updateSaveStatus('synced', 'Synced');
                         }).catch(e => {
                             console.error("   ❌ [POLL] Upload failed:", e);
+                            updateSaveStatus('error', 'Upload failed');
                         });
 
                     } catch (e) {
@@ -600,16 +873,19 @@ function startGame(game) {
                 console.log("   💾 [EVENT] Uploading via Native Hook... (" + fileData.length + " bytes)");
                 const base64String = uint8ArrayToBase64(fileData);
 
-                const gameId = currentGameConfig.id; // Global var
+                const gameId = currentGameConfig.id;
+                updateSaveStatus('syncing', 'Saving...');
 
                 set(ref(db, `users/${currentProfile.id}/saves/${gameId}`), {
                     srm_data: base64String,
                     timestamp: Date.now()
                 }).then(() => {
                     console.log("   ✅ [EVENT] Native Upload Success!");
-                    lastSaveData = fileData; // Update cache
+                    lastSaveData = fileData;
+                    updateSaveStatus('synced', 'Saved');
                 }).catch(err => {
                     console.error("   ❌ [EVENT] Upload failed:", err);
+                    updateSaveStatus('error', 'Save failed');
                 });
             }
         };
@@ -660,10 +936,60 @@ function uint8ArrayToBase64(bytes) {
     return window.btoa(binary);
 }
 
+function switchScreen(targetScreen) {
+    [welcomeMessage, gameSelection, emulatorContainer].forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('screen-enter');
+    });
+    targetScreen.style.display = 'block';
+    targetScreen.offsetHeight; // force reflow
+    targetScreen.classList.add('screen-enter');
+}
+
+if (gameSearchInput) {
+    gameSearchInput.addEventListener('input', () => {
+        clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(() => applyFilters(), 200);
+    });
+}
+
+window.addEventListener('scroll', () => {
+    if (scrollTopBtn) {
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+    }
+}, { passive: true });
+
+if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
 backBtn.addEventListener('click', () => {
-    document.body.classList.remove('game-active'); // Cleanup
+    document.body.classList.remove('game-active');
+    if (mobileControlsOverlay) mobileControlsOverlay.classList.remove('active');
     location.reload();
 });
+
+if (controlsToggleBtn) {
+    controlsToggleBtn.addEventListener('click', () => {
+        if (mobileControlsOverlay) mobileControlsOverlay.classList.toggle('active');
+    });
+}
+
+if (closeControlsOverlay) {
+    closeControlsOverlay.addEventListener('click', () => {
+        if (mobileControlsOverlay) mobileControlsOverlay.classList.remove('active');
+    });
+}
+
+if (mobileControlsOverlay) {
+    mobileControlsOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileControlsOverlay) {
+            mobileControlsOverlay.classList.remove('active');
+        }
+    });
+}
 
 // Initialize
 detectPWAEnvironment();

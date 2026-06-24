@@ -53,6 +53,11 @@
                         </button>
                     </div>
 
+                    <div id="save-sync-status" class="save-sync-status" title="Save sync status">
+                        <i class="bi bi-person-fill-slash"></i>
+                        <span class="sync-status-text d-none d-md-inline">Guest</span>
+                    </div>
+
                     <!-- Active Profile Group -->
                     <div id="active-profile-view" class="d-none align-items-center gap-2">
                         <span class="text-light fw-bold">
@@ -72,20 +77,42 @@
         <main class="container">
             <!-- Welcome Screen -->
             <div id="welcome-message" class="text-center py-5">
-                <h2 class="display-5 fw-bold text-white mb-3">Welcome to RetroTwo</h2>
-                <p class="lead text-secondary">Select a profile or play as guest to start your adventure.</p>
-                <i class="bi bi-joystick text-secondary" style="font-size: 5rem;"></i>
+                <div class="welcome-entrance">
+                    <h2 class="welcome-title mb-3">RetroTwo</h2>
+                </div>
+                <div class="welcome-entrance">
+                    <p class="lead text-secondary mb-1">Select a profile or play as guest to start your adventure.</p>
+                    <p id="welcome-total-count" class="welcome-total-count"></p>
+                </div>
+                <div class="welcome-entrance">
+                    <div id="welcome-system-grid" class="welcome-system-grid">
+                        <!-- System cards injected by JS -->
+                    </div>
+                </div>
             </div>
 
             <!-- Game Selection Screen -->
             <div id="game-selection" style="display:none;">
                 <h4 class="mb-3 text-white border-start border-4 border-success ps-3">Available Games</h4>
 
-                <!-- Dynamic Game Sections -->
+                <div id="favorite-games-section" class="mb-4" style="display:none;"></div>
+
+                <div id="recent-games-section" class="mb-4" style="display:none;"></div>
+
+                <div class="search-filter-bar">
+                    <div class="search-input-wrapper mb-2">
+                        <i class="bi bi-search"></i>
+                        <input type="text" id="game-search-input" class="form-control" placeholder="Search games..." autocomplete="off">
+                    </div>
+                    <div id="system-filter-pills" class="system-filter-pills">
+                        <!-- System pills injected by JS -->
+                    </div>
+                </div>
+
                 <div id="game-list-container">
                     <p class="text-white">Loading games...</p>
                 </div>
-            </div> <!-- END game-selection -->
+            </div>
 
 
 
@@ -95,14 +122,140 @@
                     <i class="bi bi-arrow-left"></i> <span class="d-none d-md-inline">Back to Menu</span>
                 </button>
 
+                <button id="controls-toggle-btn" class="controls-toggle-btn" aria-label="Show controls">
+                    <i class="bi bi-keyboard"></i>
+                </button>
+
+                <div id="mobile-controls-overlay" class="mobile-controls-overlay">
+                    <div class="mobile-controls-panel">
+                        <div class="mobile-controls-header">
+                            <h5 class="mb-0"><i class="bi bi-keyboard"></i> Controls</h5>
+                            <button id="close-controls-overlay" class="btn btn-sm btn-outline-light"><i class="bi bi-x-lg"></i></button>
+                        </div>
+                        <div class="mobile-controls-body">
+                            <ul class="nav nav-pills nav-fill mb-3" id="mobileControlsTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active py-1" id="mobile-p1-tab" data-bs-toggle="tab"
+                                        data-bs-target="#mobile-p1-content" type="button" role="tab">P1</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link py-1" id="mobile-p2-tab" data-bs-toggle="tab"
+                                        data-bs-target="#mobile-p2-content" type="button" role="tab">P2</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="mobileControlsTabContent">
+                                <div class="tab-pane fade show active" id="mobile-p1-content" role="tabpanel">
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Movement</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">D-Pad / Joystick</span>
+                                            <span class="badge bg-secondary font-monospace">W, A, S, D</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Main Buttons</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button A</span>
+                                            <span class="badge bg-primary font-monospace">L</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button B</span>
+                                            <span class="badge bg-danger font-monospace">K</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button X</span>
+                                            <span class="badge bg-warning text-dark font-monospace">I</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button Y</span>
+                                            <span class="badge bg-success font-monospace">J</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Shoulders</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">L / L2</span>
+                                            <span class="badge bg-secondary font-monospace">Q / U</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">R / R2</span>
+                                            <span class="badge bg-secondary font-monospace">O / E</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">System</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Start</span>
+                                            <span class="badge bg-dark border border-secondary font-monospace">Enter</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Select</span>
+                                            <span class="badge bg-dark border border-secondary font-monospace">V</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="mobile-p2-content" role="tabpanel">
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Movement</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">D-Pad</span>
+                                            <span class="badge bg-secondary font-monospace">Arrow Keys</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Main Buttons</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button A</span>
+                                            <span class="badge bg-primary font-monospace">3</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button B</span>
+                                            <span class="badge bg-danger font-monospace">2</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button X</span>
+                                            <span class="badge bg-warning text-dark font-monospace">5</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Button Y</span>
+                                            <span class="badge bg-success font-monospace">1</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group mb-3">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">Shoulders</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">L</span>
+                                            <span class="badge bg-secondary font-monospace">4</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">R</span>
+                                            <span class="badge bg-secondary font-monospace">6</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="small text-secondary text-uppercase fw-bold mb-2">System</div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Start</span>
+                                            <span class="badge bg-dark border border-secondary font-monospace">9</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="text-white-50">Select</span>
+                                            <span class="badge bg-dark border border-secondary font-monospace">7</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row g-4">
                     <!-- Left: Emulator Core -->
                     <div class="col-lg-8">
                         <div class="emulator-wrapper position-relative">
                             <!-- Loading Spinner -->
                             <div id="emulator-loading"
-                                class="position-absolute top-50 start-50 translate-middle text-center d-none"
-                                style="z-index: 2000;">
+                                class="position-absolute top-50 start-50 translate-middle text-center d-none">
                                 <div class="spinner-border text-primary" role="status"
                                     style="width: 3rem; height: 3rem;">
                                     <span class="visually-hidden">Loading...</span>
@@ -297,8 +450,8 @@
 
     <!-- iOS PWA Install Prompt (Hidden by default) -->
     <div id="ios-install-prompt"
-        class="d-none position-fixed top-0 start-0 w-100 h-100 bg-black z-3 flex-column justify-content-center align-items-center text-center p-4"
-        style="z-index: 10001; --bs-bg-opacity: 0.95;">
+        class="d-none position-fixed top-0 start-0 w-100 h-100 bg-black flex-column justify-content-center align-items-center text-center p-4"
+        style="--bs-bg-opacity: 0.95;">
         <div class="mb-4">
             <i class="bi bi-share text-primary" style="font-size: 3rem;"></i>
         </div>
@@ -313,7 +466,7 @@
     </div>
 
     <!-- VFS Explorer Modal (New) -->
-    <div class="modal fade" id="vfsModal" tabindex="-1" aria-hidden="true" style="z-index: 10002;">
+    <div class="modal fade" id="vfsModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content bg-dark border-warning">
                 <div class="modal-header border-secondary">
@@ -350,13 +503,18 @@
         </div>
     </div>
 
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Scroll to top">
+        <i class="bi bi-chevron-up"></i>
+    </button>
+
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Main Content -->
-    <script type="module" src="js/main.js?v=20260122_DEV"></script>
+    <script type="module" src="js/main.js?v=FIX_CACHE_05"></script>
     <!-- Debug Tool -->
-    <script src="js/vfs-explorer.js"></script>
+    <script src="js/vfs-explorer.js?v=FIX_CACHE_05"></script>
 </body>
 
 </html>
